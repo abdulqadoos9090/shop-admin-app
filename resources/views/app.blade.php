@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
     <link rel="stylesheet" href="{{asset('css/all.min.css')}}">
     <link href="{{ mix('/css/app.css') }}" rel="stylesheet"/>
-
+    <link href="{{ asset('/css/custom.css') }}" rel="stylesheet"/>
 </head>
 <body>
 @routes

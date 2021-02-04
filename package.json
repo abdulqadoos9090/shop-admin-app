@@ -24,10 +24,14 @@
         "sass-loader": "^8.0.0"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^25.0.0",
+        "@ckeditor/ckeditor5-react": "^3.0.0",
         "@inertiajs/inertia": "^0.8.4",
         "@inertiajs/inertia-react": "^0.5.2",
         "@popperjs/core": "^2.6.0",
         "bootstrap": "^5.0.0-beta1",
-        "popper.js": "^1.16.1"
+        "popper.js": "^1.16.1",
+        "react-draft-wysiwyg": "^1.14.5",
+        "react-images-upload": "^1.2.8"
     }
 }
