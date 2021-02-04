@@ -1,7 +1,15 @@
 import React from 'react';
 import FormInput from "./FormInput";
+import Select from 'react-select'
 
 export default function MetaDataForm() {
+
+    const options = [
+        { value: 'chocolate', label: 'Chocolate' },
+        { value: 'strawberry', label: 'Strawberry' },
+        { value: 'vanilla', label: 'Vanilla' }
+    ]
+
     return (
         <React.Fragment>
             <FormInput
@@ -25,15 +33,10 @@ export default function MetaDataForm() {
                 defaultValue={""}
             />
 
-            {/*<div className="form-floating">*/}
-            {/*    <select className="form-select" id="floatingMetaIndex" aria-label="Meta Index">*/}
-            {/*        <option selected>Open this select menu</option>*/}
-            {/*        <option value="1">One</option>*/}
-            {/*        <option value="2">Two</option>*/}
-            {/*        <option value="3">Three</option>*/}
-            {/*    </select>*/}
-            {/*    <label htmlFor="floatingMetaIndex">Meta Index</label>*/}
-            {/*</div>*/}
+            <Select
+                options={options}
+            />
+
         </React.Fragment>
     )
 }

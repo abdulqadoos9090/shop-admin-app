@@ -10,7 +10,6 @@ import ImageUploader from 'react-images-upload';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import FormInput from "../../Components/FormInput";
-import TextArea from "../../Components/TextArea";
 
 
 export default function Form() {

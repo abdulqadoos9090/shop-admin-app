@@ -1,8 +1,10 @@
-import React, {useEffect} from 'react'
-import {InertiaLink} from '@inertiajs/inertia-react'
+import React, {useEffect} from 'react';
+import {InertiaLink} from '@inertiajs/inertia-react';
+import {Inertia} from '@inertiajs/inertia';
+import Loading from "./Loading";
+
 
 export default function AdminLayout({children}) {
-
     return (
         <React.Fragment>
             <header className="container-fluid">
@@ -15,7 +17,9 @@ export default function AdminLayout({children}) {
                             <span className="navbar-toggler-icon"/>
                         </button>
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul className="navbar-nav me-auto mb-2 mb-lg-0"> </ul>
+                            <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+                                <Loading/>
+                            </ul>
                             <div className="d-flex">
                                 <a href="#" className="text-secondary bg-white rounded-3 px-2 pt-2 pb-1">
                                     <i className="fas fa-sign-out-alt fs-5"> </i>
@@ -39,7 +43,7 @@ export default function AdminLayout({children}) {
 
                     <article className="col-lg-11 mt-3">
                         <div className="bg-light rounded-3">
-                            <div className="card-body p-4" style={{"minHeight":"92vh"}}>
+                            <div className="card-body p-4" style={{"minHeight": "92vh"}}>
                                 {children}
                             </div>
                         </div>
