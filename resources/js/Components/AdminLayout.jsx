@@ -33,16 +33,21 @@ export default function AdminLayout({children}) {
                 <div className="row">
                     <aside className="col-lg-1 d-flex justify-content-center bg-light" style={{"minHeight": "92.5vh"}}>
                         <ul className="nav flex-column position-fixed pt-4">
-                            <li className="nav-item bg-white rounded-3 py-1">
-                                <InertiaLink className="nav-link text-secondary" aria-current="page" href="/products">
+                            <li className="nav-item bg-white rounded-3 text-center py-1 mb-3">
+                                <InertiaLink className="nav-link text-secondary " aria-current="page" href="/products">
                                     <i className="fas fa-shopping-bag fs-4"> </i>
+                                </InertiaLink>
+                            </li>
+                            <li className="nav-item bg-white rounded-3 text-center py-1 mb-3">
+                                <InertiaLink className="nav-link text-secondary" aria-current="page" href="/categories">
+                                    <i className="fas fa-clipboard-list fs-4"></i>
                                 </InertiaLink>
                             </li>
                         </ul>
                     </aside>
 
                     <article className="col-lg-11 mt-3">
-                        <div className="bg-light rounded-3">
+                        <div className="bg-light rounded-3 m-2">
                             <div className="card-body p-4" style={{"minHeight": "92vh"}}>
                                 {children}
                             </div>

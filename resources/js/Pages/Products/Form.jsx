@@ -1,21 +1,68 @@
 import React, {useState} from 'react';
-import AdminLayout from "../../Components/AdminLayout";
+import {Inertia} from '@inertiajs/inertia'
+import FormInput from "../../Components/FormInput";
 import PageHeader from "../../Components/PageHeader";
+import AdminLayout from "../../Components/AdminLayout";
 import PageContent from "../../Components/PageContent";
 import MetaDataForm from "../../Components/MetaDataForm";
 import SubmitButton from "../../Components/SubmitButton";
-
 import ImageUploader from 'react-images-upload';
-
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import FormInput from "../../Components/FormInput";
 
 
 export default function Form() {
 
+    const [images, setImages] = useState('')
+
+
+
+    const [values, setValues] = useState({
+        name: "",
+        description: "",
+        price: "",
+        stock: "",
+    })
+
+    const [details, setDetails] = useState({
+        details: ""
+    })
+
+
     const _handleUploadImages = (value) => {
-        console.log(value);
+        for (let x = 0; x < value.length; x++) {
+            setImages(images => ({
+                ...images,
+                [x]: value[x]
+            }))
+        }
+    }
+
+    const _handleInputChange = (e) => {
+        const key = e.target.id;
+        const value = e.target.value
+        setValues(values => ({
+            ...values,
+            [key]: value,
+        }))
+    }
+
+
+    const _handleFormSubmit = () => {
+// console.log(values);
+        let data = new FormData()
+        data.append('name', values.name || '')
+        data.append('description', values.description || '')
+        data.append('price', values.price || '')
+        data.append('stock', values.stock || '')
+        data.append('details', details.details || '')
+        data.append('metaTitle', values.metaTitle || '')
+        data.append('metaSlug', values.metaSlug || '')
+        data.append('metaDescription', values.metaDescription || '')
+        for (let x = 0; x < Object.keys(images).length; x++) {
+            data.append("images[]", images[x]);
+        }
+        Inertia.post('/products/save', data);
     }
 
     return (
@@ -44,7 +91,6 @@ export default function Form() {
                             <div className="tab-pane fade show active my-5" id="home" role="tabpanel"
                                  aria-labelledby="home-tab">
 
-
                                 <ImageUploader
                                     withIcon={true}
                                     buttonText='Choose images'
@@ -59,8 +105,8 @@ export default function Form() {
                                     label={"Name"}
                                     type={"text"}
                                     defaultValue={""}
+                                    handleChange={_handleInputChange}
                                 />
-
 
 
                                 <FormInput
@@ -68,6 +114,7 @@ export default function Form() {
                                     label={"Product Description"}
                                     type={"textarea"}
                                     defaultValue={""}
+                                    handleChange={_handleInputChange}
                                 />
 
                                 <FormInput
@@ -75,31 +122,23 @@ export default function Form() {
                                     label={"Price"}
                                     type={"number"}
                                     defaultValue={""}
+                                    handleChange={_handleInputChange}
                                 />
 
                                 <FormInput
                                     id={"stock"}
                                     label={"Stock"}
-                                    type={"text"}
+                                    type={"number"}
                                     defaultValue={""}
+                                    handleChange={_handleInputChange}
                                 />
 
                                 <CKEditor
                                     editor={ClassicEditor}
                                     data="<p>Product Details</p>"
-                                    onReady={editor => {
-                                        // You can store the "editor" and use when it is needed.
-                                        console.log('Editor is ready to use!', editor);
-                                    }}
                                     onChange={(event, editor) => {
                                         const data = editor.getData();
-                                        console.log({event, editor, data});
-                                    }}
-                                    onBlur={(event, editor) => {
-                                        console.log('Blur.', editor);
-                                    }}
-                                    onFocus={(event, editor) => {
-                                        console.log('Focus.', editor);
+                                        setDetails({details: data})
                                     }}
                                 />
 
@@ -107,13 +146,14 @@ export default function Form() {
                             </div>
                             <div className="tab-pane fade my-5" id="profile" role="tabpanel"
                                  aria-labelledby="profile-tab">
-                                <MetaDataForm/>
+                                <MetaDataForm handleChange={_handleInputChange}/>
                             </div>
                         </div>
 
                         <SubmitButton
                             cancelUrl="/products"
-                            submitUrl="/products/store"
+                            handleFormSubmit={_handleFormSubmit}
+
                         />
                     </div>
                 </div>

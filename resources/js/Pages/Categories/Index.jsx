@@ -8,38 +8,33 @@ import NoRecordsFound from "../../Components/NoRecordsFound";
 
 
 export default function (props) {
-    const {products} = props;
-
-    // console.log(products);
+    const {categories} = props;
+    // console.log(categories);
     return (
         <AdminLayout>
             <PageHeader
-                title="View all products"
-                url="/products/create"
+                title="View all categories"
+                url="/categories/create"
                 btnLable="Add new"
             />
             <PageContent>
                 <table className="table table-borderless">
                     <thead>
                     <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Stock</th>
+                        <th scope="col">Label</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     {
-                        products && products.length ? products.map(product => (
-                            <tr key={product.id}>
-                                <td>{product.name}</td>
-                                <td>{product.description}</td>
-                                <td>{product.price}</td>
-                                <td>{product.stock}</td>
-                                <td><ActionButton editUrl="/products/1/edit"/></td>
+                        categories && categories.length ? categories.map(category => (
+                            <tr key={category.id}>
+                                <td>{category.label}</td>
+                                <td>{category.status}</td>
+                                <td><ActionButton editUrl="/categories/1/edit"/></td>
                             </tr>
-                        )) : <NoRecordsFound colSpan={5}/>
+                        )) : <NoRecordsFound colSpan={3}/>
                     }
                     </tbody>
                 </table>

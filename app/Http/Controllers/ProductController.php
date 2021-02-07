@@ -2,20 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\ProductService;
 use Illuminate\Http\Request;
+
 
 class ProductController extends Controller
 {
+    protected $productService;
+
+    public function __construct(ProductService $productService)
+    {
+        $this->productService = $productService;
+    }
+
     public function index()
     {
         return inertia('Products/Index', [
-            'products' => ['abc', 'def']
+            'products' => $this->productService->all()
         ]);
     }
+
     public function create()
     {
         return inertia('Products/Form', [
             'products' => ['abc', 'def']
         ]);
+    }
+
+    public function save(Request $request)
+    {
+        $this->productService->save($request);
     }
 }

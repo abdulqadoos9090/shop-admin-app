@@ -2,35 +2,39 @@ import React from 'react';
 import FormInput from "./FormInput";
 import Select from 'react-select'
 
-export default function MetaDataForm() {
+export default function MetaDataForm({handleChange}) {
 
     const options = [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' }
+        { value: 'follow,index', label: 'Follow Index' },
+        { value: 'nofollow,noindex', label: 'No follow, No index' },
+        { value: 'follow', label: 'follow' },
+        { value: 'index', label: 'index' }
     ]
 
     return (
         <React.Fragment>
             <FormInput
-                id={"meta-title"}
+                id={"metaTitle"}
                 label={"Title"}
                 type={"text"}
                 defaultValue={""}
+                handleChange={handleChange}
             />
 
             <FormInput
-                id={"meta-slug"}
+                id={"metaSlug"}
                 label={"Slug"}
                 type={"text"}
                 defaultValue={""}
+                handleChange={handleChange}
             />
 
             <FormInput
-                id={"meta-description"}
+                id={"metaDescription"}
                 label={"Meta Description"}
                 type={"textarea"}
                 defaultValue={""}
+                handleChange={handleChange}
             />
 
             <Select

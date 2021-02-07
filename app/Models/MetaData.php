@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class MetaData extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['title', 'description', 'slug', 'index'];
 }
