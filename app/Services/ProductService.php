@@ -25,40 +25,29 @@ class ProductService
         return $this->productRepository->all();
     }
 
+
+    public function findWithMetaData($id)
+    {
+        return $this->productRepository->findWithMetaData($id);
+    }
+
     public function save($request)
     {
-        $metaData = [
-            'title' => $request->metaTitle,
-            'description' => $request->metaDescription,
-            'slug' => $request->metaSlug,
-            'index' => Constants::DEFAULT_INDEX,
-        ];
-        $metaData = $this->metaDataService->save($metaData);
-        $productData = [
-            'user_id' => Auth::id(),
-            'category_id' => 1,
-            'meta_data_id' => $metaData->id,
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'stock' => $request->stock,
-            'details' => $request->details,
-            'status' => Constants::STATUS_PENDING,
-        ];
-        $product = $this->productRepository->save($productData);
-        if ($request->hasFile('images')) {
-            foreach ($request->images as $image) {
-                $imageMetaData = [
-                    'alt_tag' => Constants::DEFAULT_ALT_TAG,
-                    'description' => Constants::DEFAULT_DESCRIPTION,
-                    'index' => Constants::DEFAULT_INDEX,
-                    'type' => Constants::DEFAULT_IMAGE_TYPE
-                ];
-                $image = $this->imageService->save($image, $imageMetaData);
-                DB::table('product_image')->insert([
-                    'product_id' => $product->id,
-                    'image_id' => $image->id
-                ]);
+        if (isset($request->form_data['id']) && $request->form_data['id']) {
+            $this->metaDataService->save($request->meta_data);
+            $product = $this->productRepository->update($request->form_data);
+            if ($request->hasFile('images')) {
+                return $this->imageService->uploadProductImages($request->images, $product);
+            }
+        } else {
+            $data = $request->form_data;
+            $metaData = $this->metaDataService->save($request->meta_data);
+            $data['meta_data_id'] = $metaData->id;
+            $data['user_id'] = Auth::id();
+            $data['category_id'] = 1;
+            $product = $this->productRepository->create($data);
+            if ($request->hasFile('images')) {
+                return $this->imageService->uploadProductImages($request->images, $product);
             }
         }
     }

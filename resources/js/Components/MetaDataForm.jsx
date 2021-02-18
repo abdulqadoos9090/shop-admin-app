@@ -1,14 +1,25 @@
 import React from 'react';
 import FormInput from "./FormInput";
 import Select from 'react-select'
+import {indexOptions} from "../Common";
 
-export default function MetaDataForm({handleChange, metaData}) {
-    const options = [
-        {value: 'follow,index', label: 'follow,index'},
-        {value: 'nofollow,noindex', label: 'nofollow,noindex'},
-        {value: 'follow', label: 'follow'},
-        {value: 'index', label: 'index'}
-    ]
+export default function MetaDataForm({metaData,setMetaData}) {
+
+    const _handleMetaDataChange = (e) => {
+        if (e.target) {
+            const key = e.target.id;
+            const value = e.target.value;
+            setMetaData(metaData => ({
+                ...metaData,
+                [key]: value,
+            }))
+        } else {
+            setMetaData(metaData => ({
+                ...metaData,
+                ['index']: e.value,
+            }))
+        }
+    }
 
     return (
         <React.Fragment>
@@ -17,7 +28,7 @@ export default function MetaDataForm({handleChange, metaData}) {
                 label={"Title"}
                 type={"text"}
                 defaultValue={metaData ? metaData.title : null}
-                handleChange={handleChange}
+                handleChange={_handleMetaDataChange}
             />
 
             <FormInput
@@ -25,7 +36,7 @@ export default function MetaDataForm({handleChange, metaData}) {
                 label={"Slug"}
                 type={"text"}
                 defaultValue={metaData ? metaData.slug : null}
-                handleChange={handleChange}
+                handleChange={_handleMetaDataChange}
             />
 
             <FormInput
@@ -33,13 +44,13 @@ export default function MetaDataForm({handleChange, metaData}) {
                 label={"Meta Description"}
                 type={"textarea"}
                 defaultValue={metaData ? metaData.description : null}
-                handleChange={handleChange}
+                handleChange={_handleMetaDataChange}
             />
 
             <Select
-                options={options}
+                options={indexOptions}
                 defaultValue={metaData ? {value: metaData.index, label: metaData.index} : null}
-                onChange={handleChange}
+                onChange={_handleMetaDataChange}
             />
 
         </React.Fragment>

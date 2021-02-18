@@ -17,11 +17,23 @@ class ProductRepository
 
     public function all()
     {
-        return $this->product->all();
+        return $this->product->with('metaData')->get();
     }
 
-    public function save($data)
+    public function create($data)
     {
         return $this->product->create($data);
     }
+
+    public function update($data)
+    {
+        return $this->product->find($data['id'])->update($data);
+    }
+
+
+    public function findWithMetaData($id)
+    {
+        return $this->product->with('metaData')->find($id);
+    }
+
 }

@@ -9,25 +9,17 @@ import SubmitButton from "../../Components/SubmitButton";
 import ImageUploader from 'react-images-upload';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import {_appendMetaData, statusOptions} from "../../Common";
+import Select from "react-select";
 
 
-export default function Form() {
+export default function Form(props) {
+    const {product} = props;
 
+    const [values, setValues] = useState(product);
     const [images, setImages] = useState('')
-
-
-
-    const [values, setValues] = useState({
-        name: "",
-        description: "",
-        price: "",
-        stock: "",
-    })
-
-    const [details, setDetails] = useState({
-        details: ""
-    })
-
+    const [details, setDetails] = useState(product ? product.details : null)
+    const [metaData, setMetaData] = useState(product ? product.meta_data : null);
 
     const _handleUploadImages = (value) => {
         for (let x = 0; x < value.length; x++) {
@@ -39,26 +31,32 @@ export default function Form() {
     }
 
     const _handleInputChange = (e) => {
-        const key = e.target.id;
-        const value = e.target.value
-        setValues(values => ({
-            ...values,
-            [key]: value,
-        }))
+        if (e.target) {
+            const key = e.target.id;
+            const value = e.target.value;
+            setValues(values => ({
+                ...values,
+                [key]: value,
+            }))
+        } else {
+            setValues(values => ({
+                ...values,
+                ['status']: e.value,
+            }))
+        }
     }
 
 
     const _handleFormSubmit = () => {
-// console.log(values);
-        let data = new FormData()
-        data.append('name', values.name || '')
-        data.append('description', values.description || '')
-        data.append('price', values.price || '')
-        data.append('stock', values.stock || '')
-        data.append('details', details.details || '')
-        data.append('metaTitle', values.metaTitle || '')
-        data.append('metaSlug', values.metaSlug || '')
-        data.append('metaDescription', values.metaDescription || '')
+        let data = new FormData();
+        data.append('form_data[id]', values.id || '')
+        data.append('form_data[name]', values.name || '')
+        data.append('form_data[price]', values.price || '')
+        data.append('form_data[stock]', values.stock || '')
+        data.append('form_data[status]', values.status || '')
+        data.append('form_data[details]', details || '')
+        data.append('form_data[description]', values.description || '')
+        _appendMetaData(data, metaData);
         for (let x = 0; x < Object.keys(images).length; x++) {
             data.append("images[]", images[x]);
         }
@@ -104,7 +102,7 @@ export default function Form() {
                                     id={"name"}
                                     label={"Name"}
                                     type={"text"}
-                                    defaultValue={""}
+                                    defaultValue={values ? values.name : null}
                                     handleChange={_handleInputChange}
                                 />
 
@@ -113,7 +111,7 @@ export default function Form() {
                                     id={"description"}
                                     label={"Product Description"}
                                     type={"textarea"}
-                                    defaultValue={""}
+                                    defaultValue={values ? values.description : null}
                                     handleChange={_handleInputChange}
                                 />
 
@@ -121,7 +119,7 @@ export default function Form() {
                                     id={"price"}
                                     label={"Price"}
                                     type={"number"}
-                                    defaultValue={""}
+                                    defaultValue={values ? values.price : null}
                                     handleChange={_handleInputChange}
                                 />
 
@@ -129,31 +127,40 @@ export default function Form() {
                                     id={"stock"}
                                     label={"Stock"}
                                     type={"number"}
-                                    defaultValue={""}
+                                    defaultValue={values ? values.stock : null}
                                     handleChange={_handleInputChange}
                                 />
 
                                 <CKEditor
                                     editor={ClassicEditor}
-                                    data="<p>Product Details</p>"
+                                    data={details ? details : "<p>Product Details</p>"}
                                     onChange={(event, editor) => {
                                         const data = editor.getData();
-                                        setDetails({details: data})
+                                        setDetails(data)
                                     }}
+                                />
+
+                                <br/>
+                                <Select
+                                    options={statusOptions}
+                                    defaultValue={values ? {value: values.status, label: values.status} : null}
+                                    onChange={_handleInputChange}
                                 />
 
 
                             </div>
                             <div className="tab-pane fade my-5" id="profile" role="tabpanel"
                                  aria-labelledby="profile-tab">
-                                <MetaDataForm handleChange={_handleInputChange}/>
+                                <MetaDataForm
+                                    metaData={metaData}
+                                    setMetaData={setMetaData}
+                                />
                             </div>
                         </div>
 
                         <SubmitButton
                             cancelUrl="/products"
                             handleFormSubmit={_handleFormSubmit}
-
                         />
                     </div>
                 </div>

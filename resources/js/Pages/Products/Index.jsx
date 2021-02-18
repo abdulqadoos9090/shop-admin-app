@@ -9,8 +9,6 @@ import NoRecordsFound from "../../Components/NoRecordsFound";
 
 export default function (props) {
     const {products} = props;
-
-    // console.log(products);
     return (
         <AdminLayout>
             <PageHeader
@@ -26,6 +24,8 @@ export default function (props) {
                         <th scope="col">Description</th>
                         <th scope="col">Price</th>
                         <th scope="col">Stock</th>
+                        <th scope="col">Index</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
@@ -37,7 +37,9 @@ export default function (props) {
                                 <td>{product.description}</td>
                                 <td>{product.price}</td>
                                 <td>{product.stock}</td>
-                                <td><ActionButton editUrl="/products/1/edit"/></td>
+                                <td>{product.meta_data.index}</td>
+                                <td>{product.status}</td>
+                                <td><ActionButton editUrl={`/products/${product.id}/edit`}/></td>
                             </tr>
                         )) : <NoRecordsFound colSpan={5}/>
                     }

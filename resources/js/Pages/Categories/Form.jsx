@@ -7,18 +7,13 @@ import PageContent from "../../Components/PageContent";
 import MetaDataForm from "../../Components/MetaDataForm";
 import SubmitButton from "../../Components/SubmitButton";
 import Select from "react-select";
+import {_appendMetaData, statusOptions} from "../../Common";
 
 export default function Form(props) {
 
     const {category} = props;
-    const options = [
-        {value: 'pending', label: 'pending'},
-        {value: 'active', label: 'active'},
-    ]
-
     const [values, setValues] = useState(category);
     const [metaData, setMetaData] = useState(category ? category.meta_data : null);
-
 
     const _handleInputChange = (e) => {
         if (e.target) {
@@ -36,32 +31,12 @@ export default function Form(props) {
         }
     }
 
-    const _handleMetaDataChange = (e) => {
-        if (e.target) {
-            const key = e.target.id;
-            const value = e.target.value;
-            setMetaData(metaData => ({
-                ...metaData,
-                [key]: value,
-            }))
-        } else {
-            setMetaData(metaData => ({
-                ...metaData,
-                ['index']: e.value,
-            }))
-        }
-    }
-
     const _handleFormSubmit = () => {
         let data = new FormData()
         data.append('form_data[id]', values.id || '')
         data.append('form_data[label]', values.label || '')
         data.append('form_data[status]', values.status || '')
-        data.append("meta_data[id]", metaData.id || '');
-        data.append("meta_data[title]", metaData.title || '');
-        data.append("meta_data[description]", metaData.description || '');
-        data.append("meta_data[slug]", metaData.slug || '');
-        data.append("meta_data[index]", metaData.index || '');
+        _appendMetaData(data, metaData);
         Inertia.post('/categories/save', data);
     }
 
@@ -101,7 +76,7 @@ export default function Form(props) {
 
 
                                 <Select
-                                    options={options}
+                                    options={statusOptions}
                                     defaultValue={values ? {value: values.status, label: values.status} : null}
                                     onChange={_handleInputChange}
                                 />
@@ -110,8 +85,10 @@ export default function Form(props) {
                             </div>
                             <div className="tab-pane fade my-5" id="profile" role="tabpanel"
                                  aria-labelledby="profile-tab">
-                                <MetaDataForm handleChange={_handleMetaDataChange}
-                                              metaData={metaData ? metaData : null}/>
+                                <MetaDataForm
+                                    metaData={metaData}
+                                    setMetaData={setMetaData}
+                                />
                             </div>
                         </div>
 
@@ -120,7 +97,7 @@ export default function Form(props) {
                             handleFormSubmit={_handleFormSubmit}
                         />
                     </div>
-                   </div>
+                </div>
             </PageContent>
         </AdminLayout>
     )

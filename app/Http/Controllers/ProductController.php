@@ -24,13 +24,19 @@ class ProductController extends Controller
 
     public function create()
     {
+        return inertia('Products/Form', ['product' => null]);
+    }
+
+    public function edit($id)
+    {
         return inertia('Products/Form', [
-            'products' => ['abc', 'def']
+            'product' => $this->productService->findWithMetaData($id)
         ]);
     }
 
     public function save(Request $request)
     {
         $this->productService->save($request);
+        return redirect('/products');
     }
 }
