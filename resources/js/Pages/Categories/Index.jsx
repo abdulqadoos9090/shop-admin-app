@@ -9,7 +9,6 @@ import NoRecordsFound from "../../Components/NoRecordsFound";
 
 export default function (props) {
     const {categories} = props;
-    // console.log(categories);
     return (
         <AdminLayout>
             <PageHeader
@@ -22,6 +21,9 @@ export default function (props) {
                     <thead>
                     <tr>
                         <th scope="col">Label</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Slug</th>
+                        <th scope="col">Index</th>
                         <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -31,8 +33,11 @@ export default function (props) {
                         categories && categories.length ? categories.map(category => (
                             <tr key={category.id}>
                                 <td>{category.label}</td>
+                                <td>{category.meta_data.title}</td>
+                                <td>{category.meta_data.slug}</td>
+                                <td>{category.meta_data.index}</td>
                                 <td>{category.status}</td>
-                                <td><ActionButton editUrl="/categories/1/edit"/></td>
+                                <td><ActionButton editUrl={`/categories/${category.id}/edit`}/></td>
                             </tr>
                         )) : <NoRecordsFound colSpan={3}/>
                     }

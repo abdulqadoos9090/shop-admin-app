@@ -8,39 +8,60 @@ import MetaDataForm from "../../Components/MetaDataForm";
 import SubmitButton from "../../Components/SubmitButton";
 import Select from "react-select";
 
-export default function Form() {
+export default function Form(props) {
 
+    const {category} = props;
     const options = [
-        {value: 'follow,index', label: 'Follow Index'},
-        {value: 'nofollow,noindex', label: 'No follow, No index'},
-        {value: 'follow', label: 'follow'},
-        {value: 'index', label: 'index'}
+        {value: 'pending', label: 'pending'},
+        {value: 'active', label: 'active'},
     ]
 
-
-    const [values, setValues] = useState({
-        label: "",
-        status: "",
-    })
+    const [values, setValues] = useState(category);
+    const [metaData, setMetaData] = useState(category ? category.meta_data : null);
 
 
     const _handleInputChange = (e) => {
-        const key = e.target.id;
-        const value = e.target.value
-        setValues(values => ({
-            ...values,
-            [key]: value,
-        }))
+        if (e.target) {
+            const key = e.target.id;
+            const value = e.target.value;
+            setValues(values => ({
+                ...values,
+                [key]: value,
+            }))
+        } else {
+            setValues(values => ({
+                ...values,
+                ['status']: e.value,
+            }))
+        }
     }
 
+    const _handleMetaDataChange = (e) => {
+        if (e.target) {
+            const key = e.target.id;
+            const value = e.target.value;
+            setMetaData(metaData => ({
+                ...metaData,
+                [key]: value,
+            }))
+        } else {
+            setMetaData(metaData => ({
+                ...metaData,
+                ['index']: e.value,
+            }))
+        }
+    }
 
     const _handleFormSubmit = () => {
-// console.log(values);
         let data = new FormData()
-        data.append('label', values.label || '')
-        data.append('metaTitle', values.metaTitle || '')
-        data.append('metaSlug', values.metaSlug || '')
-        data.append('metaDescription', values.metaDescription || '')
+        data.append('form_data[id]', values.id || '')
+        data.append('form_data[label]', values.label || '')
+        data.append('form_data[status]', values.status || '')
+        data.append("meta_data[id]", metaData.id || '');
+        data.append("meta_data[title]", metaData.title || '');
+        data.append("meta_data[description]", metaData.description || '');
+        data.append("meta_data[slug]", metaData.slug || '');
+        data.append("meta_data[index]", metaData.index || '');
         Inertia.post('/categories/save', data);
     }
 
@@ -74,20 +95,23 @@ export default function Form() {
                                     id={"label"}
                                     label={"Label"}
                                     type={"text"}
-                                    defaultValue={""}
+                                    defaultValue={values ? values.label : null}
                                     handleChange={_handleInputChange}
                                 />
 
 
                                 <Select
                                     options={options}
+                                    defaultValue={values ? {value: values.status, label: values.status} : null}
+                                    onChange={_handleInputChange}
                                 />
 
 
                             </div>
                             <div className="tab-pane fade my-5" id="profile" role="tabpanel"
                                  aria-labelledby="profile-tab">
-                                <MetaDataForm handleChange={_handleInputChange}/>
+                                <MetaDataForm handleChange={_handleMetaDataChange}
+                                              metaData={metaData ? metaData : null}/>
                             </div>
                         </div>
 
@@ -96,7 +120,7 @@ export default function Form() {
                             handleFormSubmit={_handleFormSubmit}
                         />
                     </div>
-                </div>
+                   </div>
             </PageContent>
         </AdminLayout>
     )

@@ -23,12 +23,20 @@ class CategoryController extends Controller
 
     public function create()
     {
-        return inertia('Categories/Form');
+        return inertia('Categories/Form',['category' => null]);
+    }
+
+    public function edit($id)
+    {
+        return inertia('Categories/Form',[
+            'category' => $this->categoryService->findWithMetaData($id)
+        ]);
     }
 
     public function save(Request $request)
     {
-        return $this->categoryService->save($request);
+         $this->categoryService->save($request);
+         return redirect('/categories');
     }
 
 }

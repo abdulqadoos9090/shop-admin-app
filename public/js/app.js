@@ -8623,13 +8623,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function MetaDataForm(_ref) {
-  var handleChange = _ref.handleChange;
+  var handleChange = _ref.handleChange,
+      metaData = _ref.metaData;
   var options = [{
     value: 'follow,index',
-    label: 'Follow Index'
+    label: 'follow,index'
   }, {
     value: 'nofollow,noindex',
-    label: 'No follow, No index'
+    label: 'nofollow,noindex'
   }, {
     value: 'follow',
     label: 'follow'
@@ -8639,25 +8640,30 @@ function MetaDataForm(_ref) {
   }];
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.default, {
-      id: "metaTitle",
+      id: "title",
       label: "Title",
       type: "text",
-      defaultValue: "",
+      defaultValue: metaData ? metaData.title : null,
       handleChange: handleChange
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.default, {
-      id: "metaSlug",
+      id: "slug",
       label: "Slug",
       type: "text",
-      defaultValue: "",
+      defaultValue: metaData ? metaData.slug : null,
       handleChange: handleChange
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.default, {
-      id: "metaDescription",
+      id: "description",
       label: "Meta Description",
       type: "textarea",
-      defaultValue: "",
+      defaultValue: metaData ? metaData.description : null,
       handleChange: handleChange
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_3__.default, {
-      options: options
+      options: options,
+      defaultValue: metaData ? {
+        value: metaData.index,
+        label: metaData.index
+      } : null,
+      onChange: handleChange
     })]
   });
 }
@@ -8850,44 +8856,64 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-function Form() {
+function Form(props) {
+  var category = props.category;
   var options = [{
-    value: 'follow,index',
-    label: 'Follow Index'
+    value: 'pending',
+    label: 'pending'
   }, {
-    value: 'nofollow,noindex',
-    label: 'No follow, No index'
-  }, {
-    value: 'follow',
-    label: 'follow'
-  }, {
-    value: 'index',
-    label: 'index'
+    value: 'active',
+    label: 'active'
   }];
 
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)({
-    label: "",
-    status: ""
-  }),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(category),
       _useState2 = _slicedToArray(_useState, 2),
       values = _useState2[0],
       setValues = _useState2[1];
 
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(category ? category.meta_data : null),
+      _useState4 = _slicedToArray(_useState3, 2),
+      metaData = _useState4[0],
+      setMetaData = _useState4[1];
+
   var _handleInputChange = function _handleInputChange(e) {
-    var key = e.target.id;
-    var value = e.target.value;
-    setValues(function (values) {
-      return _objectSpread(_objectSpread({}, values), {}, _defineProperty({}, key, value));
-    });
+    if (e.target) {
+      var key = e.target.id;
+      var value = e.target.value;
+      setValues(function (values) {
+        return _objectSpread(_objectSpread({}, values), {}, _defineProperty({}, key, value));
+      });
+    } else {
+      setValues(function (values) {
+        return _objectSpread(_objectSpread({}, values), {}, _defineProperty({}, 'status', e.value));
+      });
+    }
+  };
+
+  var _handleMetaDataChange = function _handleMetaDataChange(e) {
+    if (e.target) {
+      var key = e.target.id;
+      var value = e.target.value;
+      setMetaData(function (metaData) {
+        return _objectSpread(_objectSpread({}, metaData), {}, _defineProperty({}, key, value));
+      });
+    } else {
+      setMetaData(function (metaData) {
+        return _objectSpread(_objectSpread({}, metaData), {}, _defineProperty({}, 'index', e.value));
+      });
+    }
   };
 
   var _handleFormSubmit = function _handleFormSubmit() {
-    // console.log(values);
     var data = new FormData();
-    data.append('label', values.label || '');
-    data.append('metaTitle', values.metaTitle || '');
-    data.append('metaSlug', values.metaSlug || '');
-    data.append('metaDescription', values.metaDescription || '');
+    data.append('form_data[id]', values.id || '');
+    data.append('form_data[label]', values.label || '');
+    data.append('form_data[status]', values.status || '');
+    data.append("meta_data[id]", metaData.id || '');
+    data.append("meta_data[title]", metaData.title || '');
+    data.append("meta_data[description]", metaData.description || '');
+    data.append("meta_data[slug]", metaData.slug || '');
+    data.append("meta_data[index]", metaData.index || '');
     _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.post('/categories/save', data);
   };
 
@@ -8945,10 +8971,15 @@ function Form() {
                 id: "label",
                 label: "Label",
                 type: "text",
-                defaultValue: "",
+                defaultValue: values ? values.label : null,
                 handleChange: _handleInputChange
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_9__.default, {
-                options: options
+                options: options,
+                defaultValue: values ? {
+                  value: values.status,
+                  label: values.status
+                } : null,
+                onChange: _handleInputChange
               })]
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
               className: "tab-pane fade my-5",
@@ -8956,7 +8987,8 @@ function Form() {
               role: "tabpanel",
               "aria-labelledby": "profile-tab",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_MetaDataForm__WEBPACK_IMPORTED_MODULE_7__.default, {
-                handleChange: _handleInputChange
+                handleChange: _handleMetaDataChange,
+                metaData: metaData ? metaData : null
               })
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_SubmitButton__WEBPACK_IMPORTED_MODULE_8__.default, {
@@ -9000,8 +9032,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(props) {
-  var categories = props.categories; // console.log(categories);
-
+  var categories = props.categories;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_AdminLayout__WEBPACK_IMPORTED_MODULE_2__.default, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_PageHeader__WEBPACK_IMPORTED_MODULE_4__.default, {
       title: "View all categories",
@@ -9017,6 +9048,15 @@ __webpack_require__.r(__webpack_exports__);
               children: "Label"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
               scope: "col",
+              children: "Title"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              scope: "col",
+              children: "Slug"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              scope: "col",
+              children: "Index"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              scope: "col",
               children: "Status"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
               scope: "col",
@@ -9029,10 +9069,16 @@ __webpack_require__.r(__webpack_exports__);
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                 children: category.label
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                children: category.meta_data.title
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                children: category.meta_data.slug
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                children: category.meta_data.index
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                 children: category.status
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ActionButton__WEBPACK_IMPORTED_MODULE_6__.default, {
-                  editUrl: "/categories/1/edit"
+                  editUrl: "/categories/".concat(category.id, "/edit")
                 })
               })]
             }, category.id);

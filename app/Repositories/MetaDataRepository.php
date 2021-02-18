@@ -20,8 +20,13 @@ class MetaDataRepository
         return $this->metaData->all();
     }
 
-    public function save($data)
+    public function create($data)
     {
         return $this->metaData->create($data);
+    }
+
+    public function update($data)
+    {
+        return $this->metaData->find($data['id'])->update($data);
     }
 }

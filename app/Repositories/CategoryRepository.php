@@ -18,11 +18,21 @@ class CategoryRepository
 
     public function all()
     {
-        return $this->category->all();
+        return $this->category->with('metaData')->get();
     }
 
-    public function save($data)
+    public function findWithMetaData($id)
+    {
+        return $this->category->with('metaData')->find($id);
+    }
+
+    public function create($data)
     {
         return $this->category->create($data);
+    }
+
+    public function update($data)
+    {
+        return $this->category->find($data['id'])->update($data);
     }
 }

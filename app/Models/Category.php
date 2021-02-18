@@ -15,4 +15,9 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function metaData()
+    {
+        return $this->belongsTo(MetaData::class);
+    }
 }
