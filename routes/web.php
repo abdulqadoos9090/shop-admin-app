@@ -20,16 +20,19 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::prefix('/products')->group(function () {
-    Route::get('/', [ProductController::class, 'index']);
-    Route::post('/save', [ProductController::class, 'save']);
-    Route::get('/create', [ProductController::class, 'create']);
-    Route::get('/{id}/edit', [ProductController::class, 'edit']);
-});
+Route::middleware('auth')->group(function () {
 
-Route::prefix('/categories')->group(function () {
-    Route::get('/', [CategoryController::class, 'index']);
-    Route::post('/save', [CategoryController::class, 'save']);
-    Route::get('/create', [CategoryController::class, 'create']);
-    Route::get('/{id}/edit', [CategoryController::class, 'edit']);
+    Route::prefix('/products')->group(function () {
+        Route::get('/', [ProductController::class, 'index']);
+        Route::post('/save', [ProductController::class, 'save']);
+        Route::get('/create', [ProductController::class, 'create']);
+        Route::get('/{id}/edit', [ProductController::class, 'edit']);
+    });
+
+    Route::prefix('/categories')->group(function () {
+        Route::get('/', [CategoryController::class, 'index']);
+        Route::post('/save', [CategoryController::class, 'save']);
+        Route::get('/create', [CategoryController::class, 'create']);
+        Route::get('/{id}/edit', [CategoryController::class, 'edit']);
+    });
 });

@@ -37,9 +37,15 @@ export default function (props) {
                                 <td>{category.meta_data.slug}</td>
                                 <td>{category.meta_data.index}</td>
                                 <td>{category.status}</td>
-                                <td><ActionButton editUrl={`/categories/${category.id}/edit`}/></td>
+                                <td>
+                                    <ActionButton
+                                        isEdit={true}
+                                        editUrl={`/categories/${category.id}/edit`}
+                                    />
+                                </td>
+
                             </tr>
-                        )) : <NoRecordsFound colSpan={3}/>
+                        )) : <NoRecordsFound colSpan={6}/>
                     }
                     </tbody>
                 </table>

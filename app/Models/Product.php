@@ -11,22 +11,22 @@ class Product extends Model
 
     protected $fillable = ['user_id', 'meta_data_id', 'category_id', 'name', 'description', 'details', 'price', 'stock', 'status'];
 
-    public function metaData(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function metaData()
     {
         return $this->belongsTo(MetaData::class);
     }
 
-    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function category()
     {
         return $this->belongsTo(Category::class);
     }
 
-    public function images(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function productImages()
     {
-       return $this->hasMany(Image::class);
+        return $this->hasMany(ProductImage::class);
     }
 
-    public function comments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    public function comments()
     {
         return $this->hasMany(Comments::class);
     }

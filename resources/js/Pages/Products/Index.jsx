@@ -39,9 +39,16 @@ export default function (props) {
                                 <td>{product.stock}</td>
                                 <td>{product.meta_data.index}</td>
                                 <td>{product.status}</td>
-                                <td><ActionButton editUrl={`/products/${product.id}/edit`}/></td>
+                                <td>
+                                    <ActionButton
+                                        isDetails={true}
+                                        detailsUrl={`/products/${product.id}/show`}
+                                        isEdit={true}
+                                        editUrl={`/products/${product.id}/edit`}
+                                    />
+                                </td>
                             </tr>
-                        )) : <NoRecordsFound colSpan={5}/>
+                        )) : <NoRecordsFound colSpan={7}/>
                     }
                     </tbody>
                 </table>

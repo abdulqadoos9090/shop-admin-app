@@ -17,11 +17,11 @@ class ImageService
         $this->imageRepository = $imageRepository;
     }
 
-    public function uploadProductImages($images,$product){
+    public function uploadProductImages($images,$productId){
         foreach ($images as $image) {
             $image = $this->save($image);
-            DB::table('product_image')->insert([
-                'product_id' => $product->id,
+            DB::table('product_images')->insert([
+                'product_id' => $productId,
                 'image_id' => $image->id
             ]);
         }

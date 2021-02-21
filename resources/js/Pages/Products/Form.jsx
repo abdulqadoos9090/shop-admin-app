@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Inertia} from '@inertiajs/inertia'
 import FormInput from "../../Components/FormInput";
 import PageHeader from "../../Components/PageHeader";
@@ -9,26 +9,21 @@ import SubmitButton from "../../Components/SubmitButton";
 import ImageUploader from 'react-images-upload';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import {_appendMetaData, statusOptions} from "../../Common";
+import {_appendFiles, _appendMetaData, statusOptions} from "../../Common";
 import Select from "react-select";
+import FilesUpload from "../../Components/FilesUpload";
+import FilesPreview from "../../Components/FilesPreview";
 
 
 export default function Form(props) {
+
     const {product} = props;
+    const [values, setValues] = useState(product ? product : '');
+    const [files, setFiles] = useState([]);
+    const [imageUrls, setImageUrls] = useState(product ? product.product_images : null);
+    const [details, setDetails] = useState(product ? product.details : '');
+    const [metaData, setMetaData] = useState(product ? product.meta_data : '');
 
-    const [values, setValues] = useState(product);
-    const [images, setImages] = useState('')
-    const [details, setDetails] = useState(product ? product.details : null)
-    const [metaData, setMetaData] = useState(product ? product.meta_data : null);
-
-    const _handleUploadImages = (value) => {
-        for (let x = 0; x < value.length; x++) {
-            setImages(images => ({
-                ...images,
-                [x]: value[x]
-            }))
-        }
-    }
 
     const _handleInputChange = (e) => {
         if (e.target) {
@@ -56,10 +51,8 @@ export default function Form(props) {
         data.append('form_data[status]', values.status || '')
         data.append('form_data[details]', details || '')
         data.append('form_data[description]', values.description || '')
+        _appendFiles(data, files);
         _appendMetaData(data, metaData);
-        for (let x = 0; x < Object.keys(images).length; x++) {
-            data.append("images[]", images[x]);
-        }
         Inertia.post('/products/save', data);
     }
 
@@ -88,14 +81,13 @@ export default function Form(props) {
                         <div className="tab-content" id="myTabContent">
                             <div className="tab-pane fade show active my-5" id="home" role="tabpanel"
                                  aria-labelledby="home-tab">
+                                {
+                                    imageUrls ? <FilesPreview filesUrls={imageUrls}/> : null
+                                }
 
-                                <ImageUploader
-                                    withIcon={true}
-                                    buttonText='Choose images'
-                                    onChange={_handleUploadImages}
-                                    withPreview={true}
-                                    imgExtension={['.jpg', '.gif', '.png', '.gif']}
-                                    maxFileSize={5242880}
+                                <FilesUpload
+                                    files={files}
+                                    setFiles={setFiles}
                                 />
 
                                 <FormInput
@@ -146,7 +138,6 @@ export default function Form(props) {
                                     defaultValue={values ? {value: values.status, label: values.status} : null}
                                     onChange={_handleInputChange}
                                 />
-
 
                             </div>
                             <div className="tab-pane fade my-5" id="profile" role="tabpanel"

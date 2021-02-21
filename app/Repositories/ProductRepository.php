@@ -30,10 +30,9 @@ class ProductRepository
         return $this->product->find($data['id'])->update($data);
     }
 
-
-    public function findWithMetaData($id)
+    public function getProductById($id)
     {
-        return $this->product->with('metaData')->find($id);
+        return $this->product->with(['metaData', 'productImages.image'])->find($id);
     }
 
 }

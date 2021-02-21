@@ -25,19 +25,18 @@ class ProductService
         return $this->productRepository->all();
     }
 
-
-    public function findWithMetaData($id)
+    public function getProductById($id)
     {
-        return $this->productRepository->findWithMetaData($id);
+        return $this->productRepository->getProductById($id);
     }
 
     public function save($request)
     {
         if (isset($request->form_data['id']) && $request->form_data['id']) {
             $this->metaDataService->save($request->meta_data);
-            $product = $this->productRepository->update($request->form_data);
+            $this->productRepository->update($request->form_data);
             if ($request->hasFile('images')) {
-                return $this->imageService->uploadProductImages($request->images, $product);
+                return $this->imageService->uploadProductImages($request->images, $request->form_data['id']);
             }
         } else {
             $data = $request->form_data;
@@ -47,7 +46,7 @@ class ProductService
             $data['category_id'] = 1;
             $product = $this->productRepository->create($data);
             if ($request->hasFile('images')) {
-                return $this->imageService->uploadProductImages($request->images, $product);
+                return $this->imageService->uploadProductImages($request->images, $product->id);
             }
         }
     }

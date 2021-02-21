@@ -6,6 +6,12 @@ export function _appendMetaData(data, metaData) {
     data.append("meta_data[index]", metaData.index || '');
 }
 
+export function _appendFiles(data,files){
+    for (let x = 0; x < Object.keys(files).length; x++) {
+        data.append("images[]", files[x]);
+    }
+}
+
 export const statusOptions = [
     {value: 'pending', label: 'pending'},
     {value: 'active', label: 'active'},

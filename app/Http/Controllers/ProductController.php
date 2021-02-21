@@ -30,7 +30,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         return inertia('Products/Form', [
-            'product' => $this->productService->findWithMetaData($id)
+            'product' => $this->productService->getProductById($id)
         ]);
     }
 
