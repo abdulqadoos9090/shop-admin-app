@@ -35,4 +35,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/create', [CategoryController::class, 'create']);
         Route::get('/{id}/edit', [CategoryController::class, 'edit']);
     });
+
+    Route::get('/images/{id}/delete', [\App\Http\Controllers\ImageController::class, 'delete']);
+
 });

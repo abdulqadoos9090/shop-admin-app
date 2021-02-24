@@ -17,7 +17,7 @@ class CategoryController extends Controller
     public function index()
     {
         return inertia('Categories/Index', [
-            'categories' => $this->categoryService->all()
+            'categories' => $this->categoryService->getAllCategoriesWithRelations()
         ]);
     }
 

@@ -32,7 +32,7 @@ class ProductRepository
 
     public function getProductById($id)
     {
-        return $this->product->with(['metaData', 'productImages.image'])->find($id);
+        return $this->product->with(['category','metaData', 'productImages.image'])->find($id);
     }
 
 }

@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {Inertia} from '@inertiajs/inertia'
+import {Inertia} from '@inertiajs/inertia';
 import FormInput from "../../Components/FormInput";
 import PageHeader from "../../Components/PageHeader";
 import AdminLayout from "../../Components/AdminLayout";
 import PageContent from "../../Components/PageContent";
 import MetaDataForm from "../../Components/MetaDataForm";
 import SubmitButton from "../../Components/SubmitButton";
-import ImageUploader from 'react-images-upload';
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {_appendFiles, _appendMetaData, statusOptions} from "../../Common";
@@ -17,15 +16,24 @@ import FilesPreview from "../../Components/FilesPreview";
 
 export default function Form(props) {
 
-    const {product} = props;
+    const {product,categories} = props;
     const [values, setValues] = useState(product ? product : '');
     const [files, setFiles] = useState([]);
     const [imageUrls, setImageUrls] = useState(product ? product.product_images : null);
     const [details, setDetails] = useState(product ? product.details : '');
     const [metaData, setMetaData] = useState(product ? product.meta_data : '');
 
+    // console.log(product);
 
-    const _handleInputChange = (e) => {
+    const _categoryOptions = categories => {
+        let data = [];
+        categories.map((category,index) => {
+            data[index] = {value: category.id,label : category.label}
+        })
+        return data;
+    }
+
+    const _handleInputChange = (e,name= null) => {
         if (e.target) {
             const key = e.target.id;
             const value = e.target.value;
@@ -36,7 +44,7 @@ export default function Form(props) {
         } else {
             setValues(values => ({
                 ...values,
-                ['status']: e.value,
+                [name]: e.value,
             }))
         }
     }
@@ -48,6 +56,7 @@ export default function Form(props) {
         data.append('form_data[name]', values.name || '')
         data.append('form_data[price]', values.price || '')
         data.append('form_data[stock]', values.stock || '')
+        data.append('form_data[category_id]', parseInt(values.category_id) || '')
         data.append('form_data[status]', values.status || '')
         data.append('form_data[details]', details || '')
         data.append('form_data[description]', values.description || '')
@@ -82,7 +91,11 @@ export default function Form(props) {
                             <div className="tab-pane fade show active my-5" id="home" role="tabpanel"
                                  aria-labelledby="home-tab">
                                 {
-                                    imageUrls ? <FilesPreview filesUrls={imageUrls}/> : null
+                                    imageUrls ?
+                                        <FilesPreview
+                                            filesUrls={imageUrls}
+                                        />
+                                        : null
                                 }
 
                                 <FilesUpload
@@ -96,6 +109,14 @@ export default function Form(props) {
                                     type={"text"}
                                     defaultValue={values ? values.name : null}
                                     handleChange={_handleInputChange}
+                                />
+
+                                <Select
+                                    placeholder="Select Category"
+                                    isSearchable={true}
+                                    options={_categoryOptions(categories)}
+                                    defaultValue={product ? {value: product.category.id, label: product.category.label} : null}
+                                    onChange={(e) => _handleInputChange(e,"category_id")}
                                 />
 
 
@@ -134,9 +155,10 @@ export default function Form(props) {
 
                                 <br/>
                                 <Select
+                                    placeholder="Select Status"
                                     options={statusOptions}
                                     defaultValue={values ? {value: values.status, label: values.status} : null}
-                                    onChange={_handleInputChange}
+                                    onChange={(e) => _handleInputChange(e,"status")}
                                 />
 
                             </div>

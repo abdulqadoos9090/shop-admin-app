@@ -18,6 +18,11 @@ class CategoryRepository
 
     public function all()
     {
+        return $this->category->get();
+    }
+
+    public function getAllCategoriesWithRelations()
+    {
         return $this->category->with('metaData')->get();
     }
 

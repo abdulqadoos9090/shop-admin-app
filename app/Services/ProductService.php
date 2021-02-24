@@ -36,18 +36,21 @@ class ProductService
             $this->metaDataService->save($request->meta_data);
             $this->productRepository->update($request->form_data);
             if ($request->hasFile('images')) {
-                return $this->imageService->uploadProductImages($request->images, $request->form_data['id']);
+                $this->imageService->uploadProductImages($request->images, $request->form_data['id']);
             }
+            return true;
         } else {
             $data = $request->form_data;
             $metaData = $this->metaDataService->save($request->meta_data);
             $data['meta_data_id'] = $metaData->id;
             $data['user_id'] = Auth::id();
-            $data['category_id'] = 1;
             $product = $this->productRepository->create($data);
             if ($request->hasFile('images')) {
-                return $this->imageService->uploadProductImages($request->images, $product->id);
+                $this->imageService->uploadProductImages($request->images, $product->id);
             }
+            return false;
         }
+
     }
+
 }

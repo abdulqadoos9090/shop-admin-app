@@ -41,7 +41,7 @@ export default function (props) {
                                 <td>{product.status}</td>
                                 <td>
                                     <ActionButton
-                                        isDetails={true}
+                                        isDetails={false}
                                         detailsUrl={`/products/${product.id}/show`}
                                         isEdit={true}
                                         editUrl={`/products/${product.id}/edit`}

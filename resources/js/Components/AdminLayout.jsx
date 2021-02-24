@@ -3,8 +3,13 @@ import {InertiaLink} from '@inertiajs/inertia-react';
 import {Inertia} from '@inertiajs/inertia';
 import Loading from "./Loading";
 
+const _logout = () => {
+    Inertia.visit('/logout', {method: 'post'});
+    window.location = "/";
+}
 
 export default function AdminLayout({children}) {
+
     return (
         <React.Fragment>
             <header className="container-fluid">
@@ -21,9 +26,9 @@ export default function AdminLayout({children}) {
                                 <Loading/>
                             </ul>
                             <div className="d-flex">
-                                <a href="#" className="text-secondary bg-white rounded-3 px-2 pt-2 pb-1">
+                                <button  onClick={_logout} className="btn text-secondary bg-white rounded-3 px-2 pt-2 pb-1">
                                     <i className="fas fa-sign-out-alt fs-5"> </i>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -40,7 +45,7 @@ export default function AdminLayout({children}) {
                             </li>
                             <li className="nav-item bg-white rounded-3 text-center py-1 mb-3">
                                 <InertiaLink className="nav-link text-secondary" aria-current="page" href="/categories">
-                                    <i className="fas fa-clipboard-list fs-4"></i>
+                                    <i className="fas fa-th fs-4"></i>
                                 </InertiaLink>
                             </li>
                         </ul>

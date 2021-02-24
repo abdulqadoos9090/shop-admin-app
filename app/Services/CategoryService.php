@@ -22,6 +22,11 @@ class CategoryService
         return $this->categoryRepository->all();
     }
 
+    public function getAllCategoriesWithRelations()
+    {
+        return $this->categoryRepository->getAllCategoriesWithRelations();
+    }
+
     public function findWithMetaData($id)
     {
         return $this->categoryRepository->findWithMetaData($id);

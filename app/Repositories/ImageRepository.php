@@ -19,4 +19,9 @@ class ImageRepository
     {
         return $this->image->create($data);
     }
+
+    public function delete($id)
+    {
+        return $this->image->find($id)->delete();
+    }
 }
