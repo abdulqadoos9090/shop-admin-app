@@ -9468,7 +9468,26 @@ function Form(props) {
     categories.map(function (category, index) {
       data[index] = {
         value: category.id,
-        label: category.label
+        label: category.label.toUpperCase()
+      };
+    });
+    return data;
+  };
+
+  var _badgeOptions = [{
+    label: "New",
+    value: "new"
+  }, {
+    label: "Sale",
+    value: "sale"
+  }];
+
+  var _defaultBadge = function _defaultBadge(badges) {
+    var data = [];
+    badges.map(function (badge, index) {
+      data[index] = {
+        value: badge,
+        label: badge.toUpperCase()
       };
     });
     return data;
@@ -9483,9 +9502,19 @@ function Form(props) {
       setValues(function (values) {
         return _objectSpread(_objectSpread({}, values), {}, _defineProperty({}, key, value));
       });
-    } else {
+    }
+
+    if (name === "category_id" || name === "status") {
       setValues(function (values) {
         return _objectSpread(_objectSpread({}, values), {}, _defineProperty({}, name, e.value));
+      });
+    }
+
+    if (name === "badges") {
+      setValues(function (values) {
+        return _objectSpread(_objectSpread({}, values), {}, _defineProperty({}, name, e.map(function (data) {
+          return data.value;
+        })));
       });
     }
   };
@@ -9494,7 +9523,9 @@ function Form(props) {
     var data = new FormData();
     data.append('form_data[id]', values.id || '');
     data.append('form_data[name]', values.name || '');
+    data.append('form_data[badges]', values.badges || '');
     data.append('form_data[price]', values.price || '');
+    data.append('form_data[discounted_price]', values.discounted_price || '');
     data.append('form_data[stock]', values.stock || '');
     data.append('form_data[category_id]', parseInt(values.category_id) || '');
     data.append('form_data[status]', values.status || '');
@@ -9506,7 +9537,8 @@ function Form(props) {
     (0,_Common__WEBPACK_IMPORTED_MODULE_11__._appendMetaData)(data, metaData);
 
     _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.post('/products/save', data);
-  };
+  }; // console.log(values);
+
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_AdminLayout__WEBPACK_IMPORTED_MODULE_5__.default, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_PageHeader__WEBPACK_IMPORTED_MODULE_4__.default, {
@@ -9570,6 +9602,15 @@ function Form(props) {
                 defaultValue: values ? values.name : null,
                 handleChange: _handleInputChange
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_14__.default, {
+                placeholder: "Select Badges",
+                isMulti: true,
+                isSearchable: true,
+                options: _badgeOptions,
+                defaultValue: product ? _defaultBadge(product.badges.split(',')) : null,
+                onChange: function onChange(e) {
+                  return _handleInputChange(e, "badges");
+                }
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_14__.default, {
                 placeholder: "Select Category",
                 isSearchable: true,
                 options: _categoryOptions(categories),
@@ -9591,6 +9632,12 @@ function Form(props) {
                 label: "Price",
                 type: "number",
                 defaultValue: values ? values.price : null,
+                handleChange: _handleInputChange
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_FormInput__WEBPACK_IMPORTED_MODULE_3__.default, {
+                id: "discounted_price",
+                label: "Discounted Price",
+                type: "number",
+                defaultValue: values ? values.discounted_price : null,
                 handleChange: _handleInputChange
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_FormInput__WEBPACK_IMPORTED_MODULE_3__.default, {
                 id: "stock",
@@ -9683,6 +9730,9 @@ __webpack_require__.r(__webpack_exports__);
               children: "Name"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
               scope: "col",
+              children: "Badges"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              scope: "col",
               children: "Description"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
               scope: "col",
@@ -9707,9 +9757,14 @@ __webpack_require__.r(__webpack_exports__);
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                 children: product.name
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                children: product.description
+                children: product.badges
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                children: product.price
+                children: product.description
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
+                children: [product.price, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("small", {
+                  className: "text-secondary",
+                  children: product.discounted_price
+                })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                 children: product.stock
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {

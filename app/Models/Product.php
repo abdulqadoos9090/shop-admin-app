@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'meta_data_id', 'category_id', 'name', 'description', 'details', 'price', 'stock', 'status'];
+    protected $fillable = ['user_id', 'meta_data_id', 'category_id', 'name',  'badges','description', 'details', 'price', 'discounted_price', 'stock', 'status'];
 
     public function metaData()
     {

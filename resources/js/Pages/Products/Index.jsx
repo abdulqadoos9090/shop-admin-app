@@ -21,6 +21,7 @@ export default function (props) {
                     <thead>
                     <tr>
                         <th scope="col">Name</th>
+                        <th scope="col">Badges</th>
                         <th scope="col">Description</th>
                         <th scope="col">Price</th>
                         <th scope="col">Stock</th>
@@ -34,8 +35,9 @@ export default function (props) {
                         products && products.length ? products.map(product => (
                             <tr key={product.id}>
                                 <td>{product.name}</td>
+                                <td>{product.badges}</td>
                                 <td>{product.description}</td>
-                                <td>{product.price}</td>
+                                <td>{product.price} <small className="text-secondary">{product.discounted_price}</small></td>
                                 <td>{product.stock}</td>
                                 <td>{product.meta_data.index}</td>
                                 <td>{product.status}</td>

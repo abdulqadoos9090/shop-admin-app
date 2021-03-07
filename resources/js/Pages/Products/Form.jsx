@@ -16,7 +16,7 @@ import FilesPreview from "../../Components/FilesPreview";
 
 export default function Form(props) {
 
-    const {product,categories} = props;
+    const {product, categories} = props;
     const [values, setValues] = useState(product ? product : '');
     const [files, setFiles] = useState([]);
     const [imageUrls, setImageUrls] = useState(product ? product.product_images : null);
@@ -27,13 +27,26 @@ export default function Form(props) {
 
     const _categoryOptions = categories => {
         let data = [];
-        categories.map((category,index) => {
-            data[index] = {value: category.id,label : category.label}
+        categories.map((category, index) => {
+            data[index] = {value: category.id, label: category.label.toUpperCase()}
         })
         return data;
     }
 
-    const _handleInputChange = (e,name= null) => {
+    const _badgeOptions = [
+        {label: "New", value: "new"},
+        {label: "Sale", value: "sale"}
+    ];
+
+    const _defaultBadge = (badges) => {
+        let data = [];
+        badges.map((badge, index) => {
+            data[index] = {value: badge, label: badge.toUpperCase()}
+        })
+        return data;
+    };
+
+    const _handleInputChange = (e, name = null) => {
         if (e.target) {
             const key = e.target.id;
             const value = e.target.value;
@@ -41,12 +54,22 @@ export default function Form(props) {
                 ...values,
                 [key]: value,
             }))
-        } else {
+        }
+
+        if (name === "category_id" || name === "status") {
             setValues(values => ({
                 ...values,
                 [name]: e.value,
             }))
         }
+
+        if (name === "badges") {
+            setValues(values => ({
+                ...values,
+                [name]: e.map(data => data.value)
+            }))
+        }
+
     }
 
 
@@ -54,7 +77,9 @@ export default function Form(props) {
         let data = new FormData();
         data.append('form_data[id]', values.id || '')
         data.append('form_data[name]', values.name || '')
+        data.append('form_data[badges]', values.badges || '')
         data.append('form_data[price]', values.price || '')
+        data.append('form_data[discounted_price]', values.discounted_price || '')
         data.append('form_data[stock]', values.stock || '')
         data.append('form_data[category_id]', parseInt(values.category_id) || '')
         data.append('form_data[status]', values.status || '')
@@ -64,6 +89,8 @@ export default function Form(props) {
         _appendMetaData(data, metaData);
         Inertia.post('/products/save', data);
     }
+
+    // console.log(values);
 
     return (
         <AdminLayout>
@@ -112,11 +139,23 @@ export default function Form(props) {
                                 />
 
                                 <Select
+                                    placeholder="Select Badges"
+                                    isMulti
+                                    isSearchable={true}
+                                    options={_badgeOptions}
+                                    defaultValue={product ? _defaultBadge(product.badges.split(','))  : null}
+                                    onChange={(e) => _handleInputChange(e, "badges")}
+                                />
+                                <br/>
+                                <Select
                                     placeholder="Select Category"
                                     isSearchable={true}
                                     options={_categoryOptions(categories)}
-                                    defaultValue={product ? {value: product.category.id, label: product.category.label} : null}
-                                    onChange={(e) => _handleInputChange(e,"category_id")}
+                                    defaultValue={product ? {
+                                        value: product.category.id,
+                                        label: product.category.label
+                                    } : null}
+                                    onChange={(e) => _handleInputChange(e, "category_id")}
                                 />
 
 
@@ -133,6 +172,14 @@ export default function Form(props) {
                                     label={"Price"}
                                     type={"number"}
                                     defaultValue={values ? values.price : null}
+                                    handleChange={_handleInputChange}
+                                />
+
+                                <FormInput
+                                    id={"discounted_price"}
+                                    label={"Discounted Price"}
+                                    type={"number"}
+                                    defaultValue={values ? values.discounted_price : null}
                                     handleChange={_handleInputChange}
                                 />
 
@@ -158,7 +205,7 @@ export default function Form(props) {
                                     placeholder="Select Status"
                                     options={statusOptions}
                                     defaultValue={values ? {value: values.status, label: values.status} : null}
-                                    onChange={(e) => _handleInputChange(e,"status")}
+                                    onChange={(e) => _handleInputChange(e, "status")}
                                 />
 
                             </div>

@@ -32,6 +32,7 @@ class ProductService
 
     public function save($request)
     {
+//        dd($request->all());
         if (isset($request->form_data['id']) && $request->form_data['id']) {
             $this->metaDataService->save($request->meta_data);
             $this->productRepository->update($request->form_data);

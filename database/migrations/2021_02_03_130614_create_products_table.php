@@ -22,6 +22,8 @@ class CreateProductsTable extends Migration
             $table->string('description');
             $table->text('details');
             $table->string('price');
+            $table->string('discounted_price');
+            $table->string('badges');
             $table->integer('stock');
             $table->string('status');
             $table->timestamps();
