@@ -13,9 +13,15 @@ export function _appendFiles(data,files){
 }
 
 export const statusOptions = [
-    {value: 'pending', label: 'pending'},
-    {value: 'active', label: 'active'},
-]
+    {value: 'pending', label: 'Pending'},
+    {value: 'active', label: 'Active'},
+];
+
+
+export const reviewOptions = [
+    {value: 'enable', label: 'Enable'},
+    {value: 'disable', label: 'Disable'},
+];
 
 export const indexOptions = [
     {value: 'follow,index', label: 'follow,index'},

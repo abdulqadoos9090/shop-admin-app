@@ -26,6 +26,7 @@ class CreateProductsTable extends Migration
             $table->string('badges');
             $table->integer('stock');
             $table->string('status');
+            $table->string('review');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {InertiaLink} from '@inertiajs/inertia-react';
 import {Inertia} from '@inertiajs/inertia';
 import Loading from "./Loading";
+import ReactTooltip from 'react-tooltip';
 
 const _logout = () => {
     Inertia.visit('/logout', {method: 'post'});
@@ -12,6 +13,7 @@ export default function AdminLayout({children}) {
 
     return (
         <React.Fragment>
+            <ReactTooltip/>
             <header className="container-fluid">
                 <nav className="navbar navbar-expand-lg fixed-top navbar-light bg-light ">
                     <div className="container-fluid">
@@ -26,7 +28,10 @@ export default function AdminLayout({children}) {
                                 <Loading/>
                             </ul>
                             <div className="d-flex">
-                                <button  onClick={_logout} className="btn text-secondary bg-white rounded-3 px-2 pt-2 pb-1">
+                                <button onClick={_logout}
+                                        className="btn text-secondary bg-white rounded-3 px-2 pt-2 pb-1"
+                                        data-place="bottom" data-effect="solid" data-type="light" data-tip="logout"
+                                >
                                     <i className="fas fa-sign-out-alt fs-5"> </i>
                                 </button>
                             </div>
@@ -39,12 +44,16 @@ export default function AdminLayout({children}) {
                     <aside className="col-lg-1 d-flex justify-content-center bg-light" style={{"minHeight": "92.5vh"}}>
                         <ul className="nav flex-column position-fixed pt-4">
                             <li className="nav-item bg-white rounded-3 text-center py-1 mb-3">
-                                <InertiaLink className="nav-link text-secondary " aria-current="page" href="/products">
+                                <InertiaLink className="nav-link text-secondary"
+                                             data-place="right" data-effect="solid" data-type="light" data-tip="Products"
+                                             aria-current="page" href="/products">
                                     <i className="fas fa-shopping-bag fs-4"> </i>
                                 </InertiaLink>
                             </li>
                             <li className="nav-item bg-white rounded-3 text-center py-1 mb-3">
-                                <InertiaLink className="nav-link text-secondary" aria-current="page" href="/categories">
+                                <InertiaLink className="nav-link text-secondary"
+                                             data-place="right" data-effect="solid" data-type="light" data-tip="Categories"
+                                             aria-current="page" href="/categories">
                                     <i className="fas fa-th fs-4"></i>
                                 </InertiaLink>
                             </li>

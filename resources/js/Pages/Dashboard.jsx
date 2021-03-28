@@ -3,9 +3,9 @@ import AdminLayout from "../Components/AdminLayout";
 
 export default function Dashboard() {
 
-    return(
+    return (
         <AdminLayout>
-            Dashboard
+            <h1>Dashboard</h1>
         </AdminLayout>
     )
 

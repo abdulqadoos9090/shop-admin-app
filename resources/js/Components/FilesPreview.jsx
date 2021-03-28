@@ -10,10 +10,9 @@ export default function FilesPreview(props) {
 
     return (
         <React.Fragment>
-
-            <div className="row mb-4">
+            <div className="row">
                 <div className="col-12">
-                    <p className="font-weight-bolder">Product images</p>
+                    Uploaded Images:
                 </div>
                 {
                     props.filesUrls ? props.filesUrls.map(file => (

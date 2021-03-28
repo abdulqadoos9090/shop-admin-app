@@ -33,11 +33,12 @@ const img = {
 };
 
 
-export default function FilesUpload(props) {
+export default function FormInputFiles(props) {
     const{files,setFiles} = props;
 
     const {getRootProps, getInputProps} = useDropzone({
         accept: 'image/*',
+        maxFiles:6,
         onDrop: acceptedFiles => {
             setFiles(acceptedFiles.map(file => Object.assign(file, {
                 preview: URL.createObjectURL(file)

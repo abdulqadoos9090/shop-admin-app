@@ -6,12 +6,9 @@ import AdminLayout from "../../Components/AdminLayout";
 import PageContent from "../../Components/PageContent";
 import MetaDataForm from "../../Components/MetaDataForm";
 import SubmitButton from "../../Components/SubmitButton";
-import {CKEditor} from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import {_appendFiles, _appendMetaData, statusOptions} from "../../Common";
-import Select from "react-select";
-import FilesUpload from "../../Components/FilesUpload";
-import FilesPreview from "../../Components/FilesPreview";
+import {_appendFiles, _appendMetaData} from "../../Common";
+import General from "./Childrens/General";
+import ProductVariations from "./Childrens/ProductVariations";
 
 
 export default function Form(props) {
@@ -23,28 +20,6 @@ export default function Form(props) {
     const [details, setDetails] = useState(product ? product.details : '');
     const [metaData, setMetaData] = useState(product ? product.meta_data : '');
 
-    // console.log(product);
-
-    const _categoryOptions = categories => {
-        let data = [];
-        categories.map((category, index) => {
-            data[index] = {value: category.id, label: category.label.toUpperCase()}
-        })
-        return data;
-    }
-
-    const _badgeOptions = [
-        {label: "New", value: "new"},
-        {label: "Sale", value: "sale"}
-    ];
-
-    const _defaultBadge = (badges) => {
-        let data = [];
-        badges.map((badge, index) => {
-            data[index] = {value: badge, label: badge.toUpperCase()}
-        })
-        return data;
-    };
 
     const _handleInputChange = (e, name = null) => {
         if (e.target) {
@@ -56,7 +31,7 @@ export default function Form(props) {
             }))
         }
 
-        if (name === "category_id" || name === "status") {
+        if (name === "category_id" || name === "status" || name === "review") {
             setValues(values => ({
                 ...values,
                 [name]: e.value,
@@ -83,14 +58,14 @@ export default function Form(props) {
         data.append('form_data[stock]', values.stock || '')
         data.append('form_data[category_id]', parseInt(values.category_id) || '')
         data.append('form_data[status]', values.status || '')
+        data.append('form_data[review]', values.review || '')
         data.append('form_data[details]', details || '')
         data.append('form_data[description]', values.description || '')
         _appendFiles(data, files);
         _appendMetaData(data, metaData);
-        Inertia.post('/products/save', data);
+        Inertia.post('/products/save', data,{preserveScroll:true});
     }
 
-    // console.log(values);
 
     return (
         <AdminLayout>
@@ -102,120 +77,82 @@ export default function Form(props) {
             />
             <PageContent>
                 <div className="row  justify-content-center my-4">
-                    <div className="col-7">
+                    <div className="col-9">
                         <ul className="nav nav-tabs" id="myTab" role="tablist">
+
                             <li className="nav-item" role="presentation">
-                                <a className="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home"
-                                   role="tab"
-                                   aria-controls="home" aria-selected="true">Product Details</a>
+                                <a className="nav-link active" id="general-tab" data-bs-toggle="tab"
+                                   href="#product-general" role="tab"
+                                   aria-controls="product-general" aria-selected="true">General</a>
                             </li>
+
                             <li className="nav-item" role="presentation">
-                                <a className="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab"
+                                <a className="nav-link" id="product-variations-tab" data-bs-toggle="tab" href="#product-variations"
+                                   role="tab"
+                                   aria-controls="product-variations" aria-selected="true">Product Variations</a>
+                            </li>
+
+                            <li className="nav-item" role="presentation">
+                                <a className="nav-link" id="product-seo-details-tab" data-bs-toggle="tab"
+                                   href="#product-seo-details" role="tab"
                                    aria-controls="profile" aria-selected="false">Seo Details</a>
                             </li>
-                        </ul>
-                        <div className="tab-content" id="myTabContent">
-                            <div className="tab-pane fade show active my-5" id="home" role="tabpanel"
-                                 aria-labelledby="home-tab">
-                                {
-                                    imageUrls ?
-                                        <FilesPreview
-                                            filesUrls={imageUrls}
-                                        />
-                                        : null
-                                }
 
-                                <FilesUpload
+                            <li className="nav-item" role="presentation">
+                                <a className="nav-link" id="product-shipping-tab" data-bs-toggle="tab"
+                                   href="#product-shipping"
+                                   role="tab"
+                                   aria-controls="product-shipping" aria-selected="true">Shipping</a>
+                            </li>
+
+                            <li className="nav-item" role="presentation">
+                                <a className="nav-link" id="linked-product-tab" data-bs-toggle="tab"
+                                   href="#linked-product"
+                                   role="tab"
+                                   aria-controls="linked-product" aria-selected="true">Linked Products</a>
+                            </li>
+
+                        </ul>
+                        <div className="tab-content px-3" id="myTabContent">
+                            <div className="tab-pane  my-5" id="product-general" role="tabpanel"
+                                 aria-labelledby="general-tab">
+                                <General
+                                    values={values}
+                                    details={details}
+                                    setDetails={setDetails}
+                                    product={product}
+                                    categories={categories}
+                                    handleInputChange={_handleInputChange}
+                                />
+                            </div>
+
+                            <div className="tab-pane fade show active my-5" id="product-variations" role="tabpanel"
+                                 aria-labelledby="profile-tab">
+                                <ProductVariations
+                                    imageUrls={imageUrls}
                                     files={files}
                                     setFiles={setFiles}
                                 />
-
-                                <FormInput
-                                    id={"name"}
-                                    label={"Name"}
-                                    type={"text"}
-                                    defaultValue={values ? values.name : null}
-                                    handleChange={_handleInputChange}
-                                />
-
-                                <Select
-                                    placeholder="Select Badges"
-                                    isMulti
-                                    isSearchable={true}
-                                    options={_badgeOptions}
-                                    defaultValue={product ? _defaultBadge(product.badges.split(','))  : null}
-                                    onChange={(e) => _handleInputChange(e, "badges")}
-                                />
-                                <br/>
-                                <Select
-                                    placeholder="Select Category"
-                                    isSearchable={true}
-                                    options={_categoryOptions(categories)}
-                                    defaultValue={product ? {
-                                        value: product.category.id,
-                                        label: product.category.label
-                                    } : null}
-                                    onChange={(e) => _handleInputChange(e, "category_id")}
-                                />
-
-
-                                <FormInput
-                                    id={"description"}
-                                    label={"Product Description"}
-                                    type={"textarea"}
-                                    defaultValue={values ? values.description : null}
-                                    handleChange={_handleInputChange}
-                                />
-
-                                <FormInput
-                                    id={"price"}
-                                    label={"Price"}
-                                    type={"number"}
-                                    defaultValue={values ? values.price : null}
-                                    handleChange={_handleInputChange}
-                                />
-
-                                <FormInput
-                                    id={"discounted_price"}
-                                    label={"Discounted Price"}
-                                    type={"number"}
-                                    defaultValue={values ? values.discounted_price : null}
-                                    handleChange={_handleInputChange}
-                                />
-
-                                <FormInput
-                                    id={"stock"}
-                                    label={"Stock"}
-                                    type={"number"}
-                                    defaultValue={values ? values.stock : null}
-                                    handleChange={_handleInputChange}
-                                />
-
-                                <CKEditor
-                                    editor={ClassicEditor}
-                                    data={details ? details : "<p>Product Details</p>"}
-                                    onChange={(event, editor) => {
-                                        const data = editor.getData();
-                                        setDetails(data)
-                                    }}
-                                />
-
-                                <br/>
-                                <Select
-                                    placeholder="Select Status"
-                                    options={statusOptions}
-                                    defaultValue={values ? {value: values.status, label: values.status} : null}
-                                    onChange={(e) => _handleInputChange(e, "status")}
-                                />
-
                             </div>
-                            <div className="tab-pane fade my-5" id="profile" role="tabpanel"
-                                 aria-labelledby="profile-tab">
+
+                            <div className="tab-pane fade my-5" id="product-seo-details" role="tabpanel"
+                                 aria-labelledby="product-seo-details-tab">
                                 <MetaDataForm
                                     metaData={metaData}
                                     setMetaData={setMetaData}
                                 />
                             </div>
+
+                            <div className="tab-pane fade my-5" id="product-shipping" role="tabpanel"
+                                 aria-labelledby="product-shipping-tab">
+                                product shipping
+                            </div>
+
+                            <div className="tab-pane fade my-5" id="linked-product" role="tabpanel"
+                                 aria-labelledby="linked-product-tab">
+                                linked product
+                            </div>
+
                         </div>
 
                         <SubmitButton
