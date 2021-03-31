@@ -17,6 +17,7 @@ import React from 'react'
 import { render } from 'react-dom'
 
 const el = document.getElementById('app')
+const _ = require('lodash');
 
 render(
     <App

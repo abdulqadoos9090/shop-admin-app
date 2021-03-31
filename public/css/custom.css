@@ -42,3 +42,7 @@
     box-shadow: none !important;
     border: 1px solid #cbccce;
 }
+
+.hover-pointer{
+    cursor: pointer;
+}

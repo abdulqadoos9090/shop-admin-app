@@ -34,11 +34,11 @@ const img = {
 
 
 export default function FormInputFiles(props) {
-    const{files,setFiles} = props;
+    const {files, setFiles} = props;
 
     const {getRootProps, getInputProps} = useDropzone({
         accept: 'image/*',
-        maxFiles:6,
+        maxFiles: 6,
         onDrop: acceptedFiles => {
             setFiles(acceptedFiles.map(file => Object.assign(file, {
                 preview: URL.createObjectURL(file)
@@ -57,7 +57,7 @@ export default function FormInputFiles(props) {
         </div>
     ));
 
-    useEffect(() => () => {
+    useEffect( () => {
         // Make sure to revoke the data uris to avoid memory leaks
         files.forEach(file => URL.revokeObjectURL(file.preview));
     }, [files]);

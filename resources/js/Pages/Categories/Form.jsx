@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
 import {Inertia} from '@inertiajs/inertia'
+
+import Select from "react-select";
 import FormInput from "../../Components/FormInput";
 import PageHeader from "../../Components/PageHeader";
 import AdminLayout from "../../Components/AdminLayout";
 import PageContent from "../../Components/PageContent";
 import MetaDataForm from "../../Components/MetaDataForm";
 import SubmitButton from "../../Components/SubmitButton";
-import Select from "react-select";
-import {_appendMetaData, statusOptions} from "../../Common";
+import {statusOptions} from "../../Helpers/DefaultOptions";
+import {_appendMetaData} from "../../Helpers/CommonFunctions";
 
 export default function Form(props) {
 

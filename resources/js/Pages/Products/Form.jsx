@@ -1,25 +1,22 @@
 import React, {useState, useEffect} from 'react';
+import General from "./Childrens/General";
 import {Inertia} from '@inertiajs/inertia';
-import FormInput from "../../Components/FormInput";
 import PageHeader from "../../Components/PageHeader";
 import AdminLayout from "../../Components/AdminLayout";
 import PageContent from "../../Components/PageContent";
 import MetaDataForm from "../../Components/MetaDataForm";
 import SubmitButton from "../../Components/SubmitButton";
-import {_appendFiles, _appendMetaData} from "../../Common";
-import General from "./Childrens/General";
 import ProductVariations from "./Childrens/ProductVariations";
+import {_appendFiles, _appendMetaData} from "../../Helpers/CommonFunctions";
 
 
-export default function Form(props) {
+export default function Form({product, categories}) {
 
-    const {product, categories} = props;
+    const [files, setFiles] = useState(() => []);
     const [values, setValues] = useState(product ? product : '');
-    const [files, setFiles] = useState([]);
     const [imageUrls, setImageUrls] = useState(product ? product.product_images : null);
     const [details, setDetails] = useState(product ? product.details : '');
     const [metaData, setMetaData] = useState(product ? product.meta_data : '');
-
 
     const _handleInputChange = (e, name = null) => {
         if (e.target) {
@@ -63,7 +60,7 @@ export default function Form(props) {
         data.append('form_data[description]', values.description || '')
         _appendFiles(data, files);
         _appendMetaData(data, metaData);
-        Inertia.post('/products/save', data,{preserveScroll:true});
+        Inertia.post('/products/save', data, {preserveScroll: true});
     }
 
 
@@ -87,7 +84,8 @@ export default function Form(props) {
                             </li>
 
                             <li className="nav-item" role="presentation">
-                                <a className="nav-link" id="product-variations-tab" data-bs-toggle="tab" href="#product-variations"
+                                <a className="nav-link" id="product-variations-tab" data-bs-toggle="tab"
+                                   href="#product-variations"
                                    role="tab"
                                    aria-controls="product-variations" aria-selected="true">Product Variations</a>
                             </li>
@@ -117,6 +115,8 @@ export default function Form(props) {
                             <div className="tab-pane  my-5" id="product-general" role="tabpanel"
                                  aria-labelledby="general-tab">
                                 <General
+                                    files={files}
+                                    setFiles={setFiles}
                                     values={values}
                                     details={details}
                                     setDetails={setDetails}

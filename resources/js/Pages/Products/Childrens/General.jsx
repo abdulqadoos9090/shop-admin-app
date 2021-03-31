@@ -3,8 +3,8 @@ import FormInput from "../../../Components/FormInput";
 import Select from "react-select";
 import {CKEditor} from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import {reviewOptions, statusOptions} from "../../../Common";
-import {ACTIVE, PENDING} from "../../../Constants";
+import FormInputFiles from "../../../Components/FormInputFiles";
+import {reviewOptions, statusOptions} from "../../../Helpers/DefaultOptions";
 
 const _badgeOptions = [
     {label: "New", value: "new"},
@@ -29,10 +29,15 @@ const _categoryOptions = categories => {
 }
 
 
-export default function General(props) {
-    const {values, product, categories, details, setDetails, handleInputChange} = props;
+export default function General({files,setFiles,values, product, categories, details, setDetails, handleInputChange}) {
     return (
         <React.Fragment>
+
+            <FormInputFiles
+                files={files}
+                setFiles={setFiles}
+            />
+
             <FormInput
                 id={"name"}
                 label={"Name"}

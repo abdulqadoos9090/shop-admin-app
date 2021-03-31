@@ -1,7 +1,7 @@
 import React from 'react';
 import FormInput from "./FormInput";
 import Select from 'react-select'
-import {indexOptions} from "../Common";
+import {indexOptions} from "../Helpers/DefaultOptions";
 
 export default function MetaDataForm({metaData,setMetaData}) {
 
