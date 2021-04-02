@@ -1,4 +1,3 @@
-
 export const sizeOptions = [
     {value: 'sm', label: 'sm'},
     {value: 'md', label: 'md'},
@@ -12,6 +11,10 @@ export const statusOptions = [
     {value: 'active', label: 'Active'},
 ];
 
+export const badgeOptions = [
+    {label: "New", value: "new"},
+    {label: "Sale", value: "sale"}
+];
 
 export const reviewOptions = [
     {value: 'enable', label: 'Enable'},

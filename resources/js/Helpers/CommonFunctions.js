@@ -6,9 +6,15 @@ export function _appendMetaData(data, metaData) {
     data.append("meta_data[index]", metaData.index || '');
 }
 
-export function _appendFiles(data,files){
+export function _appendFiles(data, files) {
     for (let x = 0; x < Object.keys(files).length; x++) {
         data.append("images[]", files[x]);
     }
+}
+
+export const _createSelectOptions = (data, labelKey, valueKey) => {
+    return data.map(item =>(
+        {label: item.[labelKey], value :item.[valueKey]}
+    ));
 }
 

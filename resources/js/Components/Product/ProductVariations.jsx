@@ -1,52 +1,31 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {CirclePicker} from "react-color";
 import CreatableSelect from 'react-select/creatable';
-import FormInput from "../../../Components/FormInput";
-import {sizeOptions} from "../../../Helpers/DefaultOptions";
-import {ADD, NUMBER, REMOVE} from "../../../Helpers/Constants";
+import FormInput from "../FormInput";
+import {sizeOptions} from "../../Helpers/DefaultOptions";
+import {ADD, NUMBER, REMOVE} from "../../Helpers/Constants";
+import {initialProductVariations} from "../../Helpers/InitialStateObjects";
 
-export default function ProductVariations() {
+const ProductVariations = () => {
 
-    const initialProductVariations =
-        {
-            files: [],
-            sizes: [],
-            colors: ["#607D8B"],
-            stock: null,
-            price: null,
-            discounted_price: null,
-            uuid: Date.now()
-        }
-    ;
     const [productVariations, setProductVariations] = useState(() => [initialProductVariations]);
 
+    useEffect(() => {
+        console.log('PRODUCT VARIATIONS RENDER');
+    });
 
-    const _handleInputChange = (event, action) => {
-        // return console.log(event.target);
+
+    const _handleInputChange = (event, input) => {
         let arr = _.cloneDeep(productVariations);
-
-        if (event.target) {
-            let value = event.target.value;
-            arr[parseInt(event.target.getAttribute("index"))].[event.target.id] = event.target.type === NUMBER ? parseInt(value) : value;
-        }
-
-        if (event.length) {
-            arr[action.name[1]].[action.name[0]] = event;
-        }
-
+        event.target ?
+            arr[parseInt(event.target.getAttribute("index"))].[event.target.id] = event.target.type === NUMBER ? parseInt(event.target.value) : event.target.value :
+            event.hex ? arr[input].colors = [event.hex] : arr[input.name[1]].[input.name[0]] = event;
         setProductVariations(arr);
     }
 
-    const _handleColorChange = (color, index) => {
-        const arr = _.cloneDeep(productVariations);
-        arr[index].colors = [color.hex];
-        setProductVariations(arr);
-    }
 
     const _handleProductVariationActions = (action, index = null) => {
-
         let arr = _.cloneDeep(productVariations);
-
         switch (action) {
             case ADD :
                 let addObj = {...initialProductVariations, uuid: Date.now()}
@@ -56,9 +35,7 @@ export default function ProductVariations() {
                 arr.splice(index, 1)
                 break;
         }
-
         setProductVariations(arr);
-
     }
 
     // console.log(productVariations);
@@ -119,11 +96,11 @@ export default function ProductVariations() {
 
                     <FormInput
                         index={index}
-                        id="discounted_price"
+                        id="discountedPrice"
                         label="Discounted Price"
                         type={NUMBER}
                         handleChange={_handleInputChange}
-                        defaultValue={variation ? variation.discounted_price : null}
+                        defaultValue={variation ? variation.discountedPrice : null}
                     />
 
 
@@ -131,7 +108,7 @@ export default function ProductVariations() {
                     <CirclePicker
                         width="103%"
                         color={variation ? variation.colors[0] : null}
-                        onChangeComplete={(color) => _handleColorChange(color, index)}
+                        onChangeComplete={(color) => _handleInputChange(color, index)}
                     />
                 </div>
             ))}
@@ -139,3 +116,5 @@ export default function ProductVariations() {
 
     )
 }
+
+export default React.memo(ProductVariations);
