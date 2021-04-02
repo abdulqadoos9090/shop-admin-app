@@ -1,13 +1,16 @@
 import React, {useState, useEffect} from 'react';
-import General from "../../Components/Product/General";
 import {Inertia} from '@inertiajs/inertia';
 import PageHeader from "../../Components/PageHeader";
 import AdminLayout from "../../Components/AdminLayout";
 import PageContent from "../../Components/PageContent";
 import SubmitButton from "../../Components/SubmitButton";
+
+import General from "../../Components/Product/General";
 import MetaDataForm from "../../Components/MetaDataForm";
+import ProductImages from "../../Components/Product/ProductImages";
 import ProductVariations from "../../Components/Product/ProductVariations";
 import {_appendFiles, _appendMetaData} from "../../Helpers/CommonFunctions";
+import FormInputFiles from "../../Components/Files/FormInputFiles";
 
 export default function Form({product, categories}) {
 
@@ -43,9 +46,10 @@ export default function Form({product, categories}) {
                 btnClass="primary"
             />
             <PageContent>
-                <div className="row  justify-content-center my-4">
+                <div className="row justify-content-center my-4">
                     <div className="col-9">
                         <ul className="nav nav-tabs" id="myTab" role="tablist">
+
                             <li className="nav-item" role="presentation">
                                 <a className="nav-link active" id="general-tab" data-bs-toggle="tab"
                                    href="#product-general" role="tab"
@@ -60,9 +64,16 @@ export default function Form({product, categories}) {
                             </li>
 
                             <li className="nav-item" role="presentation">
-                                <a className="nav-link" id="product-seo-details-tab" data-bs-toggle="tab"
-                                   href="#product-seo-details" role="tab"
-                                   aria-controls="profile" aria-selected="false">Meta Data</a>
+                                <a className="nav-link" id="product-images-tab" data-bs-toggle="tab"
+                                   href="#product-images"
+                                   role="tab"
+                                   aria-controls="product-images" aria-selected="true">Product Images</a>
+                            </li>
+
+                            <li className="nav-item" role="presentation">
+                                <a className="nav-link" id="product-metadata-tab" data-bs-toggle="tab"
+                                   href="#product-metadata" role="tab"
+                                   aria-controls="profile" aria-selected="false">Metadata</a>
                             </li>
 
                             <li className="nav-item" role="presentation">
@@ -86,13 +97,18 @@ export default function Form({product, categories}) {
                                 <General categories={categories}/>
                             </div>
 
-                            <div className="tab-pane  my-5" id="product-variations" role="tabpanel"
+                            <div className="tab-pane my-5" id="product-variations" role="tabpanel"
                                  aria-labelledby="profile-tab">
                                 <ProductVariations/>
                             </div>
 
-                            <div className="tab-pane fade my-5" id="product-seo-details" role="tabpanel"
-                                 aria-labelledby="product-seo-details-tab">
+                            <div className="tab-pane my-5" id="product-images" role="tabpanel"
+                                 aria-labelledby="product-images-tab">
+                                <ProductImages/>
+                            </div>
+
+                            <div className="tab-pane fade my-5" id="product-metadata" role="tabpanel"
+                                 aria-labelledby="product-metadata-tab">
                                 <MetaDataForm/>
                             </div>
 
@@ -112,6 +128,7 @@ export default function Form({product, categories}) {
                             cancelUrl="/products"
                             handleFormSubmit={_handleFormSubmit}
                         />
+
                     </div>
                 </div>
             </PageContent>
