@@ -1,6 +1,7 @@
 export const ADD = "add";
 export const CLONE = "clone";
 export const REMOVE = "remove";
+export const UPDATE = "update";
 
 export const ACTIVE = "active";
 export const PENDING = "pending";

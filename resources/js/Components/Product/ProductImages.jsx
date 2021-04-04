@@ -9,7 +9,7 @@ const ProductImages = () => {
                 <div className="col-12">
                     Uploaded Images:
                 </div>
-                {/*{*/}
+                 {/*{*/}
                 {/*    props.filesUrls ? props.filesUrls.map(file => (*/}
                 {/*        <div className="col-2" key={file.id}>*/}
                 {/*            <button className="btn" onClick={() => _handleDeleteImage(file.image.id)}>*/}
