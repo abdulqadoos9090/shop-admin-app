@@ -109,17 +109,17 @@ const Form = ({product, categories}) => {
 
                             </ul>
                             <div className="tab-content px-3" id="myTabContent">
-                                <div className="tab-pane  my-5" id="product-general" role="tabpanel"
+                                <div className="tab-pane my-5 fade show active" id="product-general" role="tabpanel"
                                      aria-labelledby="general-tab">
                                     <General categories={categories}/>
                                 </div>
 
-                                <div className="tab-pane my-5" id="product-variations" role="tabpanel"
+                                <div className="tab-pane fade  my-5" id="product-variations" role="tabpanel"
                                      aria-labelledby="profile-tab">
                                     <ProductVariations/>
                                 </div>
 
-                                <div className="tab-pane my-5" id="product-images" role="tabpanel"
+                                <div className="tab-pane fade my-5" id="product-images" role="tabpanel"
                                      aria-labelledby="product-images-tab">
                                     <ProductImages/>
                                 </div>
@@ -129,7 +129,7 @@ const Form = ({product, categories}) => {
                                     <MetaDataForm/>
                                 </div>
 
-                                <div className="tab-pane fade show active my-5" id="product-shipping" role="tabpanel"
+                                <div className="tab-pane fade  my-5" id="product-shipping" role="tabpanel"
                                      aria-labelledby="product-shipping-tab">
                                     <Shipping/>
                                 </div>

@@ -1,16 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState,useContext} from 'react';
 import FormInput from "../FormInput";
 import Select from "react-select";
 import {CKEditor} from "@ckeditor/ckeditor5-react";
+import {ProductFormContext} from '../../Helpers/Contexts';
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import {badgeOptions, statusOptions} from "../../Helpers/DefaultOptions";
+import {NUMBER, TEXT, TEXTAREA, UPDATE} from "../../Helpers/Constants";
 import {_createSelectOptions} from "../../Helpers/CommonFunctions";
-import {NUMBER, TEXT, TEXTAREA} from "../../Helpers/Constants";
-import {initialGeneral} from "../../Helpers/InitialStateObjects";
+import {badgeOptions, statusOptions} from "../../Helpers/DefaultOptions";
 
 const General = ({categories}) => {
-
-    const [general, setGeneral] = useState(() => initialGeneral);
+    const {productFormState, dispatch} = useContext(ProductFormContext);
+    const general = productFormState.general;
 
     useEffect(() => {
         console.log("GENERAL RENDER");
@@ -21,7 +21,12 @@ const General = ({categories}) => {
         event.target ?
             arr.[event.target.id] = event.target.type === NUMBER ? parseInt(event.target.value) : event.target.value :
             input.data ? arr.details = input.getData() : arr[input.name] = event;
-        setGeneral(arr);
+
+        dispatch({
+            type: UPDATE,
+            key: "general",
+            data: arr
+        });
     }
 
     // console.log(general);
@@ -94,7 +99,8 @@ const General = ({categories}) => {
                         <input className="form-check-input hover-pointer" onChange={_handleInputChange} type="checkbox"
                                id="isReviewed" value={general.isReviewed !== "true"}
                                defaultChecked={general.isReviewed === "true"}/>
-                        <label className="form-check-label hover-pointer" htmlFor="isReviewed">Enable Product Reviews</label>
+                        <label className="form-check-label hover-pointer" htmlFor="isReviewed">Enable Product
+                            Reviews</label>
                     </div>
                 </div>
 

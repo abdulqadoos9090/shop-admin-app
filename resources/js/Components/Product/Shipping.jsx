@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useEffect,useContext} from 'react';
 
 import FormInput from "../FormInput";
 import {ProductFormContext} from '../../Helpers/Contexts';
@@ -17,6 +17,11 @@ const Shipping = () => {
             data: {...productFormState.shipping, [event.target.id]: event.target.value}
         });
     }
+
+
+    useEffect(() => {
+        console.log('PRODUCT SHIPPING RENDER');
+    });
 
     return (
         <>
@@ -43,4 +48,4 @@ const Shipping = () => {
         </>
     )
 }
-export default Shipping;
+export default React.memo(Shipping);

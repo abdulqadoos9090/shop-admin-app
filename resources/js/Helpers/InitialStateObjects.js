@@ -42,7 +42,7 @@ export const initialProductForm = {
         discountedPrice: null,
         uuid: Date.now()
     }],
-    metaData: {
+    metadata: {
         title: null,
         slug: null,
         description: null,
@@ -51,5 +51,6 @@ export const initialProductForm = {
     shipping: {
         weight: 20,
         dimensions: null,
-    }
+    },
+    images:[]
 }

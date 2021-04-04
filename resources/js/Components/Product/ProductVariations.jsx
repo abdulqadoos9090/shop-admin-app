@@ -1,14 +1,17 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect,useContext} from "react";
+import FormInput from "../FormInput";
 import {CirclePicker} from "react-color";
 import CreatableSelect from 'react-select/creatable';
-import FormInput from "../FormInput";
 import {sizeOptions} from "../../Helpers/DefaultOptions";
-import {ADD, NUMBER, REMOVE} from "../../Helpers/Constants";
+import {ProductFormContext} from "../../Helpers/Contexts";
+import {ADD, NUMBER, REMOVE, UPDATE} from "../../Helpers/Constants";
 import {initialProductVariations} from "../../Helpers/InitialStateObjects";
 
 const ProductVariations = () => {
 
-    const [productVariations, setProductVariations] = useState(() => [initialProductVariations]);
+    const {productFormState, dispatch} = useContext(ProductFormContext);
+
+    const productVariations = productFormState.variations;
 
     useEffect(() => {
         console.log('PRODUCT VARIATIONS RENDER');
@@ -20,7 +23,11 @@ const ProductVariations = () => {
         event.target ?
             arr[parseInt(event.target.getAttribute("index"))].[event.target.id] = event.target.type === NUMBER ? parseInt(event.target.value) : event.target.value :
             event.hex ? arr[input].colors = [event.hex] : arr[input.name[1]].[input.name[0]] = event;
-        setProductVariations(arr);
+        dispatch({
+            type: UPDATE,
+            key: "variations",
+            data: arr
+        });
     }
 
 
@@ -35,7 +42,12 @@ const ProductVariations = () => {
                 arr.splice(index, 1)
                 break;
         }
-        setProductVariations(arr);
+
+        dispatch({
+            type: UPDATE,
+            key: "variations",
+            data: arr
+        });
     }
 
     // console.log(productVariations);

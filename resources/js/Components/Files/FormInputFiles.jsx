@@ -33,8 +33,7 @@ const img = {
 };
 
 
-export default function FormInputFiles(props) {
-    const [files, setFiles] = useState([]);
+export default function FormInputFiles({files, setFiles}) {
     const {getRootProps, getInputProps} = useDropzone({
         accept: 'image/*',
         maxFiles: 6,

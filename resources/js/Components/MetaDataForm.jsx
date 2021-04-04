@@ -1,12 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import FormInput from "./FormInput";
 import {indexOptions} from "../Helpers/DefaultOptions";
 import {initialMetaData} from "../Helpers/InitialStateObjects";
-import {NUMBER, TEXT, TEXTAREA} from "../Helpers/Constants";
+import {NUMBER, TEXT, TEXTAREA, UPDATE} from "../Helpers/Constants";
+import {ProductFormContext} from "../Helpers/Contexts";
 
 const MetaDataForm = () => {
 
-    const [metaData, setMetaData] = useState(() => initialMetaData);
+    // const [metaData, setMetaData] = useState(() => initialMetaData);
+    const {productFormState, dispatch} = useContext(ProductFormContext);
+    const metaData = productFormState.metadata;
 
     useEffect(() => {
         console.log('METADATA RENDER');
@@ -16,7 +19,11 @@ const MetaDataForm = () => {
         let arr = _.cloneDeep(metaData);
         event.target && event.target.name === "index" ?
             arr.[event.target.name] = event.target.value : arr.[event.target.id] = event.target.type === NUMBER ? parseInt(event.target.value) : event.target.value;
-        setMetaData(arr);
+        dispatch({
+            type: UPDATE,
+            key: "metadata",
+            data: arr
+        });
     }
 
     // console.log(metaData);
