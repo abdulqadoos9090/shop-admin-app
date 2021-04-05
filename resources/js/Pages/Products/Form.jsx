@@ -26,14 +26,14 @@ export default function Form({product, categories}) {
     const [general, setGeneral] = useState(() => initialGeneral);
     const [metaData, setMetaData] = useState(() => initialMetaData);
     const [shipping, setShipping] = useState(() => initialShipping);
-    const [productVariations, setProductVariations] = useState(() => [initialProductVariations]);
+    const [variations, setVariations] = useState(() => [initialProductVariations]);
 
 
     useEffect(() => {
         console.log('FORM RENDER');
     })
 
-    console.log({images,general,metaData,shipping,productVariations})
+    console.log({images, general, metaData, shipping, variations})
 
     const _handleFormSubmit = () => {
         // let data = new FormData();
@@ -77,14 +77,14 @@ export default function Form({product, categories}) {
                                 <a className="nav-link" id="product-variations-tab" data-bs-toggle="tab"
                                    href="#product-variations"
                                    role="tab"
-                                   aria-controls="product-variations" aria-selected="true">Product Variations</a>
+                                   aria-controls="product-variations" aria-selected="true">Variations</a>
                             </li>
 
                             <li className="nav-item" role="presentation">
                                 <a className="nav-link" id="product-images-tab" data-bs-toggle="tab"
                                    href="#product-images"
                                    role="tab"
-                                   aria-controls="product-images" aria-selected="true">Product Images</a>
+                                   aria-controls="product-images" aria-selected="true">Images</a>
                             </li>
 
                             <li className="nav-item" role="presentation">
@@ -121,8 +121,8 @@ export default function Form({product, categories}) {
                             <div className="tab-pane my-5" id="product-variations" role="tabpanel"
                                  aria-labelledby="profile-tab">
                                 <ProductVariations
-                                    productVariations={productVariations}
-                                    setProductVariations={setProductVariations}
+                                    variations={variations}
+                                    setVariations={setVariations}
                                 />
                             </div>
 
@@ -152,7 +152,7 @@ export default function Form({product, categories}) {
 
                             <div className="tab-pane fade my-5" id="linked-product" role="tabpanel"
                                  aria-labelledby="linked-product-tab">
-                                linked product
+                                coming soon
                             </div>
 
                         </div>

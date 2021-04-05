@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import FormInput from "../FormInput";
 import Select from "react-select";
 import {CKEditor} from "@ckeditor/ckeditor5-react";
@@ -6,7 +6,6 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import {badgeOptions, statusOptions} from "../../Helpers/DefaultOptions";
 import {_createSelectOptions} from "../../Helpers/CommonFunctions";
 import {NUMBER, TEXT, TEXTAREA} from "../../Helpers/Constants";
-import {initialGeneral} from "../../Helpers/InitialStateObjects";
 
 const General = ({categories, general, setGeneral}) => {
 
@@ -21,7 +20,6 @@ const General = ({categories, general, setGeneral}) => {
             input.data ? arr.details = input.getData() : arr[input.name] = event;
         setGeneral(arr);
     }
-
 
     return (
         <React.Fragment>

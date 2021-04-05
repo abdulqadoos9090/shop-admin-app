@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useEffect} from "react";
 import {CirclePicker} from "react-color";
 import CreatableSelect from 'react-select/creatable';
 import FormInput from "../FormInput";
@@ -6,7 +6,7 @@ import {sizeOptions} from "../../Helpers/DefaultOptions";
 import {ADD, NUMBER, REMOVE} from "../../Helpers/Constants";
 import {initialProductVariations} from "../../Helpers/InitialStateObjects";
 
-const ProductVariations = ({productVariations, setProductVariations}) => {
+const ProductVariations = ({variations, setVariations}) => {
 
     useEffect(() => {
         console.log('PRODUCT VARIATIONS RENDER');
@@ -14,16 +14,16 @@ const ProductVariations = ({productVariations, setProductVariations}) => {
 
 
     const _handleInputChange = (event, input) => {
-        let arr = _.cloneDeep(productVariations);
+        let arr = _.cloneDeep(variations);
         event.target ?
             arr[parseInt(event.target.getAttribute("index"))].[event.target.id] = event.target.type === NUMBER ? parseInt(event.target.value) : event.target.value :
             event.hex ? arr[input].colors = [event.hex] : arr[input.name[1]].[input.name[0]] = event;
-        setProductVariations(arr);
+        setVariations(arr);
     }
 
 
     const _handleProductVariationActions = (action, index = null) => {
-        let arr = _.cloneDeep(productVariations);
+        let arr = _.cloneDeep(variations);
         switch (action) {
             case ADD :
                 let addObj = {...initialProductVariations, uuid: Date.now()}
@@ -33,14 +33,14 @@ const ProductVariations = ({productVariations, setProductVariations}) => {
                 arr.splice(index, 1)
                 break;
         }
-        setProductVariations(arr);
+        setVariations(arr);
     }
 
 
     return (
         <div className="row">
 
-            {productVariations.map((variation, index) => (
+            {variations.map((variation, index) => (
 
                 <div key={variation.uuid} className="col-md-4 mb-4">
 
@@ -54,7 +54,7 @@ const ProductVariations = ({productVariations, setProductVariations}) => {
                                      onClick={() => index === 0 ? null : _handleProductVariationActions(REMOVE, index)}>
                                     <i className={` fa fa-minus-circle ${index === 0 ? 'text-light' : 'hover-pointer text-warning'} `}/>
                                 </div>
-                                {index === (productVariations.length - 1) && index <= 1 ? (
+                                {index === (variations.length - 1) && index <= 1 ? (
                                     <div className="p-2"
                                          onClick={() => _handleProductVariationActions(ADD)}>
                                         <i className="fa fa-plus-circle hover-pointer text-success"/>

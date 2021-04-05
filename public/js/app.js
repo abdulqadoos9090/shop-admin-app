@@ -8885,9 +8885,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _FormInput__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormInput */ "./resources/js/Components/FormInput.jsx");
 /* harmony import */ var _Helpers_DefaultOptions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Helpers/DefaultOptions */ "./resources/js/Helpers/DefaultOptions.js");
-/* harmony import */ var _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Helpers/InitialStateObjects */ "./resources/js/Helpers/InitialStateObjects.js");
-/* harmony import */ var _Helpers_Constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Helpers/Constants */ "./resources/js/Helpers/Constants.js");
-
+/* harmony import */ var _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Helpers/Constants */ "./resources/js/Helpers/Constants.js");
 
 
 
@@ -8905,7 +8903,7 @@ var MetaDataForm = function MetaDataForm(_ref) {
   var _handleInputChange = function _handleInputChange(event) {
     var arr = _.cloneDeep(metaData);
 
-    event.target && event.target.name === "index" ? arr[event.target.name] = event.target.value : arr[event.target.id] = event.target.type === _Helpers_Constants__WEBPACK_IMPORTED_MODULE_5__.NUMBER ? parseInt(event.target.value) : event.target.value;
+    event.target && event.target.name === "index" ? arr[event.target.name] = event.target.value : arr[event.target.id] = event.target.type === _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__.NUMBER ? parseInt(event.target.value) : event.target.value;
     setMetaData(arr);
   };
 
@@ -8913,19 +8911,19 @@ var MetaDataForm = function MetaDataForm(_ref) {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.default, {
       id: "title",
       label: "Title",
-      type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_5__.TEXT,
+      type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__.TEXT,
       defaultValue: metaData ? metaData.title : null,
       handleChange: _handleInputChange
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.default, {
       id: "slug",
       label: "Slug",
-      type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_5__.TEXT,
+      type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__.TEXT,
       defaultValue: metaData ? metaData.slug : null,
       handleChange: _handleInputChange
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.default, {
       id: "description",
       label: "Meta Description",
-      type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_5__.TEXTAREA,
+      type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__.TEXTAREA,
       defaultValue: metaData ? metaData.description : null,
       handleChange: _handleInputChange
     }), _Helpers_DefaultOptions__WEBPACK_IMPORTED_MODULE_3__.indexOptions.map(function (item, index) {
@@ -9060,7 +9058,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _FormInput__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../FormInput */ "./resources/js/Components/FormInput.jsx");
-/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.browser.esm.js");
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.browser.esm.js");
 /* harmony import */ var _ckeditor_ckeditor5_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ckeditor/ckeditor5-react */ "./node_modules/@ckeditor/ckeditor5-react/dist/ckeditor.js");
 /* harmony import */ var _ckeditor_ckeditor5_react__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_ckeditor_ckeditor5_react__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ckeditor/ckeditor5-build-classic */ "./node_modules/@ckeditor/ckeditor5-build-classic/build/ckeditor.js");
@@ -9068,8 +9066,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Helpers_DefaultOptions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Helpers/DefaultOptions */ "./resources/js/Helpers/DefaultOptions.js");
 /* harmony import */ var _Helpers_CommonFunctions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../Helpers/CommonFunctions */ "./resources/js/Helpers/CommonFunctions.js");
 /* harmony import */ var _Helpers_Constants__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../Helpers/Constants */ "./resources/js/Helpers/Constants.js");
-/* harmony import */ var _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../Helpers/InitialStateObjects */ "./resources/js/Helpers/InitialStateObjects.js");
-
 
 
 
@@ -9116,7 +9112,7 @@ var General = function General(_ref) {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
           className: "my-2",
           children: "Category"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_9__.default, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_8__.default, {
           isSearchable: true,
           name: "category",
           options: (0,_Helpers_CommonFunctions__WEBPACK_IMPORTED_MODULE_6__._createSelectOptions)(categories, "label", "id"),
@@ -9128,7 +9124,7 @@ var General = function General(_ref) {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
           className: "my-2",
           children: "Badges"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_9__.default, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_8__.default, {
           isMulti: true,
           name: "badges",
           isSearchable: true,
@@ -9141,7 +9137,7 @@ var General = function General(_ref) {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
           className: "my-2",
           children: "Status"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_9__.default, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_8__.default, {
           name: "status",
           options: _Helpers_DefaultOptions__WEBPACK_IMPORTED_MODULE_5__.statusOptions,
           defaultValue: general ? general.status : null,
@@ -9262,23 +9258,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 var ProductVariations = function ProductVariations(_ref) {
-  var productVariations = _ref.productVariations,
-      setProductVariations = _ref.setProductVariations;
+  var variations = _ref.variations,
+      setVariations = _ref.setVariations;
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     console.log('PRODUCT VARIATIONS RENDER');
   });
 
   var _handleInputChange = function _handleInputChange(event, input) {
-    var arr = _.cloneDeep(productVariations);
+    var arr = _.cloneDeep(variations);
 
     event.target ? arr[parseInt(event.target.getAttribute("index"))][event.target.id] = event.target.type === _Helpers_Constants__WEBPACK_IMPORTED_MODULE_6__.NUMBER ? parseInt(event.target.value) : event.target.value : event.hex ? arr[input].colors = [event.hex] : arr[input.name[1]][input.name[0]] = event;
-    setProductVariations(arr);
+    setVariations(arr);
   };
 
   var _handleProductVariationActions = function _handleProductVariationActions(action) {
     var index = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
 
-    var arr = _.cloneDeep(productVariations);
+    var arr = _.cloneDeep(variations);
 
     switch (action) {
       case _Helpers_Constants__WEBPACK_IMPORTED_MODULE_6__.ADD:
@@ -9294,12 +9290,12 @@ var ProductVariations = function ProductVariations(_ref) {
         break;
     }
 
-    setProductVariations(arr);
+    setVariations(arr);
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
     className: "row",
-    children: productVariations.map(function (variation, index) {
+    children: variations.map(function (variation, index) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
         className: "col-md-4 mb-4",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
@@ -9322,7 +9318,7 @@ var ProductVariations = function ProductVariations(_ref) {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
                   className: " fa fa-minus-circle ".concat(index === 0 ? 'text-light' : 'hover-pointer text-warning', " ")
                 })
-              }), index === productVariations.length - 1 && index <= 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+              }), index === variations.length - 1 && index <= 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
                 className: "p-2",
                 onClick: function onClick() {
                   return _handleProductVariationActions(_Helpers_Constants__WEBPACK_IMPORTED_MODULE_6__.ADD);
@@ -10071,8 +10067,8 @@ function Form(_ref) {
     return [_Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_13__.initialProductVariations];
   }),
       _useState10 = _slicedToArray(_useState9, 2),
-      productVariations = _useState10[0],
-      setProductVariations = _useState10[1];
+      variations = _useState10[0],
+      setVariations = _useState10[1];
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     console.log('FORM RENDER');
@@ -10082,7 +10078,7 @@ function Form(_ref) {
     general: general,
     metaData: metaData,
     shipping: shipping,
-    productVariations: productVariations
+    variations: variations
   });
 
   var _handleFormSubmit = function _handleFormSubmit() {// let data = new FormData();
@@ -10141,7 +10137,7 @@ function Form(_ref) {
                 role: "tab",
                 "aria-controls": "product-variations",
                 "aria-selected": "true",
-                children: "Product Variations"
+                children: "Variations"
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
               className: "nav-item",
@@ -10154,7 +10150,7 @@ function Form(_ref) {
                 role: "tab",
                 "aria-controls": "product-images",
                 "aria-selected": "true",
-                children: "Product Images"
+                children: "Images"
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
               className: "nav-item",
@@ -10215,8 +10211,8 @@ function Form(_ref) {
               role: "tabpanel",
               "aria-labelledby": "profile-tab",
               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Product_ProductVariations__WEBPACK_IMPORTED_MODULE_11__.default, {
-                productVariations: productVariations,
-                setProductVariations: setProductVariations
+                variations: variations,
+                setVariations: setVariations
               })
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
               className: "tab-pane my-5",
@@ -10250,7 +10246,7 @@ function Form(_ref) {
               id: "linked-product",
               role: "tabpanel",
               "aria-labelledby": "linked-product-tab",
-              children: "linked product"
+              children: "coming soon"
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_SubmitButton__WEBPACK_IMPORTED_MODULE_6__.default, {
             cancelUrl: "/products",

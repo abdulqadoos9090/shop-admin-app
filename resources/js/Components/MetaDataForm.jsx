@@ -1,11 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import FormInput from "./FormInput";
 import {indexOptions} from "../Helpers/DefaultOptions";
-import {initialMetaData} from "../Helpers/InitialStateObjects";
 import {NUMBER, TEXT, TEXTAREA} from "../Helpers/Constants";
 
 const MetaDataForm = ({metaData, setMetaData}) => {
-
 
     useEffect(() => {
         console.log('METADATA RENDER');
