@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import FormInput from "../FormInput";
-import {NUMBER, TEXT} from "../../Helpers/Constants";
+import {NUMBER, TEXT, TEXTAREA} from "../../Helpers/Constants";
 
 const Shipping = ({shipping, setShipping}) => {
 
@@ -19,27 +19,43 @@ const Shipping = ({shipping, setShipping}) => {
     return (
         <>
             <div className="row">
-                <div className="col-md-6">
+                <div className="col-md-4">
                     <FormInput
                         id="weight"
                         label="Weight (kg)"
                         type={NUMBER}
                         handleChange={_handleInputChange}
-                        // defaultValue={metaData ? metaData.title : null}
+                        defaultValue={shipping ? shipping.title : null}
                     />
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-4">
                     <FormInput
                         id="dimensions"
                         label="Dimensions (20 * 30 * 40)"
                         type={TEXT}
                         handleChange={_handleInputChange}
-                        // defaultValue={metaData ? metaData.title : null}
+                        defaultValue={shipping ? shipping.dimensions : null}
+                    />
+                </div>
+                <div className="col-md-4">
+                    <FormInput
+                        id="minimumOrder"
+                        label="Minimum Order"
+                        type={NUMBER}
+                        handleChange={_handleInputChange}
+                        defaultValue={shipping ? shipping.minimumOrder : null}
+                    />
+                </div>
+                <div className="col-md-12">
+                    <FormInput
+                        id="purchaseNote"
+                        label="Purchase Note"
+                        type={TEXTAREA}
+                        handleChange={_handleInputChange}
+                        defaultValue={shipping ? shipping.purchaseNote : null}
                     />
                 </div>
             </div>
-
-
         </>
     )
 }

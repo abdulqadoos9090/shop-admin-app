@@ -27,4 +27,6 @@ export const initialMetaData = {
 export const initialShipping = {
     weight: null,
     dimensions: null,
+    minimumOrder: null,
+    purchaseNote: null,
 };

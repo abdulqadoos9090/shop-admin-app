@@ -9427,22 +9427,40 @@ var Shipping = function Shipping(_ref) {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
       className: "row",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-        className: "col-md-6",
+        className: "col-md-4",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.default, {
           id: "weight",
           label: "Weight (kg)",
           type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_3__.NUMBER,
-          handleChange: _handleInputChange // defaultValue={metaData ? metaData.title : null}
-
+          handleChange: _handleInputChange,
+          defaultValue: shipping ? shipping.title : null
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-        className: "col-md-6",
+        className: "col-md-4",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.default, {
           id: "dimensions",
           label: "Dimensions (20 * 30 * 40)",
           type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_3__.TEXT,
-          handleChange: _handleInputChange // defaultValue={metaData ? metaData.title : null}
-
+          handleChange: _handleInputChange,
+          defaultValue: shipping ? shipping.dimensions : null
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        className: "col-md-4",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.default, {
+          id: "minimumOrder",
+          label: "Minimum Order",
+          type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_3__.NUMBER,
+          handleChange: _handleInputChange,
+          defaultValue: shipping ? shipping.minimumOrder : null
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        className: "col-md-12",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.default, {
+          id: "purchaseNote",
+          label: "Purchase Note",
+          type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_3__.TEXTAREA,
+          handleChange: _handleInputChange,
+          defaultValue: shipping ? shipping.purchaseNote : null
         })
       })]
     })
@@ -9662,7 +9680,9 @@ var initialMetaData = {
 };
 var initialShipping = {
   weight: null,
-  dimensions: null
+  dimensions: null,
+  minimumOrder: null,
+  purchaseNote: null
 };
 
 /***/ }),
