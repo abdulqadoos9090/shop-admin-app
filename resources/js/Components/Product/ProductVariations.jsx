@@ -6,9 +6,7 @@ import {sizeOptions} from "../../Helpers/DefaultOptions";
 import {ADD, NUMBER, REMOVE} from "../../Helpers/Constants";
 import {initialProductVariations} from "../../Helpers/InitialStateObjects";
 
-const ProductVariations = () => {
-
-    const [productVariations, setProductVariations] = useState(() => [initialProductVariations]);
+const ProductVariations = ({productVariations, setProductVariations}) => {
 
     useEffect(() => {
         console.log('PRODUCT VARIATIONS RENDER');
@@ -38,7 +36,6 @@ const ProductVariations = () => {
         setProductVariations(arr);
     }
 
-    // console.log(productVariations);
 
     return (
         <div className="row">

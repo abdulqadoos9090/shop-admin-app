@@ -1,10 +1,18 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import FormInputFiles from "../Files/FormInputFiles";
 
-const ProductImages = () => {
+const ProductImages = ({images, setImages}) => {
+
+    useEffect(() => {
+        console.log('PRODUCT IMAGES RENDER');
+    });
+
     return (
         <>
-            <FormInputFiles/>
+            <FormInputFiles
+                files={images}
+                setFiles={setImages}
+            />
             <div className="row">
                 <div className="col-12">
                     Uploaded Images:

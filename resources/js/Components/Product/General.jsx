@@ -8,9 +8,7 @@ import {_createSelectOptions} from "../../Helpers/CommonFunctions";
 import {NUMBER, TEXT, TEXTAREA} from "../../Helpers/Constants";
 import {initialGeneral} from "../../Helpers/InitialStateObjects";
 
-const General = ({categories}) => {
-
-    const [general, setGeneral] = useState(() => initialGeneral);
+const General = ({categories, general, setGeneral}) => {
 
     useEffect(() => {
         console.log("GENERAL RENDER");
@@ -24,7 +22,6 @@ const General = ({categories}) => {
         setGeneral(arr);
     }
 
-    // console.log(general);
 
     return (
         <React.Fragment>
@@ -94,7 +91,8 @@ const General = ({categories}) => {
                         <input className="form-check-input hover-pointer" onChange={_handleInputChange} type="checkbox"
                                id="isReviewed" value={general.isReviewed !== "true"}
                                defaultChecked={general.isReviewed === "true"}/>
-                        <label className="form-check-label hover-pointer" htmlFor="isReviewed">Enable Product Reviews</label>
+                        <label className="form-check-label hover-pointer" htmlFor="isReviewed">Enable Product
+                            Reviews</label>
                     </div>
                 </div>
 

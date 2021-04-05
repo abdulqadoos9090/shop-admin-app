@@ -4,9 +4,8 @@ import {indexOptions} from "../Helpers/DefaultOptions";
 import {initialMetaData} from "../Helpers/InitialStateObjects";
 import {NUMBER, TEXT, TEXTAREA} from "../Helpers/Constants";
 
-const MetaDataForm = () => {
+const MetaDataForm = ({metaData, setMetaData}) => {
 
-    const [metaData, setMetaData] = useState(() => initialMetaData);
 
     useEffect(() => {
         console.log('METADATA RENDER');
@@ -19,7 +18,6 @@ const MetaDataForm = () => {
         setMetaData(arr);
     }
 
-    // console.log(metaData);
 
     return (
         <React.Fragment>

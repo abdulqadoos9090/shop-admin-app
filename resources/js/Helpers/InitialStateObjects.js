@@ -23,3 +23,8 @@ export const initialMetaData = {
     description: null,
     index: "nofollow,noindex",
 };
+
+export const initialShipping = {
+    weight: null,
+    dimensions: null,
+};

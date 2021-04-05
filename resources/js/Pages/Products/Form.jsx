@@ -6,17 +6,34 @@ import PageContent from "../../Components/PageContent";
 import SubmitButton from "../../Components/SubmitButton";
 
 import General from "../../Components/Product/General";
+import Shipping from "../../Components/Product/Shipping";
 import MetaDataForm from "../../Components/MetaDataForm";
 import ProductImages from "../../Components/Product/ProductImages";
 import ProductVariations from "../../Components/Product/ProductVariations";
+
 import {_appendFiles, _appendMetaData} from "../../Helpers/CommonFunctions";
-import FormInputFiles from "../../Components/Files/FormInputFiles";
+
+import {
+    initialGeneral,
+    initialMetaData,
+    initialProductVariations,
+    initialShipping
+} from "../../Helpers/InitialStateObjects";
 
 export default function Form({product, categories}) {
+
+    const [images, setImages] = useState([]);
+    const [general, setGeneral] = useState(() => initialGeneral);
+    const [metaData, setMetaData] = useState(() => initialMetaData);
+    const [shipping, setShipping] = useState(() => initialShipping);
+    const [productVariations, setProductVariations] = useState(() => [initialProductVariations]);
+
 
     useEffect(() => {
         console.log('FORM RENDER');
     })
+
+    console.log({images,general,metaData,shipping,productVariations})
 
     const _handleFormSubmit = () => {
         // let data = new FormData();
@@ -94,27 +111,43 @@ export default function Form({product, categories}) {
                         <div className="tab-content px-3" id="myTabContent">
                             <div className="tab-pane fade show active my-5" id="product-general" role="tabpanel"
                                  aria-labelledby="general-tab">
-                                <General categories={categories}/>
+                                <General
+                                    general={general}
+                                    setGeneral={setGeneral}
+                                    categories={categories}
+                                />
                             </div>
 
                             <div className="tab-pane my-5" id="product-variations" role="tabpanel"
                                  aria-labelledby="profile-tab">
-                                <ProductVariations/>
+                                <ProductVariations
+                                    productVariations={productVariations}
+                                    setProductVariations={setProductVariations}
+                                />
                             </div>
 
                             <div className="tab-pane my-5" id="product-images" role="tabpanel"
                                  aria-labelledby="product-images-tab">
-                                <ProductImages/>
+                                <ProductImages
+                                    images={images}
+                                    setImages={setImages}
+                                />
                             </div>
 
                             <div className="tab-pane fade my-5" id="product-metadata" role="tabpanel"
                                  aria-labelledby="product-metadata-tab">
-                                <MetaDataForm/>
+                                <MetaDataForm
+                                    metaData={metaData}
+                                    setMetaData={setMetaData}
+                                />
                             </div>
 
                             <div className="tab-pane fade my-5" id="product-shipping" role="tabpanel"
                                  aria-labelledby="product-shipping-tab">
-                                product shipping
+                                <Shipping
+                                    shipping={shipping}
+                                    setShipping={setShipping}
+                                />
                             </div>
 
                             <div className="tab-pane fade my-5" id="linked-product" role="tabpanel"

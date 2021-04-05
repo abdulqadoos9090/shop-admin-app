@@ -32,9 +32,7 @@ const img = {
     height: '100%'
 };
 
-
-export default function FormInputFiles(props) {
-    const [files, setFiles] = useState([]);
+export default function FormInputFiles({files, setFiles}) {
     const {getRootProps, getInputProps} = useDropzone({
         accept: 'image/*',
         maxFiles: 6,
@@ -56,7 +54,7 @@ export default function FormInputFiles(props) {
         </div>
     ));
 
-    useEffect( () => {
+    useEffect(() => {
         // Make sure to revoke the data uris to avoid memory leaks
         files.forEach(file => URL.revokeObjectURL(file.preview));
     }, [files]);
