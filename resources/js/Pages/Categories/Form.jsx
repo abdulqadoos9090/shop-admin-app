@@ -10,12 +10,13 @@ import MetaDataForm from "../../Components/MetaDataForm";
 import SubmitButton from "../../Components/SubmitButton";
 import {statusOptions} from "../../Helpers/DefaultOptions";
 import {_appendMetaData} from "../../Helpers/CommonFunctions";
+import {initialMetaData} from "../../Helpers/InitialStateObjects";
 
 export default function Form(props) {
 
     const {category} = props;
     const [values, setValues] = useState(category);
-    const [metaData, setMetaData] = useState(category ? category.meta_data : null);
+    const [metadata, setMetadata] = useState(() => initialMetaData);
 
     const _handleInputChange = (e) => {
         if (e.target) {
@@ -33,12 +34,13 @@ export default function Form(props) {
         }
     }
 
-    const _handleFormSubmit = () => {
+    const _handleFormSubmit = (e) => {
+        e.preventDefault();
         let data = new FormData()
         data.append('form_data[id]', values.id || '')
         data.append('form_data[label]', values.label || '')
         data.append('form_data[status]', values.status || '')
-        _appendMetaData(data, metaData);
+        _appendMetaData(data, metadata);
         Inertia.post('/categories/save', data);
     }
 
@@ -51,55 +53,56 @@ export default function Form(props) {
                 btnClass="primary"
             />
             <PageContent>
-                <div className="row  justify-content-center my-4">
-                    <div className="col-7">
-                        <ul className="nav nav-tabs" id="myTab" role="tablist">
-                            <li className="nav-item" role="presentation">
-                                <a className="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home"
-                                   role="tab"
-                                   aria-controls="home" aria-selected="true">Category Details</a>
-                            </li>
-                            <li className="nav-item" role="presentation">
-                                <a className="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab"
-                                   aria-controls="profile" aria-selected="false">Seo Details</a>
-                            </li>
-                        </ul>
-                        <div className="tab-content" id="myTabContent">
-                            <div className="tab-pane fade show active my-5" id="home" role="tabpanel"
-                                 aria-labelledby="home-tab">
+                <form onSubmit={_handleFormSubmit}>
+                    <div className="row  justify-content-center my-4">
+                        <div className="col-7">
+                            <ul className="nav nav-tabs" id="myTab" role="tablist">
+                                <li className="nav-item" role="presentation">
+                                    <a className="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home"
+                                       role="tab"
+                                       aria-controls="home" aria-selected="true">Category Details</a>
+                                </li>
+                                <li className="nav-item" role="presentation">
+                                    <a className="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile"
+                                       role="tab"
+                                       aria-controls="profile" aria-selected="false">Seo Details</a>
+                                </li>
+                            </ul>
+                            <div className="tab-content" id="myTabContent">
+                                <div className="tab-pane fade show active my-5" id="home" role="tabpanel"
+                                     aria-labelledby="home-tab">
 
-                                <FormInput
-                                    id={"label"}
-                                    label={"Label"}
-                                    type={"text"}
-                                    defaultValue={values ? values.label : null}
-                                    handleChange={_handleInputChange}
-                                />
-
-
-                                <Select
-                                    options={statusOptions}
-                                    defaultValue={values ? {value: values.status, label: values.status} : null}
-                                    onChange={_handleInputChange}
-                                />
+                                    <FormInput
+                                        id={"label"}
+                                        label={"Label"}
+                                        type={"text"}
+                                        defaultValue={values ? values.label : null}
+                                        handleChange={_handleInputChange}
+                                    />
 
 
+                                    <Select
+                                        options={statusOptions}
+                                        defaultValue={values ? {value: values.status, label: values.status} : null}
+                                        onChange={_handleInputChange}
+                                    />
+
+                                </div>
+                                <div className="tab-pane fade my-5" id="profile" role="tabpanel"
+                                     aria-labelledby="profile-tab">
+                                    <MetaDataForm
+                                        metadata={metadata}
+                                        setMetadata={setMetadata}
+                                    />
+                                </div>
                             </div>
-                            <div className="tab-pane fade my-5" id="profile" role="tabpanel"
-                                 aria-labelledby="profile-tab">
-                                <MetaDataForm
-                                    metaData={metaData}
-                                    setMetaData={setMetaData}
-                                />
-                            </div>
+
+                            <SubmitButton
+                                cancelUrl="/categories"
+                            />
                         </div>
-
-                        <SubmitButton
-                            cancelUrl="/categories"
-                            handleFormSubmit={_handleFormSubmit}
-                        />
                     </div>
-                </div>
+                </form>
             </PageContent>
         </AdminLayout>
     )

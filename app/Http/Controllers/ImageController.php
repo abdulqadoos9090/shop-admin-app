@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\ImageService;
+use App\Services\FileUploadService;
 use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
     protected $imageService;
 
-    public function __construct(ImageService $imageService)
+    public function __construct(FileUploadService $imageService)
     {
         $this->imageService = $imageService;
     }

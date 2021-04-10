@@ -17,16 +17,11 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->foreignId('meta_data_id')->constrained('meta_data')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('name');
-            $table->string('description');
-            $table->text('details');
-            $table->string('price');
-            $table->string('discounted_price');
-            $table->string('badges');
-            $table->integer('stock');
-            $table->string('status');
-            $table->string('review');
+            $table->text('images');
+            $table->text('general');
+            $table->text('metadata');
+            $table->text('shipping');
+            $table->text('variations');
             $table->timestamps();
         });
     }

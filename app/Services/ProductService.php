@@ -3,21 +3,16 @@
 
 namespace App\Services;
 
-
-use App\Constants;
 use App\Repositories\ProductRepository;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class ProductService
 {
-    protected $productRepository, $imageService, $metaDataService;
+    protected $productRepository, $productImagePaths, $productData = null;
 
-    public function __construct(ProductRepository $productRepository, ImageService $imageService, MetaDataService $metaDataService)
+    public function __construct(ProductRepository $productRepository)
     {
         $this->productRepository = $productRepository;
-        $this->imageService = $imageService;
-        $this->metaDataService = $metaDataService;
     }
 
     public function all()
@@ -25,32 +20,29 @@ class ProductService
         return $this->productRepository->all();
     }
 
-    public function getProductById($id)
+    public function find($id)
     {
-        return $this->productRepository->getProductById($id);
+        return $this->productRepository->find($id);
     }
 
     public function save($request)
     {
-        if (isset($request->form_data['id']) && $request->form_data['id']) {
-            $this->metaDataService->save($request->meta_data);
-            $this->productRepository->update($request->form_data);
-            if ($request->hasFile('images')) {
-                $this->imageService->uploadProductImages($request->images, $request->form_data['id']);
-            }
-            return true;
-        } else {
-            $data = $request->form_data;
-            $metaData = $this->metaDataService->save($request->meta_data);
-            $data['meta_data_id'] = $metaData->id;
-            $data['user_id'] = Auth::id();
-            $product = $this->productRepository->create($data);
-            if ($request->hasFile('images')) {
-                $this->imageService->uploadProductImages($request->images, $product->id);
-            }
-            return false;
-        }
+//        dd($request->all());
+        $this->productData = $request->all();
+        $request->has('images') ? $this->uploadProductImages($request->images) : null;
+        $this->productData['images'] = $this->productImagePaths;
+        $this->productData['user_id'] = Auth::id();
+        return $this->productRepository->save($this->productData);
+    }
 
+    public function uploadProductImages($images)
+    {
+        foreach ($images as $key => $image) {
+            $name = $key . time() . '.' . $image->extension();
+            $image->move(public_path('images/product-images'), $name);
+            $this->productImagePaths[$key] = 'images/product-images/' . $name;
+        }
+        return $this->productImagePaths ? $this->productImagePaths : $this->productImagePaths = 'images/product-images/default.jpg';
     }
 
 }

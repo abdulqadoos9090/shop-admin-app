@@ -9,21 +9,19 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'meta_data_id', 'category_id', 'name',  'badges','description', 'details', 'price', 'discounted_price', 'stock', 'status','review'];
+    protected $fillable = ['user_id', 'category_id', 'general', 'variations', 'shipping', 'images', 'metadata'];
 
-    public function metaData()
-    {
-        return $this->belongsTo(MetaData::class);
-    }
+    protected $casts = [
+        'images' => 'array',
+        'general' => 'json',
+        'variations' => 'json',
+        'shipping' => 'json',
+        'metadata' => 'json',
+    ];
 
     public function category()
     {
         return $this->belongsTo(Category::class);
-    }
-
-    public function productImages()
-    {
-        return $this->hasMany(ProductImage::class);
     }
 
     public function comments()

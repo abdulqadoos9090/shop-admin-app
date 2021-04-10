@@ -19,30 +19,40 @@ class ProductController extends Controller
 
     public function index()
     {
-        return inertia('Products/Index', [
-            'products' => $this->productService->all(),
-        ]);
+        try {
+            return inertia('Products/Index',["products" => $this->productService->all()]);
+        } catch (\Exception $exception) {
+            dd($exception);
+        }
     }
 
     public function create()
     {
-        return inertia('Products/Form', [
-            'product' => null,
-            'categories' => $this->categoryService->all()
-        ]);
+        try {
+            return inertia('Products/Form', ['categories' => $this->categoryService->all()]);
+        } catch (\Exception $exception) {
+            dd($exception);
+        }
     }
 
     public function edit($id)
     {
-        return inertia('Products/Form', [
-            'product' => $this->productService->getProductById($id),
-            'categories' => $this->categoryService->all()
-        ]);
+        try {
+            return inertia('Products/Form', [
+                'product' => $this->productService->find($id),
+                'categories' => $this->categoryService->all()
+            ]);
+        } catch (\Exception $exception) {
+            dd($exception);
+        }
     }
 
     public function save(Request $request)
     {
-        $isSaved = $this->productService->save($request);
-        return $isSaved ? redirect()->back() : redirect('/products');
+        try {
+            return $this->productService->save($request) ? redirect()->back() : redirect('/products');
+        } catch (\Exception $exception) {
+            dd($exception);
+        }
     }
 }

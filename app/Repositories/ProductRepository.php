@@ -17,22 +17,17 @@ class ProductRepository
 
     public function all()
     {
-        return $this->product->with('metaData')->get();
+        return $this->product->with('category')->get();
     }
 
-    public function create($data)
+    public function find($id)
     {
-        return $this->product->create($data);
+        return $this->product->with(['category'])->find($id);
     }
 
-    public function update($data)
+    public function save($data)
     {
-        return $this->product->find($data['id'])->update($data);
-    }
-
-    public function getProductById($id)
-    {
-        return $this->product->with(['category','metaData', 'productImages.image'])->find($id);
+        return $this->product->updateOrCreate(['id' => $data['id']], $data);
     }
 
 }

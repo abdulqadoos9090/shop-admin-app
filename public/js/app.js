@@ -8894,17 +8894,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var MetaDataForm = function MetaDataForm(_ref) {
-  var metaData = _ref.metaData,
-      setMetaData = _ref.setMetaData;
+  var metadata = _ref.metadata,
+      setMetadata = _ref.setMetadata;
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     console.log('METADATA RENDER');
   });
 
   var _handleInputChange = function _handleInputChange(event) {
-    var arr = _.cloneDeep(metaData);
+    var arr = _.cloneDeep(metadata);
 
     event.target && event.target.name === "index" ? arr[event.target.name] = event.target.value : arr[event.target.id] = event.target.type === _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__.NUMBER ? parseInt(event.target.value) : event.target.value;
-    setMetaData(arr);
+    setMetadata(arr);
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
@@ -8912,19 +8912,19 @@ var MetaDataForm = function MetaDataForm(_ref) {
       id: "title",
       label: "Title",
       type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__.TEXT,
-      defaultValue: metaData ? metaData.title : null,
+      defaultValue: metadata ? metadata.title : null,
       handleChange: _handleInputChange
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.default, {
       id: "slug",
       label: "Slug",
       type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__.TEXT,
-      defaultValue: metaData ? metaData.slug : null,
+      defaultValue: metadata ? metadata.slug : null,
       handleChange: _handleInputChange
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.default, {
       id: "description",
       label: "Meta Description",
       type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__.TEXTAREA,
-      defaultValue: metaData ? metaData.description : null,
+      defaultValue: metadata ? metadata.description : null,
       handleChange: _handleInputChange
     }), _Helpers_DefaultOptions__WEBPACK_IMPORTED_MODULE_3__.indexOptions.map(function (item, index) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
@@ -8935,7 +8935,7 @@ var MetaDataForm = function MetaDataForm(_ref) {
           name: "index",
           id: "inlineRadio-".concat(index),
           defaultValue: item.value,
-          defaultChecked: metaData.index === item.value,
+          defaultChecked: metadata.index === item.value,
           onClick: _handleInputChange
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
           className: "form-check-label hover-pointer",
@@ -9497,7 +9497,6 @@ function SubmitButton(_ref) {
         children: "Cancel"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
         type: "submit",
-        onClick: handleFormSubmit,
         className: "btn btn-success px-4",
         children: "Save"
       })]
@@ -9697,7 +9696,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
-/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.browser.esm.js");
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.browser.esm.js");
 /* harmony import */ var _Components_FormInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Components/FormInput */ "./resources/js/Components/FormInput.jsx");
 /* harmony import */ var _Components_PageHeader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Components/PageHeader */ "./resources/js/Components/PageHeader.jsx");
 /* harmony import */ var _Components_AdminLayout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Components/AdminLayout */ "./resources/js/Components/AdminLayout.jsx");
@@ -9706,6 +9705,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_SubmitButton__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../Components/SubmitButton */ "./resources/js/Components/SubmitButton.jsx");
 /* harmony import */ var _Helpers_DefaultOptions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../Helpers/DefaultOptions */ "./resources/js/Helpers/DefaultOptions.js");
 /* harmony import */ var _Helpers_CommonFunctions__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../Helpers/CommonFunctions */ "./resources/js/Helpers/CommonFunctions.js");
+/* harmony import */ var _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../Helpers/InitialStateObjects */ "./resources/js/Helpers/InitialStateObjects.js");
 
 
 
@@ -9738,6 +9738,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function Form(props) {
   var category = props.category;
 
@@ -9746,10 +9747,12 @@ function Form(props) {
       values = _useState2[0],
       setValues = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(category ? category.meta_data : null),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(function () {
+    return _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_11__.initialMetaData;
+  }),
       _useState4 = _slicedToArray(_useState3, 2),
-      metaData = _useState4[0],
-      setMetaData = _useState4[1];
+      metadata = _useState4[0],
+      setMetadata = _useState4[1];
 
   var _handleInputChange = function _handleInputChange(e) {
     if (e.target) {
@@ -9765,13 +9768,14 @@ function Form(props) {
     }
   };
 
-  var _handleFormSubmit = function _handleFormSubmit() {
+  var _handleFormSubmit = function _handleFormSubmit(e) {
+    e.preventDefault();
     var data = new FormData();
     data.append('form_data[id]', values.id || '');
     data.append('form_data[label]', values.label || '');
     data.append('form_data[status]', values.status || '');
 
-    (0,_Helpers_CommonFunctions__WEBPACK_IMPORTED_MODULE_10__._appendMetaData)(data, metaData);
+    (0,_Helpers_CommonFunctions__WEBPACK_IMPORTED_MODULE_10__._appendMetaData)(data, metadata);
 
     _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.post('/categories/save', data);
   };
@@ -9783,77 +9787,79 @@ function Form(props) {
       btnLable: "View all",
       btnClass: "primary"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_PageContent__WEBPACK_IMPORTED_MODULE_6__.default, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-        className: "row  justify-content-center my-4",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-          className: "col-7",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", {
-            className: "nav nav-tabs",
-            id: "myTab",
-            role: "tablist",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
-              className: "nav-item",
-              role: "presentation",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
-                className: "nav-link active",
-                id: "home-tab",
-                "data-bs-toggle": "tab",
-                href: "#home",
-                role: "tab",
-                "aria-controls": "home",
-                "aria-selected": "true",
-                children: "Category Details"
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
-              className: "nav-item",
-              role: "presentation",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
-                className: "nav-link",
-                id: "profile-tab",
-                "data-bs-toggle": "tab",
-                href: "#profile",
-                role: "tab",
-                "aria-controls": "profile",
-                "aria-selected": "false",
-                children: "Seo Details"
-              })
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-            className: "tab-content",
-            id: "myTabContent",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-              className: "tab-pane fade show active my-5",
-              id: "home",
-              role: "tabpanel",
-              "aria-labelledby": "home-tab",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_FormInput__WEBPACK_IMPORTED_MODULE_3__.default, {
-                id: "label",
-                label: "Label",
-                type: "text",
-                defaultValue: values ? values.label : null,
-                handleChange: _handleInputChange
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_11__.default, {
-                options: _Helpers_DefaultOptions__WEBPACK_IMPORTED_MODULE_9__.statusOptions,
-                defaultValue: values ? {
-                  value: values.status,
-                  label: values.status
-                } : null,
-                onChange: _handleInputChange
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("form", {
+        onSubmit: _handleFormSubmit,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+          className: "row  justify-content-center my-4",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            className: "col-7",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", {
+              className: "nav nav-tabs",
+              id: "myTab",
+              role: "tablist",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
+                className: "nav-item",
+                role: "presentation",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
+                  className: "nav-link active",
+                  id: "home-tab",
+                  "data-bs-toggle": "tab",
+                  href: "#home",
+                  role: "tab",
+                  "aria-controls": "home",
+                  "aria-selected": "true",
+                  children: "Category Details"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
+                className: "nav-item",
+                role: "presentation",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
+                  className: "nav-link",
+                  id: "profile-tab",
+                  "data-bs-toggle": "tab",
+                  href: "#profile",
+                  role: "tab",
+                  "aria-controls": "profile",
+                  "aria-selected": "false",
+                  children: "Seo Details"
+                })
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-              className: "tab-pane fade my-5",
-              id: "profile",
-              role: "tabpanel",
-              "aria-labelledby": "profile-tab",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_MetaDataForm__WEBPACK_IMPORTED_MODULE_7__.default, {
-                metaData: metaData,
-                setMetaData: setMetaData
-              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "tab-content",
+              id: "myTabContent",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+                className: "tab-pane fade show active my-5",
+                id: "home",
+                role: "tabpanel",
+                "aria-labelledby": "home-tab",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_FormInput__WEBPACK_IMPORTED_MODULE_3__.default, {
+                  id: "label",
+                  label: "Label",
+                  type: "text",
+                  defaultValue: values ? values.label : null,
+                  handleChange: _handleInputChange
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_select__WEBPACK_IMPORTED_MODULE_12__.default, {
+                  options: _Helpers_DefaultOptions__WEBPACK_IMPORTED_MODULE_9__.statusOptions,
+                  defaultValue: values ? {
+                    value: values.status,
+                    label: values.status
+                  } : null,
+                  onChange: _handleInputChange
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "tab-pane fade my-5",
+                id: "profile",
+                role: "tabpanel",
+                "aria-labelledby": "profile-tab",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_MetaDataForm__WEBPACK_IMPORTED_MODULE_7__.default, {
+                  metadata: metadata,
+                  setMetadata: setMetadata
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_SubmitButton__WEBPACK_IMPORTED_MODULE_8__.default, {
+              cancelUrl: "/categories"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_SubmitButton__WEBPACK_IMPORTED_MODULE_8__.default, {
-            cancelUrl: "/categories",
-            handleFormSubmit: _handleFormSubmit
-          })]
+          })
         })
       })
     })]
@@ -9994,16 +10000,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
-/* harmony import */ var _Components_PageHeader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Components/PageHeader */ "./resources/js/Components/PageHeader.jsx");
-/* harmony import */ var _Components_AdminLayout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Components/AdminLayout */ "./resources/js/Components/AdminLayout.jsx");
-/* harmony import */ var _Components_PageContent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Components/PageContent */ "./resources/js/Components/PageContent.jsx");
-/* harmony import */ var _Components_SubmitButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../Components/SubmitButton */ "./resources/js/Components/SubmitButton.jsx");
-/* harmony import */ var _Components_Product_General__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../Components/Product/General */ "./resources/js/Components/Product/General.jsx");
-/* harmony import */ var _Components_Product_Shipping__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../Components/Product/Shipping */ "./resources/js/Components/Product/Shipping.jsx");
-/* harmony import */ var _Components_MetaDataForm__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../Components/MetaDataForm */ "./resources/js/Components/MetaDataForm.jsx");
-/* harmony import */ var _Components_Product_ProductImages__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../Components/Product/ProductImages */ "./resources/js/Components/Product/ProductImages.jsx");
-/* harmony import */ var _Components_Product_ProductVariations__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../Components/Product/ProductVariations */ "./resources/js/Components/Product/ProductVariations.jsx");
-/* harmony import */ var _Helpers_CommonFunctions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../Helpers/CommonFunctions */ "./resources/js/Helpers/CommonFunctions.js");
+/* harmony import */ var _Helpers_CommonFunctions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Helpers/CommonFunctions */ "./resources/js/Helpers/CommonFunctions.js");
+/* harmony import */ var _Components_PageHeader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Components/PageHeader */ "./resources/js/Components/PageHeader.jsx");
+/* harmony import */ var _Components_AdminLayout__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Components/AdminLayout */ "./resources/js/Components/AdminLayout.jsx");
+/* harmony import */ var _Components_PageContent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../Components/PageContent */ "./resources/js/Components/PageContent.jsx");
+/* harmony import */ var _Components_SubmitButton__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../Components/SubmitButton */ "./resources/js/Components/SubmitButton.jsx");
+/* harmony import */ var _Components_Product_General__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../Components/Product/General */ "./resources/js/Components/Product/General.jsx");
+/* harmony import */ var _Components_Product_Shipping__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../Components/Product/Shipping */ "./resources/js/Components/Product/Shipping.jsx");
+/* harmony import */ var _Components_MetaDataForm__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../Components/MetaDataForm */ "./resources/js/Components/MetaDataForm.jsx");
+/* harmony import */ var _Components_Product_ProductImages__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../Components/Product/ProductImages */ "./resources/js/Components/Product/ProductImages.jsx");
+/* harmony import */ var _Components_Product_ProductVariations__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../Components/Product/ProductVariations */ "./resources/js/Components/Product/ProductVariations.jsx");
 /* harmony import */ var _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../Helpers/InitialStateObjects */ "./resources/js/Helpers/InitialStateObjects.js");
 
 
@@ -10053,8 +10059,8 @@ function Form(_ref) {
     return _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_13__.initialMetaData;
   }),
       _useState6 = _slicedToArray(_useState5, 2),
-      metaData = _useState6[0],
-      setMetaData = _useState6[1];
+      metadata = _useState6[0],
+      setMetadata = _useState6[1];
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(function () {
     return _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_13__.initialShipping;
@@ -10072,186 +10078,180 @@ function Form(_ref) {
 
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     console.log('FORM RENDER');
-  });
-  console.log({
-    images: images,
-    general: general,
-    metaData: metaData,
-    shipping: shipping,
-    variations: variations
-  });
+  }); // console.log({images, general, metadata, shipping, variations})
 
-  var _handleFormSubmit = function _handleFormSubmit() {// let data = new FormData();
-    // data.append('form_data[id]', values.id || '')
-    // data.append('form_data[name]', values.name || '')
-    // data.append('form_data[badges]', values.badges || '')
-    // data.append('form_data[price]', values.price || '')
-    // data.append('form_data[discounted_price]', values.discounted_price || '')
-    // data.append('form_data[stock]', values.stock || '')
-    // data.append('form_data[category_id]', parseInt(values.category_id) || '')
-    // data.append('form_data[status]', values.status || '')
-    // data.append('form_data[review]', values.review || '')
-    // data.append('form_data[details]', details || '')
-    // data.append('form_data[description]', values.description || '')
-    // _appendFiles(data, files);
-    // _appendMetaData(data, metaData);
-    // Inertia.post('/products/save', data, {preserveScroll: true});
+  var _handleFormSubmit = function _handleFormSubmit(e) {
+    e.preventDefault();
+    var data = {
+      id: null,
+      category_id: general.category.value,
+      general: general,
+      shipping: shipping,
+      metadata: metadata,
+      variations: variations,
+      images: images
+    };
+    _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_2__.Inertia.post('/products/save', data, {
+      preserveScroll: true
+    });
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_AdminLayout__WEBPACK_IMPORTED_MODULE_4__.default, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_PageHeader__WEBPACK_IMPORTED_MODULE_3__.default, {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_AdminLayout__WEBPACK_IMPORTED_MODULE_5__.default, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_PageHeader__WEBPACK_IMPORTED_MODULE_4__.default, {
       title: "Add new product",
       url: "/products",
       btnLable: "View all",
       btnClass: "primary"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_PageContent__WEBPACK_IMPORTED_MODULE_5__.default, {
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-        className: "row justify-content-center my-4",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-          className: "col-9",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", {
-            className: "nav nav-tabs",
-            id: "myTab",
-            role: "tablist",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
-              className: "nav-item",
-              role: "presentation",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
-                className: "nav-link active",
-                id: "general-tab",
-                "data-bs-toggle": "tab",
-                href: "#product-general",
-                role: "tab",
-                "aria-controls": "product-general",
-                "aria-selected": "true",
-                children: "General"
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
-              className: "nav-item",
-              role: "presentation",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
-                className: "nav-link",
-                id: "product-variations-tab",
-                "data-bs-toggle": "tab",
-                href: "#product-variations",
-                role: "tab",
-                "aria-controls": "product-variations",
-                "aria-selected": "true",
-                children: "Variations"
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
-              className: "nav-item",
-              role: "presentation",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
-                className: "nav-link",
-                id: "product-images-tab",
-                "data-bs-toggle": "tab",
-                href: "#product-images",
-                role: "tab",
-                "aria-controls": "product-images",
-                "aria-selected": "true",
-                children: "Images"
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
-              className: "nav-item",
-              role: "presentation",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
-                className: "nav-link",
-                id: "product-metadata-tab",
-                "data-bs-toggle": "tab",
-                href: "#product-metadata",
-                role: "tab",
-                "aria-controls": "profile",
-                "aria-selected": "false",
-                children: "Metadata"
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
-              className: "nav-item",
-              role: "presentation",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
-                className: "nav-link",
-                id: "product-shipping-tab",
-                "data-bs-toggle": "tab",
-                href: "#product-shipping",
-                role: "tab",
-                "aria-controls": "product-shipping",
-                "aria-selected": "true",
-                children: "Shipping"
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
-              className: "nav-item",
-              role: "presentation",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
-                className: "nav-link",
-                id: "linked-product-tab",
-                "data-bs-toggle": "tab",
-                href: "#linked-product",
-                role: "tab",
-                "aria-controls": "linked-product",
-                "aria-selected": "true",
-                children: "Linked Products"
-              })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_PageContent__WEBPACK_IMPORTED_MODULE_6__.default, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("form", {
+        onSubmit: _handleFormSubmit,
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+          className: "row justify-content-center my-4",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            className: "col-9",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("ul", {
+              className: "nav nav-tabs",
+              id: "myTab",
+              role: "tablist",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
+                className: "nav-item",
+                role: "presentation",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
+                  className: "nav-link active",
+                  id: "general-tab",
+                  "data-bs-toggle": "tab",
+                  href: "#product-general",
+                  role: "tab",
+                  "aria-controls": "product-general",
+                  "aria-selected": "true",
+                  children: "General"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
+                className: "nav-item",
+                role: "presentation",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
+                  className: "nav-link",
+                  id: "product-variations-tab",
+                  "data-bs-toggle": "tab",
+                  href: "#product-variations",
+                  role: "tab",
+                  "aria-controls": "product-variations",
+                  "aria-selected": "true",
+                  children: "Variations"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
+                className: "nav-item",
+                role: "presentation",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
+                  className: "nav-link",
+                  id: "product-images-tab",
+                  "data-bs-toggle": "tab",
+                  href: "#product-images",
+                  role: "tab",
+                  "aria-controls": "product-images",
+                  "aria-selected": "true",
+                  children: "Images"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
+                className: "nav-item",
+                role: "presentation",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
+                  className: "nav-link",
+                  id: "product-metadata-tab",
+                  "data-bs-toggle": "tab",
+                  href: "#product-metadata",
+                  role: "tab",
+                  "aria-controls": "profile",
+                  "aria-selected": "false",
+                  children: "Metadata"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
+                className: "nav-item",
+                role: "presentation",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
+                  className: "nav-link",
+                  id: "product-shipping-tab",
+                  "data-bs-toggle": "tab",
+                  href: "#product-shipping",
+                  role: "tab",
+                  "aria-controls": "product-shipping",
+                  "aria-selected": "true",
+                  children: "Shipping"
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("li", {
+                className: "nav-item",
+                role: "presentation",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("a", {
+                  className: "nav-link",
+                  id: "linked-product-tab",
+                  "data-bs-toggle": "tab",
+                  href: "#linked-product",
+                  role: "tab",
+                  "aria-controls": "linked-product",
+                  "aria-selected": "true",
+                  children: "Linked Products"
+                })
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "tab-content px-3",
+              id: "myTabContent",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "tab-pane fade show active my-5",
+                id: "product-general",
+                role: "tabpanel",
+                "aria-labelledby": "general-tab",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Product_General__WEBPACK_IMPORTED_MODULE_8__.default, {
+                  general: general,
+                  setGeneral: setGeneral,
+                  categories: categories
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "tab-pane my-5",
+                id: "product-variations",
+                role: "tabpanel",
+                "aria-labelledby": "profile-tab",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Product_ProductVariations__WEBPACK_IMPORTED_MODULE_12__.default, {
+                  variations: variations,
+                  setVariations: setVariations
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "tab-pane my-5",
+                id: "product-images",
+                role: "tabpanel",
+                "aria-labelledby": "product-images-tab",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Product_ProductImages__WEBPACK_IMPORTED_MODULE_11__.default, {
+                  images: images,
+                  setImages: setImages
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "tab-pane fade my-5",
+                id: "product-metadata",
+                role: "tabpanel",
+                "aria-labelledby": "product-metadata-tab",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_MetaDataForm__WEBPACK_IMPORTED_MODULE_10__.default, {
+                  metadata: metadata,
+                  setMetadata: setMetadata
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "tab-pane fade my-5",
+                id: "product-shipping",
+                role: "tabpanel",
+                "aria-labelledby": "product-shipping-tab",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Product_Shipping__WEBPACK_IMPORTED_MODULE_9__.default, {
+                  shipping: shipping,
+                  setShipping: setShipping
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+                className: "tab-pane fade my-5",
+                id: "linked-product",
+                role: "tabpanel",
+                "aria-labelledby": "linked-product-tab",
+                children: "coming soon"
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_SubmitButton__WEBPACK_IMPORTED_MODULE_7__.default, {
+              cancelUrl: "/products"
             })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-            className: "tab-content px-3",
-            id: "myTabContent",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-              className: "tab-pane fade show active my-5",
-              id: "product-general",
-              role: "tabpanel",
-              "aria-labelledby": "general-tab",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Product_General__WEBPACK_IMPORTED_MODULE_7__.default, {
-                general: general,
-                setGeneral: setGeneral,
-                categories: categories
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-              className: "tab-pane my-5",
-              id: "product-variations",
-              role: "tabpanel",
-              "aria-labelledby": "profile-tab",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Product_ProductVariations__WEBPACK_IMPORTED_MODULE_11__.default, {
-                variations: variations,
-                setVariations: setVariations
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-              className: "tab-pane my-5",
-              id: "product-images",
-              role: "tabpanel",
-              "aria-labelledby": "product-images-tab",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Product_ProductImages__WEBPACK_IMPORTED_MODULE_10__.default, {
-                images: images,
-                setImages: setImages
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-              className: "tab-pane fade my-5",
-              id: "product-metadata",
-              role: "tabpanel",
-              "aria-labelledby": "product-metadata-tab",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_MetaDataForm__WEBPACK_IMPORTED_MODULE_9__.default, {
-                metaData: metaData,
-                setMetaData: setMetaData
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-              className: "tab-pane fade my-5",
-              id: "product-shipping",
-              role: "tabpanel",
-              "aria-labelledby": "product-shipping-tab",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Product_Shipping__WEBPACK_IMPORTED_MODULE_8__.default, {
-                shipping: shipping,
-                setShipping: setShipping
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-              className: "tab-pane fade my-5",
-              id: "linked-product",
-              role: "tabpanel",
-              "aria-labelledby": "linked-product-tab",
-              children: "coming soon"
-            })]
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_SubmitButton__WEBPACK_IMPORTED_MODULE_6__.default, {
-            cancelUrl: "/products",
-            handleFormSubmit: _handleFormSubmit
-          })]
+          })
         })
       })
     })]
@@ -10269,16 +10269,15 @@ function Form(_ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _Components_AdminLayout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Components/AdminLayout */ "./resources/js/Components/AdminLayout.jsx");
-/* harmony import */ var _inertiajs_inertia_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
-/* harmony import */ var _Components_PageHeader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Components/PageHeader */ "./resources/js/Components/PageHeader.jsx");
-/* harmony import */ var _Components_PageContent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Components/PageContent */ "./resources/js/Components/PageContent.jsx");
-/* harmony import */ var _Components_ActionButton__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../Components/ActionButton */ "./resources/js/Components/ActionButton.jsx");
-/* harmony import */ var _Components_NoRecordsFound__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../Components/NoRecordsFound */ "./resources/js/Components/NoRecordsFound.jsx");
+/* harmony import */ var _Components_PageHeader__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Components/PageHeader */ "./resources/js/Components/PageHeader.jsx");
+/* harmony import */ var _Components_PageContent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Components/PageContent */ "./resources/js/Components/PageContent.jsx");
+/* harmony import */ var _Components_ActionButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Components/ActionButton */ "./resources/js/Components/ActionButton.jsx");
+/* harmony import */ var _Components_NoRecordsFound__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../Components/NoRecordsFound */ "./resources/js/Components/NoRecordsFound.jsx");
 
 
 
@@ -10288,14 +10287,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(props) {
-  var products = props.products;
+var Index = function Index(_ref) {
+  var products = _ref.products;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_Components_AdminLayout__WEBPACK_IMPORTED_MODULE_2__.default, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_PageHeader__WEBPACK_IMPORTED_MODULE_4__.default, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_PageHeader__WEBPACK_IMPORTED_MODULE_3__.default, {
       title: "View all products",
       url: "/products/create",
       btnLable: "Add new"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_PageContent__WEBPACK_IMPORTED_MODULE_5__.default, {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_PageContent__WEBPACK_IMPORTED_MODULE_4__.default, {
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("table", {
         className: "table table-borderless",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("thead", {
@@ -10305,19 +10304,7 @@ __webpack_require__.r(__webpack_exports__);
               children: "Name"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
               scope: "col",
-              children: "Badges"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              scope: "col",
-              children: "Description"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              scope: "col",
-              children: "Price"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              scope: "col",
-              children: "Stock"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
-              scope: "col",
-              children: "Index"
+              children: "Category"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
               scope: "col",
               children: "Status"
@@ -10327,27 +10314,16 @@ __webpack_require__.r(__webpack_exports__);
             })]
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
-          children: products && products.length ? products.map(function (product) {
+          children: products !== null && products !== void 0 && products.length ? products.map(function (product) {
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                children: product.name
+                children: product.general.name
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                children: product.badges
+                children: product.general.category.label
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                children: product.description
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("td", {
-                children: [product.price, " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("small", {
-                  className: "text-secondary",
-                  children: product.discounted_price
-                })]
+                children: product.general.status.label
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                children: product.stock
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                children: product.meta_data.index
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                children: product.status
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ActionButton__WEBPACK_IMPORTED_MODULE_6__.default, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ActionButton__WEBPACK_IMPORTED_MODULE_5__.default, {
                   isDetails: false,
                   detailsUrl: "/products/".concat(product.id, "/show"),
                   isEdit: true,
@@ -10355,14 +10331,16 @@ __webpack_require__.r(__webpack_exports__);
                 })
               })]
             }, product.id);
-          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_NoRecordsFound__WEBPACK_IMPORTED_MODULE_7__.default, {
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_NoRecordsFound__WEBPACK_IMPORTED_MODULE_6__.default, {
             colSpan: 7
           })
         })]
       })
     })]
   });
-}
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Index);
 
 /***/ }),
 

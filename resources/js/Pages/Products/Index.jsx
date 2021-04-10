@@ -1,14 +1,11 @@
 import React from 'react';
 import AdminLayout from "../../Components/AdminLayout";
-import {InertiaLink} from "@inertiajs/inertia-react";
 import PageHeader from "../../Components/PageHeader";
 import PageContent from "../../Components/PageContent";
 import ActionButton from "../../Components/ActionButton";
 import NoRecordsFound from "../../Components/NoRecordsFound";
 
-
-export default function (props) {
-    const {products} = props;
+const Index = ({products}) => {
     return (
         <AdminLayout>
             <PageHeader
@@ -21,26 +18,18 @@ export default function (props) {
                     <thead>
                     <tr>
                         <th scope="col">Name</th>
-                        <th scope="col">Badges</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Stock</th>
-                        <th scope="col">Index</th>
+                        <th scope="col">Category</th>
                         <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     {
-                        products && products.length ? products.map(product => (
+                        products?.length ? products.map(product => (
                             <tr key={product.id}>
-                                <td>{product.name}</td>
-                                <td>{product.badges}</td>
-                                <td>{product.description}</td>
-                                <td>{product.price} <small className="text-secondary">{product.discounted_price}</small></td>
-                                <td>{product.stock}</td>
-                                <td>{product.meta_data.index}</td>
-                                <td>{product.status}</td>
+                                <td>{product.general.name}</td>
+                                <td>{product.general.category.label}</td>
+                                <td>{product.general.status.label}</td>
                                 <td>
                                     <ActionButton
                                         isDetails={false}
@@ -58,3 +47,5 @@ export default function (props) {
         </AdminLayout>
     )
 }
+
+export default Index;
