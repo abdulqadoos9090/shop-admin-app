@@ -25,7 +25,7 @@ const Shipping = ({shipping, setShipping}) => {
                         label="Weight (kg)"
                         type={NUMBER}
                         handleChange={_handleInputChange}
-                        defaultValue={shipping ? shipping.title : null}
+                        defaultValue={shipping ? shipping.weight : null}
                     />
                 </div>
                 <div className="col-md-4">

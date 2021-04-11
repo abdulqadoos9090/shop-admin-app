@@ -1,6 +1,5 @@
 import React from 'react';
 import AdminLayout from "../../Components/AdminLayout";
-import {InertiaLink} from "@inertiajs/inertia-react";
 import PageHeader from "../../Components/PageHeader";
 import PageContent from "../../Components/PageContent";
 import ActionButton from "../../Components/ActionButton";

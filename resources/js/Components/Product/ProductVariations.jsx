@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, {useEffect} from "react";
 import {CirclePicker} from "react-color";
 import CreatableSelect from 'react-select/creatable';
 import FormInput from "../FormInput";
@@ -69,7 +69,7 @@ const ProductVariations = ({variations, setVariations}) => {
                         name={["sizes", index]}
                         onChange={_handleInputChange}
                         options={sizeOptions}
-                        defaultValue={variation?.length ? variation : null}
+                        defaultValue={variation ? variation.sizes : null}
                     />
 
                     <FormInput

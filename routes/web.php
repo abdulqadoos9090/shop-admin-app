@@ -24,9 +24,9 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('/products')->group(function () {
         Route::get('/', [ProductController::class, 'index']);
-        Route::post('/save', [ProductController::class, 'save']);
         Route::get('/create', [ProductController::class, 'create']);
         Route::get('/{id}/edit', [ProductController::class, 'edit']);
+        Route::post('/save', [ProductController::class, 'save']);
     });
 
     Route::prefix('/categories')->group(function () {

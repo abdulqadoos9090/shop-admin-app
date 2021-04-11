@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {Inertia} from '@inertiajs/inertia';
-import {_appendFiles} from "../../Helpers/CommonFunctions";
 
 import PageHeader from "../../Components/PageHeader";
 import AdminLayout from "../../Components/AdminLayout";
@@ -23,28 +22,29 @@ import {
 
 export default function Form({product, categories}) {
 
+    const [files, setFiles] = useState([]);
     const [images, setImages] = useState([]);
-    const [general, setGeneral] = useState(() => initialGeneral);
-    const [metadata, setMetadata] = useState(() => initialMetaData);
-    const [shipping, setShipping] = useState(() => initialShipping);
-    const [variations, setVariations] = useState(() => [initialProductVariations]);
-
+    const [general, setGeneral] = useState(() => product.general ? product.general : initialGeneral);
+    const [metadata, setMetadata] = useState(() => product.metadata ? product.metadata : initialMetaData);
+    const [shipping, setShipping] = useState(() => product.shipping ? product.shipping : initialShipping);
+    const [variations, setVariations] = useState(() => product.variations ? product.variations : [initialProductVariations]);
 
     useEffect(() => {
         console.log('FORM RENDER');
     })
 
-    // console.log({images, general, metadata, shipping, variations})
+    // console.log({images, files, general, metadata, shipping, variations})
+
     const _handleFormSubmit = (e) => {
         e.preventDefault();
         let data = {
-            id: null,
+            id: product ? product.id : null,
             category_id: general.category.value,
+            images: images,
             general: general,
             shipping: shipping,
             metadata: metadata,
-            variations: variations,
-            images: images
+            variations: variations
         };
         Inertia.post('/products/save', data, {preserveScroll: true});
     }
@@ -53,7 +53,7 @@ export default function Form({product, categories}) {
     return (
         <AdminLayout>
             <PageHeader
-                title="Add new product"
+                title={product ? "Edit product" : "Add new product"}
                 url="/products"
                 btnLable="View all"
                 btnClass="primary"
@@ -126,8 +126,9 @@ export default function Form({product, categories}) {
                                 <div className="tab-pane my-5" id="product-images" role="tabpanel"
                                      aria-labelledby="product-images-tab">
                                     <ProductImages
+                                        files={files}
                                         images={images}
-                                        setImages={setImages}
+                                        setFiles={setFiles}
                                     />
                                 </div>
 
@@ -154,9 +155,8 @@ export default function Form({product, categories}) {
 
                             </div>
 
-                            <SubmitButton
-                                cancelUrl="/products"
-                            />
+                            <SubmitButton cancelUrl="/products"/>
+
                         </div>
                     </div>
                 </form>

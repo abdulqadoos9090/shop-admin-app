@@ -3,6 +3,7 @@
 
 namespace App\Services;
 
+use App\Constants;
 use App\Repositories\ProductRepository;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,22 +28,26 @@ class ProductService
 
     public function save($request)
     {
-//        dd($request->all());
+
+//        $request->has('files') ?
+//            $this->productImagePaths = $this->moveUploadedFilesToDirectory($request->files, Constants::PRODUCT_IMAGES_DIRECTORY)
+//            : $this->productImagePaths = Constants::DEFAULT_PRODUCT_IMAGE;
+
         $this->productData = $request->all();
-        $request->has('images') ? $this->uploadProductImages($request->images) : null;
-        $this->productData['images'] = $this->productImagePaths;
+        unset($this->productData['files']);
         $this->productData['user_id'] = Auth::id();
         return $this->productRepository->save($this->productData);
     }
 
-    public function uploadProductImages($images)
+    public function moveUploadedFilesToDirectory($files, $directory)
     {
-        foreach ($images as $key => $image) {
-            $name = $key . time() . '.' . $image->extension();
-            $image->move(public_path('images/product-images'), $name);
-            $this->productImagePaths[$key] = 'images/product-images/' . $name;
+        $filePaths = null;
+        foreach ($files as $key => $file) {
+            $name = $key . time() . '.' . $file->extension();
+            $file->move(public_path($directory), $name);
+            $filePaths[$key] = $directory . $name;
         }
-        return $this->productImagePaths ? $this->productImagePaths : $this->productImagePaths = 'images/product-images/default.jpg';
+        return $filePaths;
     }
 
 }

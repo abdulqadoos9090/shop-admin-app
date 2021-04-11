@@ -22,7 +22,7 @@ class ProductRepository
 
     public function find($id)
     {
-        return $this->product->with(['category'])->find($id);
+        return $this->product->find($id);
     }
 
     public function save($data)

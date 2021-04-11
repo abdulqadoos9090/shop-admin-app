@@ -4,6 +4,7 @@ import PageHeader from "../../Components/PageHeader";
 import PageContent from "../../Components/PageContent";
 import ActionButton from "../../Components/ActionButton";
 import NoRecordsFound from "../../Components/NoRecordsFound";
+import {_handelReviewLabels, _handelStatusLabels} from "../../Helpers/CommonFunctions";
 
 const Index = ({products}) => {
     return (
@@ -19,6 +20,7 @@ const Index = ({products}) => {
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Category</th>
+                        <th scope="col">Reviews</th>
                         <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -29,11 +31,11 @@ const Index = ({products}) => {
                             <tr key={product.id}>
                                 <td>{product.general.name}</td>
                                 <td>{product.general.category.label}</td>
-                                <td>{product.general.status.label}</td>
+                                <td>{_handelReviewLabels(product.general.reviews)}</td>
+                                <td>{_handelStatusLabels(product.general.status.value)}</td>
                                 <td>
                                     <ActionButton
                                         isDetails={false}
-                                        detailsUrl={`/products/${product.id}/show`}
                                         isEdit={true}
                                         editUrl={`/products/${product.id}/edit`}
                                     />

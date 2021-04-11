@@ -14,7 +14,7 @@ export const initialGeneral = {
     badges: [],
     status: null,
     details: "<p>Product Details</p>",
-    isReviewed: false
+    reviews: true
 };
 
 export const initialMetaData = {

@@ -5,7 +5,7 @@ import {CKEditor} from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import {badgeOptions, statusOptions} from "../../Helpers/DefaultOptions";
 import {_createSelectOptions} from "../../Helpers/CommonFunctions";
-import {NUMBER, TEXT, TEXTAREA} from "../../Helpers/Constants";
+import {NUMBER, TEXT, TEXTAREA, CHECKBOX} from "../../Helpers/Constants";
 
 const General = ({categories, general, setGeneral}) => {
 
@@ -13,10 +13,11 @@ const General = ({categories, general, setGeneral}) => {
         console.log("GENERAL RENDER");
     });
 
+
     const _handleInputChange = (event, input) => {
         let arr = _.cloneDeep(general);
         event.target ?
-            arr.[event.target.id] = event.target.type === NUMBER ? parseInt(event.target.value) : event.target.value :
+            arr.[event.target.id] = event.target.type === NUMBER ? parseInt(event.target.value) : event.target.type === CHECKBOX ? Boolean(event.target.value) : event.target.value :
             input.data ? arr.details = input.getData() : arr[input.name] = event;
         setGeneral(arr);
     }
@@ -44,11 +45,11 @@ const General = ({categories, general, setGeneral}) => {
                 <div className="col-4">
                     <label className="my-2">Category</label>
                     <Select
-                        isSearchable={true}
                         name="category"
-                        options={_createSelectOptions(categories, "label", "id")}
-                        defaultValue={general ? general.category : null}
+                        isSearchable={true}
                         onChange={_handleInputChange}
+                        defaultValue={general.category ? general.category : null}
+                        options={_createSelectOptions(categories, "label", "id")}
                     />
                 </div>
 
@@ -59,8 +60,8 @@ const General = ({categories, general, setGeneral}) => {
                         name="badges"
                         isSearchable={true}
                         options={badgeOptions}
-                        defaultValue={general ? general.badges : null}
                         onChange={_handleInputChange}
+                        defaultValue={general ? general.badges : null}
                     />
                 </div>
 
@@ -69,8 +70,8 @@ const General = ({categories, general, setGeneral}) => {
                     <Select
                         name="status"
                         options={statusOptions}
-                        defaultValue={general ? general.status : null}
                         onChange={_handleInputChange}
+                        defaultValue={general ? general.status : null}
                     />
                 </div>
 
@@ -79,17 +80,18 @@ const General = ({categories, general, setGeneral}) => {
                     <CKEditor
                         editor={ClassicEditor}
                         name="details"
-                        data={general ? general.details : null}
                         onChange={_handleInputChange}
+                        data={general ? general.details : null}
                     />
                 </div>
-
+                {general.reviews}
                 <div className="col-12">
                     <div className="form-check form-switch">
                         <input className="form-check-input hover-pointer" onChange={_handleInputChange} type="checkbox"
-                               id="isReviewed" value={general.isReviewed !== "true"}
-                               defaultChecked={general.isReviewed === "true"}/>
-                        <label className="form-check-label hover-pointer" htmlFor="isReviewed">Enable Product
+                               id="reviews" value={general.reviews ? "" : true}
+                               defaultChecked={general.reviews ? "true" : ""}
+                        />
+                        <label className="form-check-label hover-pointer" htmlFor="reviews">Enable Product
                             Reviews</label>
                     </div>
                 </div>

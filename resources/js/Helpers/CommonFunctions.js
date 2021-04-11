@@ -1,3 +1,5 @@
+import {ACTIVE, PENDING} from "./Constants";
+
 export function _appendMetaData(data, metaData) {
     data.append("meta_data[id]", metaData.id || '');
     data.append("meta_data[title]", metaData.title || '');
@@ -13,8 +15,24 @@ export function _appendFiles(data, files) {
 }
 
 export const _createSelectOptions = (data, labelKey, valueKey) => {
-    return data.map(item =>(
-        {label: item.[labelKey], value :item.[valueKey]}
+    return data.map(item => (
+        {label: item.[labelKey], value: item.[valueKey]}
     ));
 }
+
+export const _handelStatusLabels = status => {
+    switch (status) {
+        case ACTIVE:
+            return <span className="badge rounded-pill alert-success">Active</span>
+        case PENDING:
+            return <span className="badge rounded-pill alert-warning">Pending</span>
+    }
+}
+
+export const _handelReviewLabels = reviews => {
+    return reviews ?
+        <span className="badge rounded-pill alert-primary">Enabled</span> :
+        <span className="badge rounded-pill alert-secondary">Disabled</span>
+}
+
 
