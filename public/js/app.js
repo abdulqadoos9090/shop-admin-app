@@ -9199,11 +9199,20 @@ __webpack_require__.r(__webpack_exports__);
 
 var ProductImages = function ProductImages(_ref) {
   var images = _ref.images,
+      setImages = _ref.setImages,
       files = _ref.files,
       setFiles = _ref.setFiles;
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     console.log('PRODUCT IMAGES RENDER');
   });
+
+  var _handleRemoveImage = function _handleRemoveImage(index) {
+    var arr = _.cloneDeep(images);
+
+    arr.splice(index, 1);
+    setImages(arr);
+  };
+
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Files_FormInputFiles__WEBPACK_IMPORTED_MODULE_2__.default, {
       files: files,
@@ -9216,8 +9225,11 @@ var ProductImages = function ProductImages(_ref) {
       }), images.map(function (path, index) {
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
           className: "col-2",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("button", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
             className: "btn",
+            onClick: function onClick() {
+              return _handleRemoveImage(index);
+            },
             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
               className: "fa fa-minus text-danger"
             })
@@ -9548,7 +9560,7 @@ function _appendMetaData(data, metaData) {
 }
 function _appendFiles(data, files) {
   for (var x = 0; x < Object.keys(files).length; x++) {
-    data.append("images[]", files[x]);
+    data.append("files[]", files[x]);
   }
 }
 var _createSelectOptions = function _createSelectOptions(data, labelKey, valueKey) {
@@ -9603,7 +9615,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "TEXT": () => (/* binding */ TEXT),
 /* harmony export */   "NUMBER": () => (/* binding */ NUMBER),
 /* harmony export */   "TEXTAREA": () => (/* binding */ TEXTAREA),
-/* harmony export */   "CHECKBOX": () => (/* binding */ CHECKBOX)
+/* harmony export */   "CHECKBOX": () => (/* binding */ CHECKBOX),
+/* harmony export */   "PRODUCT_DIRECTORY": () => (/* binding */ PRODUCT_DIRECTORY)
 /* harmony export */ });
 var ADD = "add";
 var CLONE = "clone";
@@ -9614,6 +9627,7 @@ var TEXT = "text";
 var NUMBER = "number";
 var TEXTAREA = "textarea";
 var CHECKBOX = "checkbox";
+var PRODUCT_DIRECTORY = "images/product-images";
 
 /***/ }),
 
@@ -9711,7 +9725,7 @@ var initialGeneral = {
   badges: [],
   status: null,
   details: "<p>Product Details</p>",
-  reviews: true
+  reviews: false
 };
 var initialMetaData = {
   title: null,
@@ -9724,6 +9738,35 @@ var initialShipping = {
   dimensions: null,
   minimumOrder: null,
   purchaseNote: null
+};
+
+/***/ }),
+
+/***/ "./resources/js/Helpers/Requests.js":
+/*!******************************************!*\
+  !*** ./resources/js/Helpers/Requests.js ***!
+  \******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "_handleFileUploads": () => (/* binding */ _handleFileUploads)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _CommonFunctions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CommonFunctions */ "./resources/js/Helpers/CommonFunctions.js");
+
+
+var _handleFileUploads = function _handleFileUploads(directory, state, setState) {
+  var data = new FormData();
+  data.append("directory", directory);
+
+  (0,_CommonFunctions__WEBPACK_IMPORTED_MODULE_1__._appendFiles)(data, state);
+
+  axios__WEBPACK_IMPORTED_MODULE_0___default().post('/move-uploaded-files', data).then(function (response) {
+    setState(response.data);
+  });
 };
 
 /***/ }),
@@ -10053,7 +10096,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_MetaDataForm__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../Components/MetaDataForm */ "./resources/js/Components/MetaDataForm.jsx");
 /* harmony import */ var _Components_Product_ProductImages__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../Components/Product/ProductImages */ "./resources/js/Components/Product/ProductImages.jsx");
 /* harmony import */ var _Components_Product_ProductVariations__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../Components/Product/ProductVariations */ "./resources/js/Components/Product/ProductVariations.jsx");
-/* harmony import */ var _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../Helpers/InitialStateObjects */ "./resources/js/Helpers/InitialStateObjects.js");
+/* harmony import */ var _Helpers_Constants__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../Helpers/Constants */ "./resources/js/Helpers/Constants.js");
+/* harmony import */ var _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../Helpers/InitialStateObjects */ "./resources/js/Helpers/InitialStateObjects.js");
+/* harmony import */ var _Helpers_Requests__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../Helpers/Requests */ "./resources/js/Helpers/Requests.js");
 
 
 
@@ -10081,6 +10126,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 function Form(_ref) {
   var product = _ref.product,
       categories = _ref.categories;
@@ -10090,34 +10137,34 @@ function Form(_ref) {
       files = _useState2[0],
       setFiles = _useState2[1];
 
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)([]),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(product ? product.images : []),
       _useState4 = _slicedToArray(_useState3, 2),
       images = _useState4[0],
       setImages = _useState4[1];
 
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(function () {
-    return product.general ? product.general : _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_12__.initialGeneral;
+    return product ? product.general : _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_13__.initialGeneral;
   }),
       _useState6 = _slicedToArray(_useState5, 2),
       general = _useState6[0],
       setGeneral = _useState6[1];
 
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(function () {
-    return product.metadata ? product.metadata : _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_12__.initialMetaData;
+    return product ? product.metadata : _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_13__.initialMetaData;
   }),
       _useState8 = _slicedToArray(_useState7, 2),
       metadata = _useState8[0],
       setMetadata = _useState8[1];
 
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(function () {
-    return product.shipping ? product.shipping : _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_12__.initialShipping;
+    return product ? product.shipping : _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_13__.initialShipping;
   }),
       _useState10 = _slicedToArray(_useState9, 2),
       shipping = _useState10[0],
       setShipping = _useState10[1];
 
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(function () {
-    return product.variations ? product.variations : [_Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_12__.initialProductVariations];
+    return product ? product.variations : [_Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_13__.initialProductVariations];
   }),
       _useState12 = _slicedToArray(_useState11, 2),
       variations = _useState12[0],
@@ -10128,10 +10175,15 @@ function Form(_ref) {
   }); // console.log({images, files, general, metadata, shipping, variations})
 
   var _handleFormSubmit = function _handleFormSubmit(e) {
+    var _general$category;
+
     e.preventDefault();
+
+    (0,_Helpers_Requests__WEBPACK_IMPORTED_MODULE_14__._handleFileUploads)(_Helpers_Constants__WEBPACK_IMPORTED_MODULE_12__.PRODUCT_DIRECTORY, files, setImages);
+
     var data = {
-      id: product ? product.id : null,
-      category_id: general.category.value,
+      id: (product === null || product === void 0 ? void 0 : product.id) || null,
+      category_id: ((_general$category = general.category) === null || _general$category === void 0 ? void 0 : _general$category.value) || null,
       images: images,
       general: general,
       shipping: shipping,
@@ -10269,7 +10321,8 @@ function Form(_ref) {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_Product_ProductImages__WEBPACK_IMPORTED_MODULE_10__.default, {
                   files: files,
                   images: images,
-                  setFiles: setFiles
+                  setFiles: setFiles,
+                  setImages: setImages
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
                 className: "tab-pane fade my-5",
@@ -10368,15 +10421,17 @@ var Index = function Index(_ref) {
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
           children: products !== null && products !== void 0 && products.length ? products.map(function (product) {
+            var _product$general, _product$general$cate, _product$general$stat;
+
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                children: product.general.name
+                children: ((_product$general = product.general) === null || _product$general === void 0 ? void 0 : _product$general.name) || null
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                children: product.general.category.label
+                children: ((_product$general$cate = product.general.category) === null || _product$general$cate === void 0 ? void 0 : _product$general$cate.label) || null
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                children: (0,_Helpers_CommonFunctions__WEBPACK_IMPORTED_MODULE_7__._handelReviewLabels)(product.general.reviews)
+                children: (0,_Helpers_CommonFunctions__WEBPACK_IMPORTED_MODULE_7__._handelReviewLabels)(product.general.reviews || null)
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
-                children: (0,_Helpers_CommonFunctions__WEBPACK_IMPORTED_MODULE_7__._handelStatusLabels)(product.general.status.value)
+                children: (0,_Helpers_CommonFunctions__WEBPACK_IMPORTED_MODULE_7__._handelStatusLabels)(((_product$general$stat = product.general.status) === null || _product$general$stat === void 0 ? void 0 : _product$general$stat.value) || null)
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_ActionButton__WEBPACK_IMPORTED_MODULE_5__.default, {
                   isDetails: false,

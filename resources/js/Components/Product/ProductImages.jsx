@@ -1,11 +1,16 @@
 import React, {useEffect} from 'react';
 import FormInputFiles from "../Files/FormInputFiles";
 
-const ProductImages = ({images, files, setFiles}) => {
+const ProductImages = ({images, setImages, files, setFiles}) => {
 
     useEffect(() => {
         console.log('PRODUCT IMAGES RENDER');
     });
+    const _handleRemoveImage = index => {
+        const arr = _.cloneDeep(images);
+        arr.splice(index, 1);
+        setImages(arr);
+    }
 
     return (
         <>
@@ -21,7 +26,8 @@ const ProductImages = ({images, files, setFiles}) => {
                     {
                         images.map((path, index) => (
                             <div className="col-2" key={index}>
-                                <button className="btn"><i className="fa fa-minus text-danger"/></button>
+                                <span className="btn" onClick={() => _handleRemoveImage(index)}><i
+                                    className="fa fa-minus text-danger"/></span>
                                 <img src={`/${path}`} className="img-thumbnail"/>
                             </div>
                         ))

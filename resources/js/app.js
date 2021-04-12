@@ -12,9 +12,9 @@ import bootstrap from 'bootstrap';
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import { App } from '@inertiajs/inertia-react'
+import {App} from '@inertiajs/inertia-react'
 import React from 'react'
-import { render } from 'react-dom'
+import {render} from 'react-dom'
 
 const el = document.getElementById('app')
 const _ = require('lodash');

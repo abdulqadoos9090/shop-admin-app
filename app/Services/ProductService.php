@@ -28,26 +28,12 @@ class ProductService
 
     public function save($request)
     {
-
-//        $request->has('files') ?
-//            $this->productImagePaths = $this->moveUploadedFilesToDirectory($request->files, Constants::PRODUCT_IMAGES_DIRECTORY)
-//            : $this->productImagePaths = Constants::DEFAULT_PRODUCT_IMAGE;
-
         $this->productData = $request->all();
         unset($this->productData['files']);
         $this->productData['user_id'] = Auth::id();
         return $this->productRepository->save($this->productData);
     }
 
-    public function moveUploadedFilesToDirectory($files, $directory)
-    {
-        $filePaths = null;
-        foreach ($files as $key => $file) {
-            $name = $key . time() . '.' . $file->extension();
-            $file->move(public_path($directory), $name);
-            $filePaths[$key] = $directory . $name;
-        }
-        return $filePaths;
-    }
+
 
 }

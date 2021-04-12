@@ -10,7 +10,7 @@ export function _appendMetaData(data, metaData) {
 
 export function _appendFiles(data, files) {
     for (let x = 0; x < Object.keys(files).length; x++) {
-        data.append("images[]", files[x]);
+        data.append("files[]", files[x]);
     }
 }
 
@@ -34,5 +34,7 @@ export const _handelReviewLabels = reviews => {
         <span className="badge rounded-pill alert-primary">Enabled</span> :
         <span className="badge rounded-pill alert-secondary">Disabled</span>
 }
+
+
 
 

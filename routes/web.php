@@ -37,5 +37,6 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/images/{id}/delete', [\App\Http\Controllers\ImageController::class, 'delete']);
+    Route::post('/move-uploaded-files', [\App\Http\Controllers\FileUploadController::class, 'moveUploadedFiles']);
 
 });

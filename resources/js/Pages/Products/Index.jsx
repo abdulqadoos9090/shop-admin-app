@@ -29,10 +29,10 @@ const Index = ({products}) => {
                     {
                         products?.length ? products.map(product => (
                             <tr key={product.id}>
-                                <td>{product.general.name}</td>
-                                <td>{product.general.category.label}</td>
-                                <td>{_handelReviewLabels(product.general.reviews)}</td>
-                                <td>{_handelStatusLabels(product.general.status.value)}</td>
+                                <td>{product.general?.name || null}</td>
+                                <td>{product.general.category?.label || null}</td>
+                                <td>{_handelReviewLabels(product.general.reviews || null)}</td>
+                                <td>{_handelStatusLabels(product.general.status?.value || null)}</td>
                                 <td>
                                     <ActionButton
                                         isDetails={false}

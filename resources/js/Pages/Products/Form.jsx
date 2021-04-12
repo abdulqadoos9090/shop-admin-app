@@ -11,23 +11,23 @@ import Shipping from "../../Components/Product/Shipping";
 import MetaDataForm from "../../Components/MetaDataForm";
 import ProductImages from "../../Components/Product/ProductImages";
 import ProductVariations from "../../Components/Product/ProductVariations";
-
-
+import {PRODUCT_DIRECTORY} from "../../Helpers/Constants";
 import {
     initialGeneral,
     initialMetaData,
     initialProductVariations,
     initialShipping
 } from "../../Helpers/InitialStateObjects";
+import {_handleFileUploads} from "../../Helpers/Requests";
 
 export default function Form({product, categories}) {
 
     const [files, setFiles] = useState([]);
-    const [images, setImages] = useState([]);
-    const [general, setGeneral] = useState(() => product.general ? product.general : initialGeneral);
-    const [metadata, setMetadata] = useState(() => product.metadata ? product.metadata : initialMetaData);
-    const [shipping, setShipping] = useState(() => product.shipping ? product.shipping : initialShipping);
-    const [variations, setVariations] = useState(() => product.variations ? product.variations : [initialProductVariations]);
+    const [images, setImages] = useState(product ? product.images : []);
+    const [general, setGeneral] = useState(() => product ? product.general : initialGeneral);
+    const [metadata, setMetadata] = useState(() => product ? product.metadata : initialMetaData);
+    const [shipping, setShipping] = useState(() => product ? product.shipping : initialShipping);
+    const [variations, setVariations] = useState(() => product ? product.variations : [initialProductVariations]);
 
     useEffect(() => {
         console.log('FORM RENDER');
@@ -37,9 +37,10 @@ export default function Form({product, categories}) {
 
     const _handleFormSubmit = (e) => {
         e.preventDefault();
+        _handleFileUploads(PRODUCT_DIRECTORY, files, setImages);
         let data = {
-            id: product ? product.id : null,
-            category_id: general.category.value,
+            id: product?.id || null,
+            category_id: general.category?.value || null,
             images: images,
             general: general,
             shipping: shipping,
@@ -129,6 +130,7 @@ export default function Form({product, categories}) {
                                         files={files}
                                         images={images}
                                         setFiles={setFiles}
+                                        setImages={setImages}
                                     />
                                 </div>
 
