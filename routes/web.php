@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,7 +37,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', [CategoryController::class, 'edit']);
     });
 
-    Route::get('/images/{id}/delete', [\App\Http\Controllers\ImageController::class, 'delete']);
     Route::post('/move-uploaded-files', [\App\Http\Controllers\FileUploadController::class, 'moveUploadedFiles']);
 
 });
