@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/create', [ProductController::class, 'create']);
         Route::get('/{id}/edit', [ProductController::class, 'edit']);
         Route::post('/save', [ProductController::class, 'save']);
+        Route::post('/verify-unique-slug', [ProductController::class, 'verifyUniqueSlug']);
     });
 
     Route::prefix('/categories')->group(function () {

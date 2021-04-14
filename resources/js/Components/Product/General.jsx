@@ -9,11 +9,6 @@ import {NUMBER, TEXT, TEXTAREA, CHECKBOX} from "../../Helpers/Constants";
 
 const General = ({categories, general, setGeneral}) => {
 
-    useEffect(() => {
-        console.log("GENERAL RENDER");
-    });
-
-
     const _handleInputChange = (event, input) => {
         let arr = _.cloneDeep(general);
         event.target ?

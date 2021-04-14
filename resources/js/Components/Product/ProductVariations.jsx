@@ -8,10 +8,6 @@ import {initialProductVariations} from "../../Helpers/InitialStateObjects";
 
 const ProductVariations = ({variations, setVariations}) => {
 
-    useEffect(() => {
-        console.log('PRODUCT VARIATIONS RENDER');
-    });
-
 
     const _handleInputChange = (event, input) => {
         let arr = _.cloneDeep(variations);

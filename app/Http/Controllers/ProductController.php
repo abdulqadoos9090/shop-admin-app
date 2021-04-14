@@ -55,4 +55,12 @@ class ProductController extends Controller
             dd($exception);
         }
     }
+
+    public function verifyUniqueSlug(Request $request){
+        try{
+            return $this->productService->verifyUniqueSlug($request);
+        }catch (\Exception $exception){
+            dd($exception);
+        }
+    }
 }

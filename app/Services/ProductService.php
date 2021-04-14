@@ -34,6 +34,9 @@ class ProductService
         return $this->productRepository->save($this->productData);
     }
 
-
+    public function verifyUniqueSlug($request)
+    {
+        return $this->productRepository->verifyUniqueSlug($request->slug);
+    }
 
 }

@@ -1,18 +1,26 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import FormInput from "./FormInput";
 import {indexOptions} from "../Helpers/DefaultOptions";
-import {NUMBER, TEXT, TEXTAREA} from "../Helpers/Constants";
+import {DEFAULT, EXISTED, INDEX, NUMBER, TEXT, TEXTAREA} from "../Helpers/Constants";
+import {convertToSlug} from "../Helpers/CommonFunctions";
+import {_verifyUniqueSlug} from "../Helpers/Requests";
 
-const MetaDataForm = ({metadata, setMetadata}) => {
+const MetaDataForm = ({id, metadata, setMetadata}) => {
 
-    useEffect(() => {
-        console.log('METADATA RENDER');
-    });
+    const [uniqueSlug, setUniqueSlug] = useState('');
 
     const _handleInputChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
         let arr = _.cloneDeep(metadata);
-        event.target && event.target.name === "index" ?
-            arr.[event.target.name] = event.target.value : arr.[event.target.id] = event.target.type === NUMBER ? parseInt(event.target.value) : event.target.value;
+        switch (name) {
+            case "slug":
+                arr.[name] = convertToSlug(value);
+                break;
+            default:
+                arr.[name] = value;
+                break;
+        }
         setMetadata(arr);
     }
 
@@ -20,7 +28,7 @@ const MetaDataForm = ({metadata, setMetadata}) => {
     return (
         <React.Fragment>
             <FormInput
-                id="title"
+                name="title"
                 label="Title"
                 type={TEXT}
                 defaultValue={metadata ? metadata.title : null}
@@ -28,15 +36,17 @@ const MetaDataForm = ({metadata, setMetadata}) => {
             />
 
             <FormInput
-                id="slug"
+                name="slug"
                 label="Slug"
                 type={TEXT}
                 defaultValue={metadata ? metadata.slug : null}
+                onBlur={(e) => _verifyUniqueSlug(e, id, setUniqueSlug)}
                 handleChange={_handleInputChange}
             />
+            {uniqueSlug === EXISTED ? (<small className="text-warning">Entered slug already existed!</small>) : null}
 
             <FormInput
-                id="description"
+                name="description"
                 label="Meta Description"
                 type={TEXTAREA}
                 defaultValue={metadata ? metadata.description : null}

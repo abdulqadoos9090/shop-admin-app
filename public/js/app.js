@@ -8792,13 +8792,15 @@ function FormInput(_ref) {
       type = _ref.type,
       index = _ref.index,
       defaultValue = _ref.defaultValue,
-      handleChange = _ref.handleChange;
+      handleChange = _ref.handleChange,
+      onBlur = _ref.onBlur;
   return type === 'textarea' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "form-floating my-3",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("textarea", {
       className: "form-control mb-3",
       placeholder: label,
       id: id,
+      name: name,
       index: index,
       onChange: handleChange,
       defaultValue: defaultValue,
@@ -8815,9 +8817,11 @@ function FormInput(_ref) {
       type: type,
       className: "form-control",
       id: id,
+      name: name,
       onChange: handleChange,
       index: index,
       defaultValue: defaultValue,
+      onBlur: onBlur,
       placeholder: label
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
       htmlFor: id,
@@ -8886,6 +8890,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _FormInput__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FormInput */ "./resources/js/Components/FormInput.jsx");
 /* harmony import */ var _Helpers_DefaultOptions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Helpers/DefaultOptions */ "./resources/js/Helpers/DefaultOptions.js");
 /* harmony import */ var _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Helpers/Constants */ "./resources/js/Helpers/Constants.js");
+/* harmony import */ var _Helpers_CommonFunctions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Helpers/CommonFunctions */ "./resources/js/Helpers/CommonFunctions.js");
+/* harmony import */ var _Helpers_Requests__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Helpers/Requests */ "./resources/js/Helpers/Requests.js");
+
+
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -8894,34 +8915,55 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var MetaDataForm = function MetaDataForm(_ref) {
-  var metadata = _ref.metadata,
+  var id = _ref.id,
+      metadata = _ref.metadata,
       setMetadata = _ref.setMetadata;
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    console.log('METADATA RENDER');
-  });
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      uniqueSlug = _useState2[0],
+      setUniqueSlug = _useState2[1];
 
   var _handleInputChange = function _handleInputChange(event) {
+    var name = event.target.name;
+    var value = event.target.value;
+
     var arr = _.cloneDeep(metadata);
 
-    event.target && event.target.name === "index" ? arr[event.target.name] = event.target.value : arr[event.target.id] = event.target.type === _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__.NUMBER ? parseInt(event.target.value) : event.target.value;
+    switch (name) {
+      case "slug":
+        arr[name] = (0,_Helpers_CommonFunctions__WEBPACK_IMPORTED_MODULE_5__.convertToSlug)(value);
+        break;
+
+      default:
+        arr[name] = value;
+        break;
+    }
+
     setMetadata(arr);
   };
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.default, {
-      id: "title",
+      name: "title",
       label: "Title",
       type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__.TEXT,
       defaultValue: metadata ? metadata.title : null,
       handleChange: _handleInputChange
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.default, {
-      id: "slug",
+      name: "slug",
       label: "Slug",
       type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__.TEXT,
       defaultValue: metadata ? metadata.slug : null,
+      onBlur: function onBlur(e) {
+        return (0,_Helpers_Requests__WEBPACK_IMPORTED_MODULE_6__._verifyUniqueSlug)(e, id, setUniqueSlug);
+      },
       handleChange: _handleInputChange
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.default, {
-      id: "description",
+    }), uniqueSlug === _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__.EXISTED ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("small", {
+      className: "text-warning",
+      children: "Entered slug already existed!"
+    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.default, {
+      name: "description",
       label: "Meta Description",
       type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__.TEXTAREA,
       defaultValue: metadata ? metadata.description : null,
@@ -9081,9 +9123,6 @@ var General = function General(_ref) {
   var categories = _ref.categories,
       general = _ref.general,
       setGeneral = _ref.setGeneral;
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    console.log("GENERAL RENDER");
-  });
 
   var _handleInputChange = function _handleInputChange(event, input) {
     var arr = _.cloneDeep(general);
@@ -9202,9 +9241,6 @@ var ProductImages = function ProductImages(_ref) {
       setImages = _ref.setImages,
       files = _ref.files,
       setFiles = _ref.setFiles;
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    console.log('PRODUCT IMAGES RENDER');
-  });
 
   var _handleRemoveImage = function _handleRemoveImage(index) {
     var arr = _.cloneDeep(images);
@@ -9286,9 +9322,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var ProductVariations = function ProductVariations(_ref) {
   var variations = _ref.variations,
       setVariations = _ref.setVariations;
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    console.log('PRODUCT VARIATIONS RENDER');
-  });
 
   var _handleInputChange = function _handleInputChange(event, input) {
     var arr = _.cloneDeep(variations);
@@ -9433,9 +9466,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var Shipping = function Shipping(_ref) {
   var shipping = _ref.shipping,
       setShipping = _ref.setShipping;
-  (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
-    console.log('SHIPPING RENDER');
-  });
 
   var _handleInputChange = function _handleInputChange(event) {
     var key = event.target.id;
@@ -9545,7 +9575,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "_appendFiles": () => (/* binding */ _appendFiles),
 /* harmony export */   "_createSelectOptions": () => (/* binding */ _createSelectOptions),
 /* harmony export */   "_handelStatusLabels": () => (/* binding */ _handelStatusLabels),
-/* harmony export */   "_handelReviewLabels": () => (/* binding */ _handelReviewLabels)
+/* harmony export */   "_handelReviewLabels": () => (/* binding */ _handelReviewLabels),
+/* harmony export */   "convertToSlug": () => (/* binding */ convertToSlug)
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var _Constants__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Constants */ "./resources/js/Helpers/Constants.js");
@@ -9595,6 +9626,9 @@ var _handelReviewLabels = function _handelReviewLabels(reviews) {
     children: "Disabled"
   });
 };
+var convertToSlug = function convertToSlug(text) {
+  return text.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+};
 
 /***/ }),
 
@@ -9616,6 +9650,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "NUMBER": () => (/* binding */ NUMBER),
 /* harmony export */   "TEXTAREA": () => (/* binding */ TEXTAREA),
 /* harmony export */   "CHECKBOX": () => (/* binding */ CHECKBOX),
+/* harmony export */   "INDEX": () => (/* binding */ INDEX),
+/* harmony export */   "DEFAULT": () => (/* binding */ DEFAULT),
+/* harmony export */   "EXISTED": () => (/* binding */ EXISTED),
+/* harmony export */   "NOT_EXISTED": () => (/* binding */ NOT_EXISTED),
 /* harmony export */   "PRODUCT_DIRECTORY": () => (/* binding */ PRODUCT_DIRECTORY)
 /* harmony export */ });
 var ADD = "add";
@@ -9627,6 +9665,10 @@ var TEXT = "text";
 var NUMBER = "number";
 var TEXTAREA = "textarea";
 var CHECKBOX = "checkbox";
+var INDEX = "index";
+var DEFAULT = "default";
+var EXISTED = "existed";
+var NOT_EXISTED = "not-existed";
 var PRODUCT_DIRECTORY = "images/product-images";
 
 /***/ }),
@@ -9751,11 +9793,14 @@ var initialShipping = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "_handleFileUploads": () => (/* binding */ _handleFileUploads)
+/* harmony export */   "_handleFileUploads": () => (/* binding */ _handleFileUploads),
+/* harmony export */   "_verifyUniqueSlug": () => (/* binding */ _verifyUniqueSlug)
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _CommonFunctions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CommonFunctions */ "./resources/js/Helpers/CommonFunctions.js");
+/* harmony import */ var _Constants__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Constants */ "./resources/js/Helpers/Constants.js");
+
 
 
 var _handleFileUploads = function _handleFileUploads(directory, state, setState) {
@@ -9767,6 +9812,16 @@ var _handleFileUploads = function _handleFileUploads(directory, state, setState)
   axios__WEBPACK_IMPORTED_MODULE_0___default().post('/move-uploaded-files', data).then(function (response) {
     setState(response.data);
   });
+};
+var _verifyUniqueSlug = function _verifyUniqueSlug(e, data, setState) {
+  var value = e.target.value;
+  value ? axios__WEBPACK_IMPORTED_MODULE_0___default().post('/products/verify-unique-slug', {
+    slug: e.target.value
+  }).then(function (r) {
+    r.data.length ? r.data.map(function (item) {
+      return item === parseInt(data) ? null : setState(_Constants__WEBPACK_IMPORTED_MODULE_2__.EXISTED);
+    }) : setState(_Constants__WEBPACK_IMPORTED_MODULE_2__.NOT_EXISTED);
+  }) : null;
 };
 
 /***/ }),
@@ -10178,9 +10233,7 @@ function Form(_ref) {
     var _general$category;
 
     e.preventDefault();
-
-    (0,_Helpers_Requests__WEBPACK_IMPORTED_MODULE_14__._handleFileUploads)(_Helpers_Constants__WEBPACK_IMPORTED_MODULE_12__.PRODUCT_DIRECTORY, files, setImages);
-
+    if (files) (0,_Helpers_Requests__WEBPACK_IMPORTED_MODULE_14__._handleFileUploads)(_Helpers_Constants__WEBPACK_IMPORTED_MODULE_12__.PRODUCT_DIRECTORY, files, setImages);
     var data = {
       id: (product === null || product === void 0 ? void 0 : product.id) || null,
       category_id: ((_general$category = general.category) === null || _general$category === void 0 ? void 0 : _general$category.value) || null,
@@ -10330,6 +10383,7 @@ function Form(_ref) {
                 role: "tabpanel",
                 "aria-labelledby": "product-metadata-tab",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_Components_MetaDataForm__WEBPACK_IMPORTED_MODULE_9__.default, {
+                  id: (product === null || product === void 0 ? void 0 : product.id) || null,
                   metadata: metadata,
                   setMetadata: setMetadata
                 })
