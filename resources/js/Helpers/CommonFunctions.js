@@ -36,5 +36,7 @@ export const _handelReviewLabels = reviews => {
 }
 
 
+export const convertToSlug = text => text.trim().toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+
 
 

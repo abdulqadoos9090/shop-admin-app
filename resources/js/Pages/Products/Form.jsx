@@ -37,7 +37,7 @@ export default function Form({product, categories}) {
 
     const _handleFormSubmit = (e) => {
         e.preventDefault();
-        _handleFileUploads(PRODUCT_DIRECTORY, files, setImages);
+        if (files) _handleFileUploads(PRODUCT_DIRECTORY, files, setImages);
         let data = {
             id: product?.id || null,
             category_id: general.category?.value || null,
@@ -137,6 +137,7 @@ export default function Form({product, categories}) {
                                 <div className="tab-pane fade my-5" id="product-metadata" role="tabpanel"
                                      aria-labelledby="product-metadata-tab">
                                     <MetaDataForm
+                                        id={product?.id || null}
                                         metadata={metadata}
                                         setMetadata={setMetadata}
                                     />

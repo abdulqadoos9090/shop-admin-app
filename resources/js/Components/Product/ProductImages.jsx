@@ -3,9 +3,6 @@ import FormInputFiles from "../Files/FormInputFiles";
 
 const ProductImages = ({images, setImages, files, setFiles}) => {
 
-    useEffect(() => {
-        console.log('PRODUCT IMAGES RENDER');
-    });
     const _handleRemoveImage = index => {
         const arr = _.cloneDeep(images);
         arr.splice(index, 1);

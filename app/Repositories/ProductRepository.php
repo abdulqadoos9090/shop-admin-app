@@ -30,4 +30,9 @@ class ProductRepository
         return $this->product->updateOrCreate(['id' => $data['id']], $data);
     }
 
+    public function verifyUniqueSlug($slug)
+    {
+        return $this->product->where('metadata', 'like', "%$slug%")->pluck('id');
+    }
+
 }

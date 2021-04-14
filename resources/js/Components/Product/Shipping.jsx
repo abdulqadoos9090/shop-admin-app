@@ -4,10 +4,6 @@ import {NUMBER, TEXT, TEXTAREA} from "../../Helpers/Constants";
 
 const Shipping = ({shipping, setShipping}) => {
 
-    useEffect(() => {
-        console.log('SHIPPING RENDER');
-    });
-
     const _handleInputChange = (event) => {
         let key = event.target.id;
         let value = event.target.value;
