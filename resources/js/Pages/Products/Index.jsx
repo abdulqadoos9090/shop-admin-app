@@ -19,6 +19,7 @@ const Index = ({products}) => {
                     <thead>
                     <tr>
                         <th scope="col">Name</th>
+                        <th scope="col">Slug</th>
                         <th scope="col">Category</th>
                         <th scope="col">Reviews</th>
                         <th scope="col">Status</th>
@@ -30,6 +31,7 @@ const Index = ({products}) => {
                         products?.length ? products.map(product => (
                             <tr key={product.id}>
                                 <td>{product.general?.name || null}</td>
+                                <td>{product.metadata?.slug || null}</td>
                                 <td>{product.general.category?.label || null}</td>
                                 <td>{_handelReviewLabels(product.general.reviews || null)}</td>
                                 <td>{_handelStatusLabels(product.general.status?.value || null)}</td>
