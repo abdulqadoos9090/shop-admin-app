@@ -15,10 +15,10 @@ const MetaDataForm = ({id, metadata, setMetadata}) => {
         let arr = _.cloneDeep(metadata);
         switch (name) {
             case "slug":
-                arr.[name] = convertToSlug(value);
+                arr[name] = convertToSlug(value);
                 break;
             default:
-                arr.[name] = value;
+                arr[name] = value;
                 break;
         }
         setMetadata(arr);
@@ -39,11 +39,12 @@ const MetaDataForm = ({id, metadata, setMetadata}) => {
                 name="slug"
                 label="Slug"
                 type={TEXT}
+                style={uniqueSlug=== EXISTED? "is-invalid" : ""}
                 defaultValue={metadata ? metadata.slug : null}
                 onBlur={(e) => _verifyUniqueSlug(e, id, setUniqueSlug)}
                 handleChange={_handleInputChange}
             />
-            {uniqueSlug === EXISTED ? (<small className="text-warning">Entered slug already existed!</small>) : null}
+            {uniqueSlug === EXISTED ? (<div className="form-text text-danger">Entered slug already existed!</div>) : null}
 
             <FormInput
                 name="description"

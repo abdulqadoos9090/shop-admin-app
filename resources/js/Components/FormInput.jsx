@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function FormInput({id, name, label, type, index, defaultValue, handleChange, onBlur}) {
+export default function FormInput({id, name, label, type, index, defaultValue, handleChange, onBlur,style}) {
     return (
         type === 'textarea' ? (
             <div className="form-floating my-3">
@@ -11,7 +11,7 @@ export default function FormInput({id, name, label, type, index, defaultValue, h
             </div>
         ) : (
             <div className="form-floating my-3">
-                <input type={type} className="form-control" id={id} name={name} onChange={handleChange} index={index}
+                <input type={type} className={`form-control ${style}`} id={id} name={name} onChange={handleChange} index={index}
                        defaultValue={defaultValue}
                        onBlur={onBlur}
                        placeholder={label}/>

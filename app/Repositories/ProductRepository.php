@@ -32,7 +32,7 @@ class ProductRepository
 
     public function verifyUniqueSlug($slug)
     {
-        return $this->product->where('metadata', 'like', "%$slug%")->pluck('id');
+        return $this->product->whereJsonContains('metadata', ["slug" => $slug])->pluck('id');
     }
 
 }

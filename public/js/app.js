@@ -8793,7 +8793,8 @@ function FormInput(_ref) {
       index = _ref.index,
       defaultValue = _ref.defaultValue,
       handleChange = _ref.handleChange,
-      onBlur = _ref.onBlur;
+      onBlur = _ref.onBlur,
+      style = _ref.style;
   return type === 'textarea' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
     className: "form-floating my-3",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("textarea", {
@@ -8815,7 +8816,7 @@ function FormInput(_ref) {
     className: "form-floating my-3",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("input", {
       type: type,
-      className: "form-control",
+      className: "form-control ".concat(style),
       id: id,
       name: name,
       onChange: handleChange,
@@ -8954,13 +8955,14 @@ var MetaDataForm = function MetaDataForm(_ref) {
       name: "slug",
       label: "Slug",
       type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__.TEXT,
+      style: uniqueSlug === _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__.EXISTED ? "is-invalid" : "",
       defaultValue: metadata ? metadata.slug : null,
       onBlur: function onBlur(e) {
         return (0,_Helpers_Requests__WEBPACK_IMPORTED_MODULE_6__._verifyUniqueSlug)(e, id, setUniqueSlug);
       },
       handleChange: _handleInputChange
-    }), uniqueSlug === _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__.EXISTED ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("small", {
-      className: "text-warning",
+    }), uniqueSlug === _Helpers_Constants__WEBPACK_IMPORTED_MODULE_4__.EXISTED ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      className: "form-text text-danger",
       children: "Entered slug already existed!"
     }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_2__.default, {
       name: "description",
@@ -10461,6 +10463,9 @@ var Index = function Index(_ref) {
               children: "Name"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
               scope: "col",
+              children: "Slug"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
+              scope: "col",
               children: "Category"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("th", {
               scope: "col",
@@ -10475,11 +10480,13 @@ var Index = function Index(_ref) {
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("tbody", {
           children: products !== null && products !== void 0 && products.length ? products.map(function (product) {
-            var _product$general, _product$general$cate, _product$general$stat;
+            var _product$general, _product$metadata, _product$general$cate, _product$general$stat;
 
             return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("tr", {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                 children: ((_product$general = product.general) === null || _product$general === void 0 ? void 0 : _product$general.name) || null
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
+                children: ((_product$metadata = product.metadata) === null || _product$metadata === void 0 ? void 0 : _product$metadata.slug) || null
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
                 children: ((_product$general$cate = product.general.category) === null || _product$general$cate === void 0 ? void 0 : _product$general$cate.label) || null
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("td", {
