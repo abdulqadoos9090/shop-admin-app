@@ -26,4 +26,5 @@ export const indexOptions = [
     {value: 'nofollow,noindex', label: 'nofollow,noindex'},
     {value: 'follow', label: 'follow'},
     {value: 'index', label: 'index'}
-]
+];
+

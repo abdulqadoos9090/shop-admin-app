@@ -40,9 +40,24 @@
 
 .sketch-picker {
     box-shadow: none !important;
-    border: 1px solid #cbccce;
+    border: none;
+    width: 100% !important;
 }
 
 .hover-pointer{
-    cursor: pointer;
+    cursor: pointer !important;
+}
+
+.custom-color{
+    padding: 10px 12px;
+    border-radius: 100%;
+    margin: 0 5px;
+}
+
+.custom-color-options .css-12jo7m5 {
+    font-size: 100% !important;
+    padding: 6px 6px 6px 0px !important;
+}
+.custom-color-options .css-1rhbuit-multiValue{
+    background: none !important;
 }

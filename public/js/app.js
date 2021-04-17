@@ -8664,6 +8664,104 @@ function AdminLayout(_ref) {
 
 /***/ }),
 
+/***/ "./resources/js/Components/ColorsModal.jsx":
+/*!*************************************************!*\
+  !*** ./resources/js/Components/ColorsModal.jsx ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_color__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-color */ "./node_modules/react-color/es/index.js");
+/* harmony import */ var _Helpers_Constants__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Helpers/Constants */ "./resources/js/Helpers/Constants.js");
+
+
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+var ColorsModal = function ColorsModal(_ref) {
+  var handleInputChange = _ref.handleInputChange;
+  var initialColor = "#fff";
+
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(function () {
+    return initialColor;
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      color = _useState2[0],
+      setColor = _useState2[1];
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+    className: "modal",
+    id: "colorModal",
+    "data-bs-backdrop": "static",
+    "data-bs-keyboard": "false",
+    tabIndex: -1,
+    "aria-labelledby": "staticBackdropLabel",
+    "aria-hidden": "true",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+      className: "modal-dialog modal-sm modal-dialog-centered",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+        className: "modal-content",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+          className: "modal-body text-center",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+            className: " d-flex justify-content-center",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_color__WEBPACK_IMPORTED_MODULE_2__.SketchPicker, {
+              color: color,
+              onChangeComplete: function onChangeComplete(color) {
+                return setColor(color.hex);
+              }
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+            className: "my-2 d-flex justify-content-center",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+              className: "bg-light custom-color hover-pointer ",
+              onClick: function onClick() {
+                handleInputChange(color, _Helpers_Constants__WEBPACK_IMPORTED_MODULE_3__.ADD);
+                setColor(initialColor);
+              },
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+                className: "fa fa-check text-success"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+              className: "mx-3"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+              className: "bg-light custom-color hover-pointer",
+              "data-bs-dismiss": "modal",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+                className: "fa fa-times text-danger"
+              })
+            })]
+          })]
+        })
+      })
+    })
+  });
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ColorsModal);
+
+/***/ }),
+
 /***/ "./resources/js/Components/Files/FormInputFiles.jsx":
 /*!**********************************************************!*\
   !*** ./resources/js/Components/Files/FormInputFiles.jsx ***!
@@ -9298,12 +9396,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_color__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-color */ "./node_modules/react-color/es/index.js");
-/* harmony import */ var react_select_creatable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-select/creatable */ "./node_modules/react-select/creatable/dist/react-select.browser.esm.js");
-/* harmony import */ var _FormInput__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../FormInput */ "./resources/js/Components/FormInput.jsx");
-/* harmony import */ var _Helpers_DefaultOptions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Helpers/DefaultOptions */ "./resources/js/Helpers/DefaultOptions.js");
-/* harmony import */ var _Helpers_Constants__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../Helpers/Constants */ "./resources/js/Helpers/Constants.js");
-/* harmony import */ var _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../Helpers/InitialStateObjects */ "./resources/js/Helpers/InitialStateObjects.js");
+/* harmony import */ var react_select_creatable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-select/creatable */ "./node_modules/react-select/creatable/dist/react-select.browser.esm.js");
+/* harmony import */ var _FormInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../FormInput */ "./resources/js/Components/FormInput.jsx");
+/* harmony import */ var _Helpers_DefaultOptions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Helpers/DefaultOptions */ "./resources/js/Helpers/DefaultOptions.js");
+/* harmony import */ var _Helpers_Constants__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Helpers/Constants */ "./resources/js/Helpers/Constants.js");
+/* harmony import */ var _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../Helpers/InitialStateObjects */ "./resources/js/Helpers/InitialStateObjects.js");
+/* harmony import */ var _ColorsModal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../ColorsModal */ "./resources/js/Components/ColorsModal.jsx");
 
 
 
@@ -9328,7 +9426,23 @@ var ProductVariations = function ProductVariations(_ref) {
   var _handleInputChange = function _handleInputChange(event, input) {
     var arr = _.cloneDeep(variations);
 
-    event.target ? arr[parseInt(event.target.getAttribute("index"))][event.target.id] = event.target.type === _Helpers_Constants__WEBPACK_IMPORTED_MODULE_6__.NUMBER ? parseInt(event.target.value) : event.target.value : event.hex ? arr[input].colors = [event.hex] : arr[input.name[1]][input.name[0]] = event;
+    event.target ? arr[parseInt(event.target.getAttribute("index"))][event.target.id] = event.target.type === _Helpers_Constants__WEBPACK_IMPORTED_MODULE_5__.NUMBER ? parseInt(event.target.value) : event.target.value : arr[input.name[1]][input.name[0]] = event;
+    setVariations(arr);
+  };
+
+  var _handleColorsChange = function _handleColorsChange(color, action) {
+    var arr = _.cloneDeep(variations);
+
+    switch (action) {
+      case _Helpers_Constants__WEBPACK_IMPORTED_MODULE_5__.ADD:
+        arr[0].colors.push(color);
+        break;
+
+      case _Helpers_Constants__WEBPACK_IMPORTED_MODULE_5__.REMOVE:
+        arr[0].colors.splice(color, 1);
+        break;
+    }
+
     setVariations(arr);
   };
 
@@ -9338,15 +9452,15 @@ var ProductVariations = function ProductVariations(_ref) {
     var arr = _.cloneDeep(variations);
 
     switch (action) {
-      case _Helpers_Constants__WEBPACK_IMPORTED_MODULE_6__.ADD:
-        var addObj = _objectSpread(_objectSpread({}, _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_7__.initialProductVariations), {}, {
+      case _Helpers_Constants__WEBPACK_IMPORTED_MODULE_5__.ADD:
+        var addObj = _objectSpread(_objectSpread({}, _Helpers_InitialStateObjects__WEBPACK_IMPORTED_MODULE_6__.initialProductVariations), {}, {
           uuid: Date.now()
         });
 
         arr.push(addObj);
         break;
 
-      case _Helpers_Constants__WEBPACK_IMPORTED_MODULE_6__.REMOVE:
+      case _Helpers_Constants__WEBPACK_IMPORTED_MODULE_5__.REMOVE:
         arr.splice(index, 1);
         break;
     }
@@ -9354,11 +9468,13 @@ var ProductVariations = function ProductVariations(_ref) {
     setVariations(arr);
   };
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-    className: "row",
-    children: variations.map(function (variation, index) {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+    className: "row justify-content-center",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ColorsModal__WEBPACK_IMPORTED_MODULE_7__.default, {
+      handleInputChange: _handleColorsChange
+    }), variations.map(function (variation, index) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-        className: "col-md-4 mb-4",
+        className: "col-md-10 mb-4",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
           className: "row",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
@@ -9368,67 +9484,69 @@ var ProductVariations = function ProductVariations(_ref) {
               children: "Sizes"
             })
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-            className: "col-6",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
-              className: "d-flex justify-content-end",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                className: "mx-1 p-2",
-                onClick: function onClick() {
-                  return index === 0 ? null : _handleProductVariationActions(_Helpers_Constants__WEBPACK_IMPORTED_MODULE_6__.REMOVE, index);
-                },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
-                  className: " fa fa-minus-circle ".concat(index === 0 ? 'text-light' : 'hover-pointer text-warning', " ")
-                })
-              }), index === variations.length - 1 && index <= 1 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
-                className: "p-2",
-                onClick: function onClick() {
-                  return _handleProductVariationActions(_Helpers_Constants__WEBPACK_IMPORTED_MODULE_6__.ADD);
-                },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
-                  className: "fa fa-plus-circle hover-pointer text-success"
-                })
-              }) : null]
-            })
+            className: "col-6"
           })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_select_creatable__WEBPACK_IMPORTED_MODULE_3__.default, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_select_creatable__WEBPACK_IMPORTED_MODULE_2__.default, {
           isMulti: true,
           name: ["sizes", index],
           onChange: _handleInputChange,
-          options: _Helpers_DefaultOptions__WEBPACK_IMPORTED_MODULE_5__.sizeOptions,
+          options: _Helpers_DefaultOptions__WEBPACK_IMPORTED_MODULE_4__.sizeOptions,
           defaultValue: variation ? variation.sizes : null
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_4__.default, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_3__.default, {
           index: index,
           id: "stock",
           label: "Stock",
-          type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_6__.NUMBER,
+          type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_5__.NUMBER,
           handleChange: _handleInputChange,
           defaultValue: variation ? variation.stock : null
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_4__.default, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_3__.default, {
           index: index,
           id: "price",
           label: "Price",
-          type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_6__.NUMBER,
+          type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_5__.NUMBER,
           handleChange: _handleInputChange,
           defaultValue: variation ? variation.price : null
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_4__.default, {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_FormInput__WEBPACK_IMPORTED_MODULE_3__.default, {
           index: index,
           id: "discountedPrice",
           label: "Discounted Price",
-          type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_6__.NUMBER,
+          type: _Helpers_Constants__WEBPACK_IMPORTED_MODULE_5__.NUMBER,
           handleChange: _handleInputChange,
           defaultValue: variation ? variation.discountedPrice : null
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("label", {
-          className: "mb-3",
-          children: "Colors"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_color__WEBPACK_IMPORTED_MODULE_2__.CirclePicker, {
-          width: "103%",
-          color: variation ? variation.colors[0] : null,
-          onChangeComplete: function onChangeComplete(color) {
-            return _handleInputChange(color, index);
-          }
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+          className: "my-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("p", {
+            children: "Colors"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("div", {
+            className: "row",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("div", {
+              className: "col",
+              children: [variation.colors.map(function (color, id) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                  className: "custom-color hover-pointer",
+                  onClick: function onClick() {
+                    return _handleColorsChange(id, _Helpers_Constants__WEBPACK_IMPORTED_MODULE_5__.REMOVE);
+                  },
+                  style: {
+                    backgroundColor: color
+                  },
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+                    className: "fa fa-minus-circle text-light"
+                  })
+                }, id);
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", {
+                className: "hover-pointer bg-light custom-color",
+                "data-bs-toggle": "modal",
+                "data-bs-target": "#colorModal",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("i", {
+                  className: "fa fa-plus-circle text-success"
+                })
+              })]
+            })
+          })]
         })]
       }, variation.uuid);
-    })
+    })]
   });
 };
 
